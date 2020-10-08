@@ -1,0 +1,598 @@
+// !$*UTF8*$!
+{
+	archiveVersion = 1;
+	classes = {
+	};
+	objectVersion = 50;
+	objects = {
+
+/* Begin PBXBuildFile section */
+		037AD31A252EC49D0060848B /* AppDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = 037AD319252EC49D0060848B /* AppDelegate.swift */; };
+		037AD31C252EC49D0060848B /* SceneDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = 037AD31B252EC49D0060848B /* SceneDelegate.swift */; };
+		037AD31E252EC49D0060848B /* ViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 037AD31D252EC49D0060848B /* ViewController.swift */; };
+		037AD321252EC49D0060848B /* Main.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 037AD31F252EC49D0060848B /* Main.storyboard */; };
+		037AD323252EC4B20060848B /* Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = 037AD322252EC4B20060848B /* Assets.xcassets */; };
+		037AD326252EC4B20060848B /* LaunchScreen.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 037AD324252EC4B20060848B /* LaunchScreen.storyboard */; };
+		037AD331252EC4B20060848B /* StoneBridge_Well_InspectionTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = 037AD330252EC4B20060848B /* StoneBridge_Well_InspectionTests.swift */; };
+		037AD33C252EC4B30060848B /* StoneBridge_Well_InspectionUITests.swift in Sources */ = {isa = PBXBuildFile; fileRef = 037AD33B252EC4B30060848B /* StoneBridge_Well_InspectionUITests.swift */; };
+/* End PBXBuildFile section */
+
+/* Begin PBXContainerItemProxy section */
+		037AD32D252EC4B20060848B /* PBXContainerItemProxy */ = {
+			isa = PBXContainerItemProxy;
+			containerPortal = 037AD30E252EC49D0060848B /* Project object */;
+			proxyType = 1;
+			remoteGlobalIDString = 037AD315252EC49D0060848B;
+			remoteInfo = "StoneBridge Well Inspection";
+		};
+		037AD338252EC4B30060848B /* PBXContainerItemProxy */ = {
+			isa = PBXContainerItemProxy;
+			containerPortal = 037AD30E252EC49D0060848B /* Project object */;
+			proxyType = 1;
+			remoteGlobalIDString = 037AD315252EC49D0060848B;
+			remoteInfo = "StoneBridge Well Inspection";
+		};
+/* End PBXContainerItemProxy section */
+
+/* Begin PBXFileReference section */
+		037AD316252EC49D0060848B /* StoneBridge Well Inspection.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = "StoneBridge Well Inspection.app"; sourceTree = BUILT_PRODUCTS_DIR; };
+		037AD319252EC49D0060848B /* AppDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AppDelegate.swift; sourceTree = "<group>"; };
+		037AD31B252EC49D0060848B /* SceneDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SceneDelegate.swift; sourceTree = "<group>"; };
+		037AD31D252EC49D0060848B /* ViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ViewController.swift; sourceTree = "<group>"; };
+		037AD320252EC49D0060848B /* Base */ = {isa = PBXFileReference; lastKnownFileType = file.storyboard; name = Base; path = Base.lproj/Main.storyboard; sourceTree = "<group>"; };
+		037AD322252EC4B20060848B /* Assets.xcassets */ = {isa = PBXFileReference; lastKnownFileType = folder.assetcatalog; path = Assets.xcassets; sourceTree = "<group>"; };
+		037AD325252EC4B20060848B /* Base */ = {isa = PBXFileReference; lastKnownFileType = file.storyboard; name = Base; path = Base.lproj/LaunchScreen.storyboard; sourceTree = "<group>"; };
+		037AD327252EC4B20060848B /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
+		037AD32C252EC4B20060848B /* StoneBridge Well InspectionTests.xctest */ = {isa = PBXFileReference; explicitFileType = wrapper.cfbundle; includeInIndex = 0; path = "StoneBridge Well InspectionTests.xctest"; sourceTree = BUILT_PRODUCTS_DIR; };
+		037AD330252EC4B20060848B /* StoneBridge_Well_InspectionTests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = StoneBridge_Well_InspectionTests.swift; sourceTree = "<group>"; };
+		037AD332252EC4B20060848B /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
+		037AD337252EC4B30060848B /* StoneBridge Well InspectionUITests.xctest */ = {isa = PBXFileReference; explicitFileType = wrapper.cfbundle; includeInIndex = 0; path = "StoneBridge Well InspectionUITests.xctest"; sourceTree = BUILT_PRODUCTS_DIR; };
+		037AD33B252EC4B30060848B /* StoneBridge_Well_InspectionUITests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = StoneBridge_Well_InspectionUITests.swift; sourceTree = "<group>"; };
+		037AD33D252EC4B30060848B /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
+/* End PBXFileReference section */
+
+/* Begin PBXFrameworksBuildPhase section */
+		037AD313252EC49D0060848B /* Frameworks */ = {
+			isa = PBXFrameworksBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
+		037AD329252EC4B20060848B /* Frameworks */ = {
+			isa = PBXFrameworksBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
+		037AD334252EC4B30060848B /* Frameworks */ = {
+			isa = PBXFrameworksBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
+/* End PBXFrameworksBuildPhase section */
+
+/* Begin PBXGroup section */
+		037AD30D252EC49D0060848B = {
+			isa = PBXGroup;
+			children = (
+				037AD318252EC49D0060848B /* StoneBridge Well Inspection */,
+				037AD32F252EC4B20060848B /* StoneBridge Well InspectionTests */,
+				037AD33A252EC4B30060848B /* StoneBridge Well InspectionUITests */,
+				037AD317252EC49D0060848B /* Products */,
+			);
+			sourceTree = "<group>";
+		};
+		037AD317252EC49D0060848B /* Products */ = {
+			isa = PBXGroup;
+			children = (
+				037AD316252EC49D0060848B /* StoneBridge Well Inspection.app */,
+				037AD32C252EC4B20060848B /* StoneBridge Well InspectionTests.xctest */,
+				037AD337252EC4B30060848B /* StoneBridge Well InspectionUITests.xctest */,
+			);
+			name = Products;
+			sourceTree = "<group>";
+		};
+		037AD318252EC49D0060848B /* StoneBridge Well Inspection */ = {
+			isa = PBXGroup;
+			children = (
+				037AD319252EC49D0060848B /* AppDelegate.swift */,
+				037AD31B252EC49D0060848B /* SceneDelegate.swift */,
+				037AD31D252EC49D0060848B /* ViewController.swift */,
+				037AD31F252EC49D0060848B /* Main.storyboard */,
+				037AD322252EC4B20060848B /* Assets.xcassets */,
+				037AD324252EC4B20060848B /* LaunchScreen.storyboard */,
+				037AD327252EC4B20060848B /* Info.plist */,
+			);
+			path = "StoneBridge Well Inspection";
+			sourceTree = "<group>";
+		};
+		037AD32F252EC4B20060848B /* StoneBridge Well InspectionTests */ = {
+			isa = PBXGroup;
+			children = (
+				037AD330252EC4B20060848B /* StoneBridge_Well_InspectionTests.swift */,
+				037AD332252EC4B20060848B /* Info.plist */,
+			);
+			path = "StoneBridge Well InspectionTests";
+			sourceTree = "<group>";
+		};
+		037AD33A252EC4B30060848B /* StoneBridge Well InspectionUITests */ = {
+			isa = PBXGroup;
+			children = (
+				037AD33B252EC4B30060848B /* StoneBridge_Well_InspectionUITests.swift */,
+				037AD33D252EC4B30060848B /* Info.plist */,
+			);
+			path = "StoneBridge Well InspectionUITests";
+			sourceTree = "<group>";
+		};
+/* End PBXGroup section */
+
+/* Begin PBXNativeTarget section */
+		037AD315252EC49D0060848B /* StoneBridge Well Inspection */ = {
+			isa = PBXNativeTarget;
+			buildConfigurationList = 037AD340252EC4B30060848B /* Build configuration list for PBXNativeTarget "StoneBridge Well Inspection" */;
+			buildPhases = (
+				037AD312252EC49D0060848B /* Sources */,
+				037AD313252EC49D0060848B /* Frameworks */,
+				037AD314252EC49D0060848B /* Resources */,
+			);
+			buildRules = (
+			);
+			dependencies = (
+			);
+			name = "StoneBridge Well Inspection";
+			productName = "StoneBridge Well Inspection";
+			productReference = 037AD316252EC49D0060848B /* StoneBridge Well Inspection.app */;
+			productType = "com.apple.product-type.application";
+		};
+		037AD32B252EC4B20060848B /* StoneBridge Well InspectionTests */ = {
+			isa = PBXNativeTarget;
+			buildConfigurationList = 037AD343252EC4B30060848B /* Build configuration list for PBXNativeTarget "StoneBridge Well InspectionTests" */;
+			buildPhases = (
+				037AD328252EC4B20060848B /* Sources */,
+				037AD329252EC4B20060848B /* Frameworks */,
+				037AD32A252EC4B20060848B /* Resources */,
+			);
+			buildRules = (
+			);
+			dependencies = (
+				037AD32E252EC4B20060848B /* PBXTargetDependency */,
+			);
+			name = "StoneBridge Well InspectionTests";
+			productName = "StoneBridge Well InspectionTests";
+			productReference = 037AD32C252EC4B20060848B /* StoneBridge Well InspectionTests.xctest */;
+			productType = "com.apple.product-type.bundle.unit-test";
+		};
+		037AD336252EC4B30060848B /* StoneBridge Well InspectionUITests */ = {
+			isa = PBXNativeTarget;
+			buildConfigurationList = 037AD346252EC4B30060848B /* Build configuration list for PBXNativeTarget "StoneBridge Well InspectionUITests" */;
+			buildPhases = (
+				037AD333252EC4B30060848B /* Sources */,
+				037AD334252EC4B30060848B /* Frameworks */,
+				037AD335252EC4B30060848B /* Resources */,
+			);
+			buildRules = (
+			);
+			dependencies = (
+				037AD339252EC4B30060848B /* PBXTargetDependency */,
+			);
+			name = "StoneBridge Well InspectionUITests";
+			productName = "StoneBridge Well InspectionUITests";
+			productReference = 037AD337252EC4B30060848B /* StoneBridge Well InspectionUITests.xctest */;
+			productType = "com.apple.product-type.bundle.ui-testing";
+		};
+/* End PBXNativeTarget section */
+
+/* Begin PBXProject section */
+		037AD30E252EC49D0060848B /* Project object */ = {
+			isa = PBXProject;
+			attributes = {
+				LastSwiftUpdateCheck = 1200;
+				LastUpgradeCheck = 1200;
+				TargetAttributes = {
+					037AD315252EC49D0060848B = {
+						CreatedOnToolsVersion = 12.0.1;
+					};
+					037AD32B252EC4B20060848B = {
+						CreatedOnToolsVersion = 12.0.1;
+						TestTargetID = 037AD315252EC49D0060848B;
+					};
+					037AD336252EC4B30060848B = {
+						CreatedOnToolsVersion = 12.0.1;
+						TestTargetID = 037AD315252EC49D0060848B;
+					};
+				};
+			};
+			buildConfigurationList = 037AD311252EC49D0060848B /* Build configuration list for PBXProject "StoneBridge Well Inspection" */;
+			compatibilityVersion = "Xcode 9.3";
+			developmentRegion = en;
+			hasScannedForEncodings = 0;
+			knownRegions = (
+				en,
+				Base,
+			);
+			mainGroup = 037AD30D252EC49D0060848B;
+			productRefGroup = 037AD317252EC49D0060848B /* Products */;
+			projectDirPath = "";
+			projectRoot = "";
+			targets = (
+				037AD315252EC49D0060848B /* StoneBridge Well Inspection */,
+				037AD32B252EC4B20060848B /* StoneBridge Well InspectionTests */,
+				037AD336252EC4B30060848B /* StoneBridge Well InspectionUITests */,
+			);
+		};
+/* End PBXProject section */
+
+/* Begin PBXResourcesBuildPhase section */
+		037AD314252EC49D0060848B /* Resources */ = {
+			isa = PBXResourcesBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+				037AD326252EC4B20060848B /* LaunchScreen.storyboard in Resources */,
+				037AD323252EC4B20060848B /* Assets.xcassets in Resources */,
+				037AD321252EC49D0060848B /* Main.storyboard in Resources */,
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
+		037AD32A252EC4B20060848B /* Resources */ = {
+			isa = PBXResourcesBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
+		037AD335252EC4B30060848B /* Resources */ = {
+			isa = PBXResourcesBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
+/* End PBXResourcesBuildPhase section */
+
+/* Begin PBXSourcesBuildPhase section */
+		037AD312252EC49D0060848B /* Sources */ = {
+			isa = PBXSourcesBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+				037AD31E252EC49D0060848B /* ViewController.swift in Sources */,
+				037AD31A252EC49D0060848B /* AppDelegate.swift in Sources */,
+				037AD31C252EC49D0060848B /* SceneDelegate.swift in Sources */,
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
+		037AD328252EC4B20060848B /* Sources */ = {
+			isa = PBXSourcesBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+				037AD331252EC4B20060848B /* StoneBridge_Well_InspectionTests.swift in Sources */,
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
+		037AD333252EC4B30060848B /* Sources */ = {
+			isa = PBXSourcesBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+				037AD33C252EC4B30060848B /* StoneBridge_Well_InspectionUITests.swift in Sources */,
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
+/* End PBXSourcesBuildPhase section */
+
+/* Begin PBXTargetDependency section */
+		037AD32E252EC4B20060848B /* PBXTargetDependency */ = {
+			isa = PBXTargetDependency;
+			target = 037AD315252EC49D0060848B /* StoneBridge Well Inspection */;
+			targetProxy = 037AD32D252EC4B20060848B /* PBXContainerItemProxy */;
+		};
+		037AD339252EC4B30060848B /* PBXTargetDependency */ = {
+			isa = PBXTargetDependency;
+			target = 037AD315252EC49D0060848B /* StoneBridge Well Inspection */;
+			targetProxy = 037AD338252EC4B30060848B /* PBXContainerItemProxy */;
+		};
+/* End PBXTargetDependency section */
+
+/* Begin PBXVariantGroup section */
+		037AD31F252EC49D0060848B /* Main.storyboard */ = {
+			isa = PBXVariantGroup;
+			children = (
+				037AD320252EC49D0060848B /* Base */,
+			);
+			name = Main.storyboard;
+			sourceTree = "<group>";
+		};
+		037AD324252EC4B20060848B /* LaunchScreen.storyboard */ = {
+			isa = PBXVariantGroup;
+			children = (
+				037AD325252EC4B20060848B /* Base */,
+			);
+			name = LaunchScreen.storyboard;
+			sourceTree = "<group>";
+		};
+/* End PBXVariantGroup section */
+
+/* Begin XCBuildConfiguration section */
+		037AD33E252EC4B30060848B /* Debug */ = {
+			isa = XCBuildConfiguration;
+			buildSettings = {
+				ALWAYS_SEARCH_USER_PATHS = NO;
+				CLANG_ANALYZER_NONNULL = YES;
+				CLANG_ANALYZER_NUMBER_OBJECT_CONVERSION = YES_AGGRESSIVE;
+				CLANG_CXX_LANGUAGE_STANDARD = "gnu++14";
+				CLANG_CXX_LIBRARY = "libc++";
+				CLANG_ENABLE_MODULES = YES;
+				CLANG_ENABLE_OBJC_ARC = YES;
+				CLANG_ENABLE_OBJC_WEAK = YES;
+				CLANG_WARN_BLOCK_CAPTURE_AUTORELEASING = YES;
+				CLANG_WARN_BOOL_CONVERSION = YES;
+				CLANG_WARN_COMMA = YES;
+				CLANG_WARN_CONSTANT_CONVERSION = YES;
+				CLANG_WARN_DEPRECATED_OBJC_IMPLEMENTATIONS = YES;
+				CLANG_WARN_DIRECT_OBJC_ISA_USAGE = YES_ERROR;
+				CLANG_WARN_DOCUMENTATION_COMMENTS = YES;
+				CLANG_WARN_EMPTY_BODY = YES;
+				CLANG_WARN_ENUM_CONVERSION = YES;
+				CLANG_WARN_INFINITE_RECURSION = YES;
+				CLANG_WARN_INT_CONVERSION = YES;
+				CLANG_WARN_NON_LITERAL_NULL_CONVERSION = YES;
+				CLANG_WARN_OBJC_IMPLICIT_RETAIN_SELF = YES;
+				CLANG_WARN_OBJC_LITERAL_CONVERSION = YES;
+				CLANG_WARN_OBJC_ROOT_CLASS = YES_ERROR;
+				CLANG_WARN_QUOTED_INCLUDE_IN_FRAMEWORK_HEADER = YES;
+				CLANG_WARN_RANGE_LOOP_ANALYSIS = YES;
+				CLANG_WARN_STRICT_PROTOTYPES = YES;
+				CLANG_WARN_SUSPICIOUS_MOVE = YES;
+				CLANG_WARN_UNGUARDED_AVAILABILITY = YES_AGGRESSIVE;
+				CLANG_WARN_UNREACHABLE_CODE = YES;
+				CLANG_WARN__DUPLICATE_METHOD_MATCH = YES;
+				COPY_PHASE_STRIP = NO;
+				DEBUG_INFORMATION_FORMAT = dwarf;
+				ENABLE_STRICT_OBJC_MSGSEND = YES;
+				ENABLE_TESTABILITY = YES;
+				GCC_C_LANGUAGE_STANDARD = gnu11;
+				GCC_DYNAMIC_NO_PIC = NO;
+				GCC_NO_COMMON_BLOCKS = YES;
+				GCC_OPTIMIZATION_LEVEL = 0;
+				GCC_PREPROCESSOR_DEFINITIONS = (
+					"DEBUG=1",
+					"$(inherited)",
+				);
+				GCC_WARN_64_TO_32_BIT_CONVERSION = YES;
+				GCC_WARN_ABOUT_RETURN_TYPE = YES_ERROR;
+				GCC_WARN_UNDECLARED_SELECTOR = YES;
+				GCC_WARN_UNINITIALIZED_AUTOS = YES_AGGRESSIVE;
+				GCC_WARN_UNUSED_FUNCTION = YES;
+				GCC_WARN_UNUSED_VARIABLE = YES;
+				IPHONEOS_DEPLOYMENT_TARGET = 14.0;
+				MTL_ENABLE_DEBUG_INFO = INCLUDE_SOURCE;
+				MTL_FAST_MATH = YES;
+				ONLY_ACTIVE_ARCH = YES;
+				SDKROOT = iphoneos;
+				SWIFT_ACTIVE_COMPILATION_CONDITIONS = DEBUG;
+				SWIFT_OPTIMIZATION_LEVEL = "-Onone";
+			};
+			name = Debug;
+		};
+		037AD33F252EC4B30060848B /* Release */ = {
+			isa = XCBuildConfiguration;
+			buildSettings = {
+				ALWAYS_SEARCH_USER_PATHS = NO;
+				CLANG_ANALYZER_NONNULL = YES;
+				CLANG_ANALYZER_NUMBER_OBJECT_CONVERSION = YES_AGGRESSIVE;
+				CLANG_CXX_LANGUAGE_STANDARD = "gnu++14";
+				CLANG_CXX_LIBRARY = "libc++";
+				CLANG_ENABLE_MODULES = YES;
+				CLANG_ENABLE_OBJC_ARC = YES;
+				CLANG_ENABLE_OBJC_WEAK = YES;
+				CLANG_WARN_BLOCK_CAPTURE_AUTORELEASING = YES;
+				CLANG_WARN_BOOL_CONVERSION = YES;
+				CLANG_WARN_COMMA = YES;
+				CLANG_WARN_CONSTANT_CONVERSION = YES;
+				CLANG_WARN_DEPRECATED_OBJC_IMPLEMENTATIONS = YES;
+				CLANG_WARN_DIRECT_OBJC_ISA_USAGE = YES_ERROR;
+				CLANG_WARN_DOCUMENTATION_COMMENTS = YES;
+				CLANG_WARN_EMPTY_BODY = YES;
+				CLANG_WARN_ENUM_CONVERSION = YES;
+				CLANG_WARN_INFINITE_RECURSION = YES;
+				CLANG_WARN_INT_CONVERSION = YES;
+				CLANG_WARN_NON_LITERAL_NULL_CONVERSION = YES;
+				CLANG_WARN_OBJC_IMPLICIT_RETAIN_SELF = YES;
+				CLANG_WARN_OBJC_LITERAL_CONVERSION = YES;
+				CLANG_WARN_OBJC_ROOT_CLASS = YES_ERROR;
+				CLANG_WARN_QUOTED_INCLUDE_IN_FRAMEWORK_HEADER = YES;
+				CLANG_WARN_RANGE_LOOP_ANALYSIS = YES;
+				CLANG_WARN_STRICT_PROTOTYPES = YES;
+				CLANG_WARN_SUSPICIOUS_MOVE = YES;
+				CLANG_WARN_UNGUARDED_AVAILABILITY = YES_AGGRESSIVE;
+				CLANG_WARN_UNREACHABLE_CODE = YES;
+				CLANG_WARN__DUPLICATE_METHOD_MATCH = YES;
+				COPY_PHASE_STRIP = NO;
+				DEBUG_INFORMATION_FORMAT = "dwarf-with-dsym";
+				ENABLE_NS_ASSERTIONS = NO;
+				ENABLE_STRICT_OBJC_MSGSEND = YES;
+				GCC_C_LANGUAGE_STANDARD = gnu11;
+				GCC_NO_COMMON_BLOCKS = YES;
+				GCC_WARN_64_TO_32_BIT_CONVERSION = YES;
+				GCC_WARN_ABOUT_RETURN_TYPE = YES_ERROR;
+				GCC_WARN_UNDECLARED_SELECTOR = YES;
+				GCC_WARN_UNINITIALIZED_AUTOS = YES_AGGRESSIVE;
+				GCC_WARN_UNUSED_FUNCTION = YES;
+				GCC_WARN_UNUSED_VARIABLE = YES;
+				IPHONEOS_DEPLOYMENT_TARGET = 14.0;
+				MTL_ENABLE_DEBUG_INFO = NO;
+				MTL_FAST_MATH = YES;
+				SDKROOT = iphoneos;
+				SWIFT_COMPILATION_MODE = wholemodule;
+				SWIFT_OPTIMIZATION_LEVEL = "-O";
+				VALIDATE_PRODUCT = YES;
+			};
+			name = Release;
+		};
+		037AD341252EC4B30060848B /* Debug */ = {
+			isa = XCBuildConfiguration;
+			buildSettings = {
+				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
+				ASSETCATALOG_COMPILER_GLOBAL_ACCENT_COLOR_NAME = AccentColor;
+				CODE_SIGN_STYLE = Automatic;
+				DEVELOPMENT_TEAM = H48N4PQ7CZ;
+				INFOPLIST_FILE = "StoneBridge Well Inspection/Info.plist";
+				LD_RUNPATH_SEARCH_PATHS = (
+					"$(inherited)",
+					"@executable_path/Frameworks",
+				);
+				PRODUCT_BUNDLE_IDENTIFIER = "StoneBridge-Captsone.StoneBridge-Well-Inspection";
+				PRODUCT_NAME = "$(TARGET_NAME)";
+				SWIFT_VERSION = 5.0;
+				TARGETED_DEVICE_FAMILY = "1,2";
+			};
+			name = Debug;
+		};
+		037AD342252EC4B30060848B /* Release */ = {
+			isa = XCBuildConfiguration;
+			buildSettings = {
+				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
+				ASSETCATALOG_COMPILER_GLOBAL_ACCENT_COLOR_NAME = AccentColor;
+				CODE_SIGN_STYLE = Automatic;
+				DEVELOPMENT_TEAM = H48N4PQ7CZ;
+				INFOPLIST_FILE = "StoneBridge Well Inspection/Info.plist";
+				LD_RUNPATH_SEARCH_PATHS = (
+					"$(inherited)",
+					"@executable_path/Frameworks",
+				);
+				PRODUCT_BUNDLE_IDENTIFIER = "StoneBridge-Captsone.StoneBridge-Well-Inspection";
+				PRODUCT_NAME = "$(TARGET_NAME)";
+				SWIFT_VERSION = 5.0;
+				TARGETED_DEVICE_FAMILY = "1,2";
+			};
+			name = Release;
+		};
+		037AD344252EC4B30060848B /* Debug */ = {
+			isa = XCBuildConfiguration;
+			buildSettings = {
+				ALWAYS_EMBED_SWIFT_STANDARD_LIBRARIES = YES;
+				BUNDLE_LOADER = "$(TEST_HOST)";
+				CODE_SIGN_STYLE = Automatic;
+				DEVELOPMENT_TEAM = H48N4PQ7CZ;
+				INFOPLIST_FILE = "StoneBridge Well InspectionTests/Info.plist";
+				IPHONEOS_DEPLOYMENT_TARGET = 14.0;
+				LD_RUNPATH_SEARCH_PATHS = (
+					"$(inherited)",
+					"@executable_path/Frameworks",
+					"@loader_path/Frameworks",
+				);
+				PRODUCT_BUNDLE_IDENTIFIER = "StoneBridge-Captsone.StoneBridge-Well-InspectionTests";
+				PRODUCT_NAME = "$(TARGET_NAME)";
+				SWIFT_VERSION = 5.0;
+				TARGETED_DEVICE_FAMILY = "1,2";
+				TEST_HOST = "$(BUILT_PRODUCTS_DIR)/StoneBridge Well Inspection.app/StoneBridge Well Inspection";
+			};
+			name = Debug;
+		};
+		037AD345252EC4B30060848B /* Release */ = {
+			isa = XCBuildConfiguration;
+			buildSettings = {
+				ALWAYS_EMBED_SWIFT_STANDARD_LIBRARIES = YES;
+				BUNDLE_LOADER = "$(TEST_HOST)";
+				CODE_SIGN_STYLE = Automatic;
+				DEVELOPMENT_TEAM = H48N4PQ7CZ;
+				INFOPLIST_FILE = "StoneBridge Well InspectionTests/Info.plist";
+				IPHONEOS_DEPLOYMENT_TARGET = 14.0;
+				LD_RUNPATH_SEARCH_PATHS = (
+					"$(inherited)",
+					"@executable_path/Frameworks",
+					"@loader_path/Frameworks",
+				);
+				PRODUCT_BUNDLE_IDENTIFIER = "StoneBridge-Captsone.StoneBridge-Well-InspectionTests";
+				PRODUCT_NAME = "$(TARGET_NAME)";
+				SWIFT_VERSION = 5.0;
+				TARGETED_DEVICE_FAMILY = "1,2";
+				TEST_HOST = "$(BUILT_PRODUCTS_DIR)/StoneBridge Well Inspection.app/StoneBridge Well Inspection";
+			};
+			name = Release;
+		};
+		037AD347252EC4B30060848B /* Debug */ = {
+			isa = XCBuildConfiguration;
+			buildSettings = {
+				ALWAYS_EMBED_SWIFT_STANDARD_LIBRARIES = YES;
+				CODE_SIGN_STYLE = Automatic;
+				DEVELOPMENT_TEAM = H48N4PQ7CZ;
+				INFOPLIST_FILE = "StoneBridge Well InspectionUITests/Info.plist";
+				LD_RUNPATH_SEARCH_PATHS = (
+					"$(inherited)",
+					"@executable_path/Frameworks",
+					"@loader_path/Frameworks",
+				);
+				PRODUCT_BUNDLE_IDENTIFIER = "StoneBridge-Captsone.StoneBridge-Well-InspectionUITests";
+				PRODUCT_NAME = "$(TARGET_NAME)";
+				SWIFT_VERSION = 5.0;
+				TARGETED_DEVICE_FAMILY = "1,2";
+				TEST_TARGET_NAME = "StoneBridge Well Inspection";
+			};
+			name = Debug;
+		};
+		037AD348252EC4B30060848B /* Release */ = {
+			isa = XCBuildConfiguration;
+			buildSettings = {
+				ALWAYS_EMBED_SWIFT_STANDARD_LIBRARIES = YES;
+				CODE_SIGN_STYLE = Automatic;
+				DEVELOPMENT_TEAM = H48N4PQ7CZ;
+				INFOPLIST_FILE = "StoneBridge Well InspectionUITests/Info.plist";
+				LD_RUNPATH_SEARCH_PATHS = (
+					"$(inherited)",
+					"@executable_path/Frameworks",
+					"@loader_path/Frameworks",
+				);
+				PRODUCT_BUNDLE_IDENTIFIER = "StoneBridge-Captsone.StoneBridge-Well-InspectionUITests";
+				PRODUCT_NAME = "$(TARGET_NAME)";
+				SWIFT_VERSION = 5.0;
+				TARGETED_DEVICE_FAMILY = "1,2";
+				TEST_TARGET_NAME = "StoneBridge Well Inspection";
+			};
+			name = Release;
+		};
+/* End XCBuildConfiguration section */
+
+/* Begin XCConfigurationList section */
+		037AD311252EC49D0060848B /* Build configuration list for PBXProject "StoneBridge Well Inspection" */ = {
+			isa = XCConfigurationList;
+			buildConfigurations = (
+				037AD33E252EC4B30060848B /* Debug */,
+				037AD33F252EC4B30060848B /* Release */,
+			);
+			defaultConfigurationIsVisible = 0;
+			defaultConfigurationName = Release;
+		};
+		037AD340252EC4B30060848B /* Build configuration list for PBXNativeTarget "StoneBridge Well Inspection" */ = {
+			isa = XCConfigurationList;
+			buildConfigurations = (
+				037AD341252EC4B30060848B /* Debug */,
+				037AD342252EC4B30060848B /* Release */,
+			);
+			defaultConfigurationIsVisible = 0;
+			defaultConfigurationName = Release;
+		};
+		037AD343252EC4B30060848B /* Build configuration list for PBXNativeTarget "StoneBridge Well InspectionTests" */ = {
+			isa = XCConfigurationList;
+			buildConfigurations = (
+				037AD344252EC4B30060848B /* Debug */,
+				037AD345252EC4B30060848B /* Release */,
+			);
+			defaultConfigurationIsVisible = 0;
+			defaultConfigurationName = Release;
+		};
+		037AD346252EC4B30060848B /* Build configuration list for PBXNativeTarget "StoneBridge Well InspectionUITests" */ = {
+			isa = XCConfigurationList;
+			buildConfigurations = (
+				037AD347252EC4B30060848B /* Debug */,
+				037AD348252EC4B30060848B /* Release */,
+			);
+			defaultConfigurationIsVisible = 0;
+			defaultConfigurationName = Release;
+		};
+/* End XCConfigurationList section */
+	};
+	rootObject = 037AD30E252EC49D0060848B /* Project object */;
+}
