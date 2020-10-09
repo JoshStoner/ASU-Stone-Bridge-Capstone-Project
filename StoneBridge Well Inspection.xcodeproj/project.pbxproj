@@ -15,6 +15,7 @@
 		037AD326252EC4B20060848B /* LaunchScreen.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 037AD324252EC4B20060848B /* LaunchScreen.storyboard */; };
 		037AD331252EC4B20060848B /* StoneBridge_Well_InspectionTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = 037AD330252EC4B20060848B /* StoneBridge_Well_InspectionTests.swift */; };
 		037AD33C252EC4B30060848B /* StoneBridge_Well_InspectionUITests.swift in Sources */ = {isa = PBXBuildFile; fileRef = 037AD33B252EC4B30060848B /* StoneBridge_Well_InspectionUITests.swift */; };
+		03B46C4925300B6800B07B13 /* Basic Logo.png in Resources */ = {isa = PBXBuildFile; fileRef = 03B46C4825300B6800B07B13 /* Basic Logo.png */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXContainerItemProxy section */
@@ -49,6 +50,7 @@
 		037AD337252EC4B30060848B /* StoneBridge Well InspectionUITests.xctest */ = {isa = PBXFileReference; explicitFileType = wrapper.cfbundle; includeInIndex = 0; path = "StoneBridge Well InspectionUITests.xctest"; sourceTree = BUILT_PRODUCTS_DIR; };
 		037AD33B252EC4B30060848B /* StoneBridge_Well_InspectionUITests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = StoneBridge_Well_InspectionUITests.swift; sourceTree = "<group>"; };
 		037AD33D252EC4B30060848B /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
+		03B46C4825300B6800B07B13 /* Basic Logo.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; name = "Basic Logo.png"; path = "../../../Downloads/Basic Logo.png"; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -106,6 +108,7 @@
 				037AD322252EC4B20060848B /* Assets.xcassets */,
 				037AD324252EC4B20060848B /* LaunchScreen.storyboard */,
 				037AD327252EC4B20060848B /* Info.plist */,
+				03B46C4825300B6800B07B13 /* Basic Logo.png */,
 			);
 			path = "StoneBridge Well Inspection";
 			sourceTree = "<group>";
@@ -231,6 +234,7 @@
 			isa = PBXResourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				03B46C4925300B6800B07B13 /* Basic Logo.png in Resources */,
 				037AD326252EC4B20060848B /* LaunchScreen.storyboard in Resources */,
 				037AD323252EC4B20060848B /* Assets.xcassets in Resources */,
 				037AD321252EC49D0060848B /* Main.storyboard in Resources */,
