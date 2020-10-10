@@ -16,6 +16,8 @@
 		037AD331252EC4B20060848B /* StoneBridge_Well_InspectionTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = 037AD330252EC4B20060848B /* StoneBridge_Well_InspectionTests.swift */; };
 		037AD33C252EC4B30060848B /* StoneBridge_Well_InspectionUITests.swift in Sources */ = {isa = PBXBuildFile; fileRef = 037AD33B252EC4B30060848B /* StoneBridge_Well_InspectionUITests.swift */; };
 		03B46C4925300B6800B07B13 /* Basic Logo.png in Resources */ = {isa = PBXBuildFile; fileRef = 03B46C4825300B6800B07B13 /* Basic Logo.png */; };
+		03CC464325315EE600D9CCD8 /* TestViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 03CC464225315EE600D9CCD8 /* TestViewController.swift */; };
+		03CC464B253168A600D9CCD8 /* DocumentViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 03CC464A253168A600D9CCD8 /* DocumentViewController.swift */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXContainerItemProxy section */
@@ -51,6 +53,8 @@
 		037AD33B252EC4B30060848B /* StoneBridge_Well_InspectionUITests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = StoneBridge_Well_InspectionUITests.swift; sourceTree = "<group>"; };
 		037AD33D252EC4B30060848B /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
 		03B46C4825300B6800B07B13 /* Basic Logo.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; name = "Basic Logo.png"; path = "../../../Downloads/Basic Logo.png"; sourceTree = "<group>"; };
+		03CC464225315EE600D9CCD8 /* TestViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TestViewController.swift; sourceTree = "<group>"; };
+		03CC464A253168A600D9CCD8 /* DocumentViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DocumentViewController.swift; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -104,6 +108,7 @@
 				037AD319252EC49D0060848B /* AppDelegate.swift */,
 				037AD31B252EC49D0060848B /* SceneDelegate.swift */,
 				037AD31D252EC49D0060848B /* ViewController.swift */,
+				03CC464125315EAC00D9CCD8 /* ViewControllers */,
 				037AD31F252EC49D0060848B /* Main.storyboard */,
 				037AD322252EC4B20060848B /* Assets.xcassets */,
 				037AD324252EC4B20060848B /* LaunchScreen.storyboard */,
@@ -129,6 +134,15 @@
 				037AD33D252EC4B30060848B /* Info.plist */,
 			);
 			path = "StoneBridge Well InspectionUITests";
+			sourceTree = "<group>";
+		};
+		03CC464125315EAC00D9CCD8 /* ViewControllers */ = {
+			isa = PBXGroup;
+			children = (
+				03CC464225315EE600D9CCD8 /* TestViewController.swift */,
+				03CC464A253168A600D9CCD8 /* DocumentViewController.swift */,
+			);
+			path = ViewControllers;
 			sourceTree = "<group>";
 		};
 /* End PBXGroup section */
@@ -262,8 +276,10 @@
 			isa = PBXSourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				03CC464B253168A600D9CCD8 /* DocumentViewController.swift in Sources */,
 				037AD31E252EC49D0060848B /* ViewController.swift in Sources */,
 				037AD31A252EC49D0060848B /* AppDelegate.swift in Sources */,
+				03CC464325315EE600D9CCD8 /* TestViewController.swift in Sources */,
 				037AD31C252EC49D0060848B /* SceneDelegate.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
