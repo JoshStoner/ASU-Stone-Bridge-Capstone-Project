@@ -27,6 +27,11 @@ class InspectionFormViewController: UIViewController {
         super.viewDidLoad()
 
         // Do any additional setup after loading the view.
+        
+        //code for dismissing keyboard when user taps elsewhere on the view
+        let dismissKeyboardTap = UITapGestureRecognizer(target: self.view,
+                                                        action: #selector(UIView.endEditing))
+        view.addGestureRecognizer(dismissKeyboardTap)
     }
     
 
