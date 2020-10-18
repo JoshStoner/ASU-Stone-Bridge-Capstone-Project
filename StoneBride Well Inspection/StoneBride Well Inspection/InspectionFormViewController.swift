@@ -8,9 +8,11 @@
 
 import UIKit
 
-class InspectionFormViewController: UIViewController {
+class InspectionFormViewController: UIViewController, UIPickerViewDataSource, UIPickerViewDelegate
+{
 
     var formList:inspectionList?
+    let choices = ["", "Yes", "No", "N/A"]
     
     @IBOutlet weak var wellNameField: UITextField!
     @IBOutlet weak var wellNumberField: UITextField!
@@ -26,6 +28,10 @@ class InspectionFormViewController: UIViewController {
     override func viewDidLoad() {
         super.viewDidLoad()
 
+        let spills = UIPickerView()
+        spills.delegate = self
+        
+        spillsField.inputView = spills
         // Do any additional setup after loading the view.
         
         //code for dismissing keyboard when user taps elsewhere on the view
@@ -34,6 +40,25 @@ class InspectionFormViewController: UIViewController {
         view.addGestureRecognizer(dismissKeyboardTap)
     }
     
+    func numberOfComponents(in pickerView: UIPickerView) -> Int
+    {
+        return 1
+    }
+    
+    func pickerView(_ pickerView: UIPickerView, numberOfRowsInComponent component: Int) -> Int
+    {
+        return choices.count
+    }
+    
+    func pickerView(_ pickerView: UIPickerView, titleForRow row: Int, forComponent component: Int) -> String?
+    {
+        return choices[row]
+    }
+    
+    func pickerView(_ pickerView: UIPickerView, didSelectRow row: Int, inComponent component: Int)
+    {
+        spillsField.text = choices[row]
+    }
 
     @IBAction func saveForm(_ sender: Any)
     {
