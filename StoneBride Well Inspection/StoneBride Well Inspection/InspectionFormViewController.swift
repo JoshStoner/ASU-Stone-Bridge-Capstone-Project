@@ -21,9 +21,12 @@ class InspectionFormViewController: UIViewController, UIPickerViewDataSource, UI
     
     @IBOutlet weak var spillsField: UITextField!
     @IBOutlet weak var spillsCommentField: UITextField!
+    @IBOutlet weak var spillPhoto: UIImageView!
     
     @IBOutlet weak var oilField: UITextField!
     @IBOutlet weak var waterField: UITextField!
+    
+    var spillImagePicker: ImagePicker!
     
     override func viewDidLoad() {
         super.viewDidLoad()
@@ -33,6 +36,9 @@ class InspectionFormViewController: UIViewController, UIPickerViewDataSource, UI
         
         spillsField.inputView = spills
         // Do any additional setup after loading the view.
+        
+        //initiates the image picker used for the spill photo
+        self.spillImagePicker = ImagePicker(presentationController: self, delegate: self)
         
         //code for dismissing keyboard when user taps elsewhere on the view
         let dismissKeyboardTap = UITapGestureRecognizer(target: self.view,
@@ -60,6 +66,10 @@ class InspectionFormViewController: UIViewController, UIPickerViewDataSource, UI
         spillsField.text = choices[row]
     }
 
+    @IBAction func showImagePicker(_ sender: UIButton){
+        self.spillImagePicker.present(from: sender)
+    }
+    
     @IBAction func saveForm(_ sender: Any)
     {
         let wellName = wellNameField.text
@@ -85,4 +95,13 @@ class InspectionFormViewController: UIViewController, UIPickerViewDataSource, UI
     }
     */
 
+}
+
+//implements what to do when the image is picked
+extension InspectionFormViewController: ImagePickerDelegate {
+    
+    func didSelect(image: UIImage?) {
+        self.spillPhoto.image = image;
+    }
+    
 }
