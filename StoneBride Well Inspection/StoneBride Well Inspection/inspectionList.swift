@@ -63,6 +63,22 @@ class inspectionList
         return inspectionFormList[item].waterBarrels!
     }
     
+    func removeForm(item:Int)
+    {
+        inspectionFormList.remove(at: item)
+    }
+    
+    func removeAllForms()
+    {
+        var i = getCount() - 1
+        
+        while i >= 0
+        {
+            removeForm(item: i)
+            i -= 1
+        }
+    }
+    
     func addForm(da: String, inspDone: String, weName: String, weNum: Int, spls: String, splsCom: String, oil: Int, water: Int)
     {
         let inspectForm = inspectionForm(d: da, inspecDone: inspDone, wName: weName, wNum: weNum, spills: spls, spillsCom: splsCom, oilBBLS: oil, waterBBLS: water)

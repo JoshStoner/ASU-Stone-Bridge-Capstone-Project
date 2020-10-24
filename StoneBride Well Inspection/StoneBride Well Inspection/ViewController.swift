@@ -33,11 +33,22 @@ class ViewController: UIViewController
             let des = segue.destination as! InspectionFormViewController
             des.formList = myInspectionList
         }
+        else if segue.identifier == "toTableView"
+        {
+            let des = segue.destination as! TableViewController
+            des.formList = myInspectionList
+        }
     }
     
     @IBAction func returnedToMenu(segue: UIStoryboardSegue, sender: Any?)
     {
         if let sourceViewController = segue.source as? InspectionFormViewController
+        {
+            let dataRecieved = sourceViewController.formList
+            self.myInspectionList = dataRecieved!
+            self.size.text = String(myInspectionList.getCount())
+        }
+        else if let sourceViewController = segue.source as? TableViewController
         {
             let dataRecieved = sourceViewController.formList
             self.myInspectionList = dataRecieved!

@@ -17,6 +17,8 @@
 		2F3E686B2532196E002A87EF /* LaunchScreen.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 2F3E68692532196E002A87EF /* LaunchScreen.storyboard */; };
 		2F3E687325321B0F002A87EF /* InspectionFormViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2F3E687225321B0F002A87EF /* InspectionFormViewController.swift */; };
 		2F3E687525321C31002A87EF /* inspectionList.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2F3E687425321C31002A87EF /* inspectionList.swift */; };
+		2F407B882544BE1100AA2C0F /* TableCellViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2F407B872544BE1100AA2C0F /* TableCellViewController.swift */; };
+		2F407B8C2544C0F000AA2C0F /* TableViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2F407B8B2544C0F000AA2C0F /* TableViewController.swift */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXFileReference section */
@@ -32,6 +34,8 @@
 		2F3E686C2532196E002A87EF /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
 		2F3E687225321B0F002A87EF /* InspectionFormViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = InspectionFormViewController.swift; sourceTree = "<group>"; };
 		2F3E687425321C31002A87EF /* inspectionList.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = inspectionList.swift; sourceTree = "<group>"; };
+		2F407B872544BE1100AA2C0F /* TableCellViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TableCellViewController.swift; sourceTree = "<group>"; };
+		2F407B8B2544C0F000AA2C0F /* TableViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TableViewController.swift; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -69,6 +73,8 @@
 				2F3E685F2532196B002A87EF /* ViewController.swift */,
 				2F3E687425321C31002A87EF /* inspectionList.swift */,
 				2F3E68612532196B002A87EF /* Main.storyboard */,
+				2F407B8B2544C0F000AA2C0F /* TableViewController.swift */,
+				2F407B872544BE1100AA2C0F /* TableCellViewController.swift */,
 				2F3E687225321B0F002A87EF /* InspectionFormViewController.swift */,
 				2F3E68672532196E002A87EF /* Assets.xcassets */,
 				2F3E68692532196E002A87EF /* LaunchScreen.storyboard */,
@@ -106,7 +112,7 @@
 			isa = PBXProject;
 			attributes = {
 				LastSwiftUpdateCheck = 1160;
-				LastUpgradeCheck = 1160;
+				LastUpgradeCheck = 1200;
 				ORGANIZATIONNAME = ASU;
 				TargetAttributes = {
 					2F3E68572532196B002A87EF = {
@@ -154,8 +160,10 @@
 				2F3E687525321C31002A87EF /* inspectionList.swift in Sources */,
 				2F3E687325321B0F002A87EF /* InspectionFormViewController.swift in Sources */,
 				03F467E5253C090A00FC7B03 /* ImagePicker.swift in Sources */,
+				2F407B882544BE1100AA2C0F /* TableCellViewController.swift in Sources */,
 				2F3E68602532196B002A87EF /* ViewController.swift in Sources */,
 				2F3E685C2532196B002A87EF /* AppDelegate.swift in Sources */,
+				2F407B8C2544C0F000AA2C0F /* TableViewController.swift in Sources */,
 				2F3E685E2532196B002A87EF /* SceneDelegate.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
@@ -208,6 +216,7 @@
 				CLANG_WARN_OBJC_IMPLICIT_RETAIN_SELF = YES;
 				CLANG_WARN_OBJC_LITERAL_CONVERSION = YES;
 				CLANG_WARN_OBJC_ROOT_CLASS = YES_ERROR;
+				CLANG_WARN_QUOTED_INCLUDE_IN_FRAMEWORK_HEADER = YES;
 				CLANG_WARN_RANGE_LOOP_ANALYSIS = YES;
 				CLANG_WARN_STRICT_PROTOTYPES = YES;
 				CLANG_WARN_SUSPICIOUS_MOVE = YES;
@@ -268,6 +277,7 @@
 				CLANG_WARN_OBJC_IMPLICIT_RETAIN_SELF = YES;
 				CLANG_WARN_OBJC_LITERAL_CONVERSION = YES;
 				CLANG_WARN_OBJC_ROOT_CLASS = YES_ERROR;
+				CLANG_WARN_QUOTED_INCLUDE_IN_FRAMEWORK_HEADER = YES;
 				CLANG_WARN_RANGE_LOOP_ANALYSIS = YES;
 				CLANG_WARN_STRICT_PROTOTYPES = YES;
 				CLANG_WARN_SUSPICIOUS_MOVE = YES;

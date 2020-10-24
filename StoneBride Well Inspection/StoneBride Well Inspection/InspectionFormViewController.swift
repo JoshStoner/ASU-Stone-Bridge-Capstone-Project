@@ -8,11 +8,13 @@
 
 import UIKit
 
-class InspectionFormViewController: UIViewController, UIPickerViewDataSource, UIPickerViewDelegate
+class InspectionFormViewController: UIViewController, UIPickerViewDataSource, UIPickerViewDelegate//, UIImagePickerControllerDelegate, UINavigationControllerDelegate
 {
 
     var formList:inspectionList?
     let choices = ["", "Yes", "No", "N/A"]
+    
+    @IBOutlet weak var scrollView: UIScrollView!
     
     @IBOutlet weak var wellNameField: UITextField!
     @IBOutlet weak var wellNumberField: UITextField!
@@ -26,6 +28,7 @@ class InspectionFormViewController: UIViewController, UIPickerViewDataSource, UI
     @IBOutlet weak var oilField: UITextField!
     @IBOutlet weak var waterField: UITextField!
     
+    //let imagePicker = UIImagePickerController()
     var spillImagePicker: ImagePicker!
     
     override func viewDidLoad() {
@@ -66,9 +69,29 @@ class InspectionFormViewController: UIViewController, UIPickerViewDataSource, UI
         spillsField.text = choices[row]
     }
 
+    //Doesn't work
+    //Possible problems
+    //1) alert asking for access to photo library not working/showing up
     @IBAction func showImagePicker(_ sender: UIButton){
+        
+        /*imagePicker.delegate = self
+        imagePicker.sourceType = .photoLibrary
+        imagePicker.modalPresentationStyle = .popover
+        imagePicker.allowsEditing = false
+        present(imagePicker, animated: true, completion: nil)*/
         self.spillImagePicker.present(from: sender)
     }
+    
+    /*func imagePickerController(_ picker: UIImagePickerController, didFinishPickingMediaWithInfo info: [UIImagePickerController.InfoKey : Any]) {
+        let image = info[UIImagePickerController.InfoKey.originalImage] as! UIImage
+        self.spillPhoto.image = image
+        
+        dismiss(animated: true, completion: nil)
+    }
+    
+    func imagePickerControllerDidCancel(_ picker: UIImagePickerController) {
+        dismiss(animated: true, completion: nil)
+    }*/
     
     @IBAction func saveForm(_ sender: Any)
     {
