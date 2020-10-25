@@ -106,10 +106,15 @@ class TableViewController: UIViewController, UITableViewDelegate, UITableViewDat
             let date = formList!.getDate(item: selectedIndex.row)
         
         
-            let des = segue.destination as! TableCellViewController
-            //des.indexPath = selectedIndex
-            des.iFTitle = wellName
-            des.iFDate = date
+            if #available(iOS 14, *) {
+                let des = segue.destination as! TableCellViewController
+            
+                //des.indexPath = selectedIndex
+                des.iFTitle = wellName
+                des.iFDate = date
+            } else {
+                // Fallback on earlier versions
+            }
         }
     }
     
