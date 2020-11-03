@@ -11,8 +11,14 @@ import UIKit
 class InspectionFormViewController: UIViewController, UIPickerViewDataSource, UIPickerViewDelegate//, UIImagePickerControllerDelegate, UINavigationControllerDelegate
 {
 
+    let defaultImagePickerPhoto = UIImage(systemName:"plus.rectangle.on.folder")
+    let testImage = UIImage(systemName: "house")
     var formList:inspectionList?
     let choices = ["", "Yes", "No", "N/A"]
+    
+    //action types for the image picker
+    let clearImageAction = "Clear"
+    let changeImageAction = "Change Image"
     
     @IBOutlet weak var scrollView: UIScrollView!
     
@@ -69,12 +75,10 @@ class InspectionFormViewController: UIViewController, UIPickerViewDataSource, UI
         spillsField.text = choices[row]
     }
 
-    //Doesn't work
-    //Possible problems
-    //1) alert asking for access to photo library not working/showing up
+    //Doesn't work on emulator, seems to work on an actual mac
     @IBAction func showImagePicker(_ sender: UIButton){
-        
-        /*imagePicker.delegate = self
+        /*
+        imagePicker.delegate = self
         imagePicker.sourceType = .photoLibrary
         imagePicker.modalPresentationStyle = .popover
         imagePicker.allowsEditing = false
@@ -123,8 +127,12 @@ class InspectionFormViewController: UIViewController, UIPickerViewDataSource, UI
 //implements what to do when the image is picked
 extension InspectionFormViewController: ImagePickerDelegate {
     
-    func didSelect(image: UIImage?) {
-        self.spillPhoto.image = image;
+    func didSelect(image: UIImage?, action: String) {
+        if (action == clearImageAction) {
+            self.spillPhoto.image = defaultImagePickerPhoto;
+        } else if (action == changeImageAction) {
+            self.spillPhoto.image = image;
+        }
     }
     
 }

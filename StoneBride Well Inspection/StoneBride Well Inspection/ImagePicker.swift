@@ -5,7 +5,7 @@
 //  Created by Joshua on 10/17/20.
 //  Copyright © 2020 ASU. All rights reserved.
 // Adapted from a tutorial at theswiftdev.com/picking-images-with-uiimagepickercontroller-in-swift-5/ as well as following the UIImagePicker documentation for swift
-//currently the goal is to get taking photos working
+
 
 import UIKit
 
@@ -13,7 +13,7 @@ import UIKit
 // needs to be implemented in the view controller that uses the image picker
 public protocol ImagePickerDelegate: class {
     // function for using the image selected
-    func didSelect(image: UIImage?)
+    func didSelect(image: UIImage?, action: String)
 }
 
 open class ImagePicker: NSObject {
@@ -21,6 +21,15 @@ open class ImagePicker: NSObject {
     private let pickerController: UIImagePickerController
     private weak var presentationController: UIViewController?
     private weak var delegate: ImagePickerDelegate?
+    
+    //the names of the different actions that the image picker can do
+    let clearImageAction = "Clear"
+    let changeImageAction = "Change Image"
+    
+    let testImageTitle = "Add Test Image"
+    
+    let defaultImagepickerPhoto = UIImage(systemName:"plus.rectangle.on.folder")
+    let testImage = UIImage(systemName: "house")
     
     public init(presentationController: UIViewController, delegate: ImagePickerDelegate) {
         
@@ -40,57 +49,83 @@ open class ImagePicker: NSObject {
         self.pickerController.mediaTypes = ["public.image"]
     }
     
-    private func action(for type: UIImagePickerController.SourceType, title: String) -> UIAlertAction? {
-            guard UIImagePickerController.isSourceTypeAvailable(type) else {
-                return nil
-            }
-
+    private func action(for type:UIImagePickerController.SourceType, title: String) -> UIAlertAction? {
+        
+        //case for if the user wants to clear the image
+        if (title == clearImageAction) {
             return UIAlertAction(title: title, style: .default) { [unowned self] _ in
-                self.pickerController.sourceType = type
-                self.presentationController?.present(self.pickerController, animated: true)
+                self.delegate?.didSelect(image: UIImage(), action: clearImageAction)
+                
             }
+        }
+        //case for adding a test image on emulator
+        if (title == testImageTitle) {
+            return UIAlertAction(title: title, style: .default) { [unowned self] _ in
+                self.delegate?.didSelect(image: testImage, action: changeImageAction)
+                
+            }
+            
         }
         
-        public func present(from sourceView: UIView) {
-            //makes sure the photolibrary is available
-            guard UIImagePickerController.isSourceTypeAvailable(.photoLibrary) else {
-                return
-            }
+        //checks if the desired source type is available
+        guard UIImagePickerController.isSourceTypeAvailable(type) else {
+            return nil
+        }
             
-            //presents the photo picker for photo library
-            self.pickerController.sourceType = .photoLibrary
-            self.presentationController?.present(self.pickerController, animated: false)
-            
-            //presents the picker controller
-/*      this part is copy pasted from the tutorial
-            let alertController = UIAlertController(title: nil, message: nil, preferredStyle: .actionSheet)
+        return UIAlertAction(title: title, style: .default) { [unowned self] _ in
+            self.pickerController.sourceType = type
+            self.presentationController?.present(self.pickerController, animated: true)
+        }
+    }
+    
+    public func present(from sourceView: UIView) {
+        //makes sure the photolibrary is available
+        guard UIImagePickerController.isSourceTypeAvailable(.photoLibrary) else {
+            return
+        }
+        
+        //presents the photo picker for photo library
+        /*
+        self.pickerController.sourceType = .photoLibrary
+        self.presentationController?.present(self.pickerController, animated: false) */
+        
+        //presents the picker controller
 
-            if let action = self.action(for: .camera, title: "Take photo") {
-                alertController.addAction(action)
-            }
-            if let action = self.action(for: .savedPhotosAlbum, title: "Camera roll") {
-                alertController.addAction(action)
-            }
-            if let action = self.action(for: .photoLibrary, title: "Photo library") {
-                alertController.addAction(action)
-            }
+        let alertController = UIAlertController(title: nil, message: nil, preferredStyle: .actionSheet)
 
-            alertController.addAction(UIAlertAction(title: "Cancel", style: .cancel, handler: nil))
-
-            if UIDevice.current.userInterfaceIdiom == .pad {
-                alertController.popoverPresentationController?.sourceView = sourceView
-                alertController.popoverPresentationController?.sourceRect = sourceView.bounds
-                alertController.popoverPresentationController?.permittedArrowDirections = [.down, .up]
-            }
-
-            self.presentationController?.present(alertController, animated: true)
- */
+        if let action = self.action(for: .camera, title: "Take photo") {
+            alertController.addAction(action)
+        }
+        if let action = self.action(for: .savedPhotosAlbum, title: "Camera roll") {
+            alertController.addAction(action)
+        }
+        if let action = self.action(for: .photoLibrary, title: "Photo library") {
+            alertController.addAction(action)
+        }
+        if let action = self.action(for: .photoLibrary, title: clearImageAction){
+            alertController.addAction(action)
+        }
+        if let action = self.action(for: .photoLibrary, title: testImageTitle){
+            alertController.addAction(action)
         }
 
-        private func pickerController(_ controller: UIImagePickerController, didSelect image: UIImage?) {
+        alertController.addAction(UIAlertAction(title: "Cancel", style: .cancel, handler: nil))
+
+        //this shouldn't be needed
+        if UIDevice.current.userInterfaceIdiom == .pad {
+            alertController.popoverPresentationController?.sourceView = sourceView
+            alertController.popoverPresentationController?.sourceRect = sourceView.bounds
+            alertController.popoverPresentationController?.permittedArrowDirections = [.down, .up]
+        }
+
+        self.presentationController?.present(alertController, animated: true)
+
+    }
+
+    private func pickerController(_ controller: UIImagePickerController, didSelect image: UIImage?, chosenAction action: String) {
             controller.dismiss(animated: true, completion: nil)
 
-            self.delegate?.didSelect(image: image)
+        self.delegate?.didSelect(image: image, action: action)
         }
     
 }
@@ -100,7 +135,7 @@ extension ImagePicker: UIImagePickerControllerDelegate {
     //function that controls what happens when the user cancels out of the picker
     public func imagePickerControllerDidCancel(_ picker: UIImagePickerController) {
         //indicates to the picker controller that nothing was selected
-        self.pickerController(picker, didSelect: nil)
+        self.pickerController(picker, didSelect: nil, chosenAction: "Cancel")
     }
     
     
@@ -109,11 +144,11 @@ extension ImagePicker: UIImagePickerControllerDelegate {
         //unwraps the image then passes it to the picker controller
         guard let image = info[.editedImage] as? UIImage else {
             //lets the picker controller know that no image was picked
-            self.pickerController(picker, didSelect: nil)
+            self.pickerController(picker, didSelect: nil, chosenAction: "Cancel")
             return
         }
         //gives the image to the picker controller
-        self.pickerController(picker, didSelect: image)
+        self.pickerController(picker, didSelect: image, chosenAction: "Change Image")
         
     }
     
