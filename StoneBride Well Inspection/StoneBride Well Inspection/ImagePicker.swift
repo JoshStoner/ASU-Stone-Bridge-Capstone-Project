@@ -13,7 +13,7 @@ import UIKit
 // needs to be implemented in the view controller that uses the image picker
 public protocol ImagePickerDelegate: class {
     // function for using the image selected
-    func didSelect(image: UIImage?, action: String)
+    func didSelect(image: UIImage?, action: String, sender: UIButton)
 }
 
 open class ImagePicker: NSObject {
@@ -21,6 +21,9 @@ open class ImagePicker: NSObject {
     private let pickerController: UIImagePickerController
     private weak var presentationController: UIViewController?
     private weak var delegate: ImagePickerDelegate?
+    
+    //the button that initiated the presentation
+    var origin: UIButton?
     
     //the names of the different actions that the image picker can do
     let clearImageAction = "Clear"
@@ -54,14 +57,14 @@ open class ImagePicker: NSObject {
         //case for if the user wants to clear the image
         if (title == clearImageAction) {
             return UIAlertAction(title: title, style: .default) { [unowned self] _ in
-                self.delegate?.didSelect(image: UIImage(), action: clearImageAction)
+                self.delegate?.didSelect(image: UIImage(), action: clearImageAction, sender: origin!)
                 
             }
         }
         //case for adding a test image on emulator
         if (title == testImageTitle) {
             return UIAlertAction(title: title, style: .default) { [unowned self] _ in
-                self.delegate?.didSelect(image: testImage, action: changeImageAction)
+                self.delegate?.didSelect(image: testImage, action: changeImageAction, sender: origin!)
                 
             }
             
@@ -78,12 +81,12 @@ open class ImagePicker: NSObject {
         }
     }
     
-    public func present(from sourceView: UIView) {
+    public func present(from sourceView: UIButton) {
         //makes sure the photolibrary is available
         guard UIImagePickerController.isSourceTypeAvailable(.photoLibrary) else {
             return
         }
-        
+        origin = sourceView;
         //presents the photo picker for photo library
         /*
         self.pickerController.sourceType = .photoLibrary
@@ -125,7 +128,7 @@ open class ImagePicker: NSObject {
     private func pickerController(_ controller: UIImagePickerController, didSelect image: UIImage?, chosenAction action: String) {
             controller.dismiss(animated: true, completion: nil)
 
-        self.delegate?.didSelect(image: image, action: action)
+        self.delegate?.didSelect(image: image, action: action, sender: origin!)
         }
     
 }

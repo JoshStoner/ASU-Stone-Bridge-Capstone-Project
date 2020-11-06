@@ -314,7 +314,7 @@
                                                 <textInputTraits key="textInputTraits"/>
                                             </textField>
                                             <imageView clipsSubviews="YES" userInteractionEnabled="NO" contentMode="scaleAspectFit" horizontalHuggingPriority="251" verticalHuggingPriority="251" fixedFrame="YES" image="plus.rectangle.on.folder" catalog="system" translatesAutoresizingMaskIntoConstraints="NO" id="9cY-DC-vTV">
-                                                <rect key="frame" x="32" y="354" width="240" height="128"/>
+                                                <rect key="frame" x="32" y="354" width="110" height="68"/>
                                                 <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
                                                 <color key="backgroundColor" systemColor="opaqueSeparatorColor"/>
                                             </imageView>
@@ -324,6 +324,22 @@
                                                 <state key="normal" title="show image picker"/>
                                                 <connections>
                                                     <action selector="showImagePicker:" destination="izk-xh-wEQ" eventType="touchUpInside" id="Lfb-vJ-W5P"/>
+                                                </connections>
+                                            </button>
+                                            <button opaque="NO" contentMode="scaleToFill" fixedFrame="YES" contentHorizontalAlignment="center" contentVerticalAlignment="center" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="7d4-TV-sMe">
+                                                <rect key="frame" x="150" y="354" width="100" height="71"/>
+                                                <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
+                                                <state key="normal" title=" " backgroundImage="plus.rectangle.on.folder" catalog="system"/>
+                                                <connections>
+                                                    <action selector="showImagePicker:" destination="izk-xh-wEQ" eventType="touchUpInside" id="HbM-pQ-FfZ"/>
+                                                </connections>
+                                            </button>
+                                            <button opaque="NO" contentMode="scaleToFill" fixedFrame="YES" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="system" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="jYo-4f-El8">
+                                                <rect key="frame" x="268" y="354" width="83" height="90"/>
+                                                <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
+                                                <state key="normal" title=" " backgroundImage="plus.rectangle.on.folder" catalog="system"/>
+                                                <connections>
+                                                    <action selector="showImagePicker:" destination="izk-xh-wEQ" eventType="touchUpInside" id="e8Z-sZ-UBB"/>
                                                 </connections>
                                             </button>
                                         </subviews>
@@ -365,6 +381,7 @@
                         <outlet property="dateField" destination="bKh-hp-izK" id="Oq9-iU-a68"/>
                         <outlet property="inspectionDoneField" destination="zg9-ga-ice" id="yzg-0M-74c"/>
                         <outlet property="oilField" destination="6kM-sZ-9Gf" id="fUq-7k-f48"/>
+                        <outlet property="pictureButton" destination="7d4-TV-sMe" id="BIF-Ed-Rmb"/>
                         <outlet property="scrollView" destination="TQS-U4-Cof" id="8Si-Ul-He4"/>
                         <outlet property="spillPhoto" destination="9cY-DC-vTV" id="FuE-HW-DIe"/>
                         <outlet property="spillsCommentField" destination="u9c-8I-4mx" id="Wvh-Z5-gH8"/>
@@ -398,7 +415,7 @@
         </scene>
     </scenes>
     <resources>
-        <image name="plus.rectangle.on.folder" catalog="system" width="128" height="96"/>
+        <image name="plus.rectangle.on.folder" catalog="system" width="32" height="32"/>
         <systemColor name="opaqueSeparatorColor">
             <color red="0.77647058823529413" green="0.77647058823529413" blue="0.78431372549019607" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
         </systemColor>
