@@ -21,18 +21,21 @@ open class ImagePicker: NSObject {
     private let pickerController: UIImagePickerController
     private weak var presentationController: UIViewController?
     private weak var delegate: ImagePickerDelegate?
-    
+    private let imageOverlayTag = 11111;
     //the button that initiated the presentation
     var origin: UIButton?
     
     //the names of the different actions that the image picker can do
-    let clearImageAction = "Clear"
-    let changeImageAction = "Change Image"
+    private let clearImageAction = "Clear"
+    private let changeImageAction = "Change Image"
     
-    let testImageTitle = "Add Test Image"
+    private let testImageTitle = "Add Test Image"
     
-    let defaultImagepickerPhoto = UIImage(systemName:"plus.rectangle.on.folder")
-    let testImage = UIImage(systemName: "house")
+    private let defaultImagepickerPhoto = UIImage(systemName:"plus.rectangle.on.folder")
+    private let testImage = UIImage(systemName: "house")
+    
+    //the image preview that gets shown when a button is clicked
+    private var imagePreview: UIImageView?
     
     public init(presentationController: UIViewController, delegate: ImagePickerDelegate) {
         
@@ -58,6 +61,8 @@ open class ImagePicker: NSObject {
         if (title == clearImageAction) {
             return UIAlertAction(title: title, style: .default) { [unowned self] _ in
                 self.delegate?.didSelect(image: UIImage(), action: clearImageAction, sender: origin!)
+                //removes the image preview
+                removeImagePreview()
                 
             }
         }
@@ -65,6 +70,7 @@ open class ImagePicker: NSObject {
         if (title == testImageTitle) {
             return UIAlertAction(title: title, style: .default) { [unowned self] _ in
                 self.delegate?.didSelect(image: testImage, action: changeImageAction, sender: origin!)
+                removeImagePreview()
                 
             }
             
@@ -76,8 +82,11 @@ open class ImagePicker: NSObject {
         }
             
         return UIAlertAction(title: title, style: .default) { [unowned self] _ in
+            //removes the image preview before showing the image picker
+            removeImagePreview()
             self.pickerController.sourceType = type
             self.presentationController?.present(self.pickerController, animated: true)
+            
         }
     }
     
@@ -86,7 +95,12 @@ open class ImagePicker: NSObject {
         guard UIImagePickerController.isSourceTypeAvailable(.photoLibrary) else {
             return
         }
+        //the button that triggered this even
         origin = sourceView;
+        
+        addImagePreview()
+        
+        
         //presents the photo picker for photo library
         /*
         self.pickerController.sourceType = .photoLibrary
@@ -96,6 +110,8 @@ open class ImagePicker: NSObject {
 
         let alertController = UIAlertController(title: nil, message: nil, preferredStyle: .actionSheet)
 
+        //the first three set let the user pick or take a new photo
+        // only if the presentation mode is allowed
         if let action = self.action(for: .camera, title: "Take photo") {
             alertController.addAction(action)
         }
@@ -105,14 +121,19 @@ open class ImagePicker: NSObject {
         if let action = self.action(for: .photoLibrary, title: "Photo library") {
             alertController.addAction(action)
         }
+        //action for clearing the image
         if let action = self.action(for: .photoLibrary, title: clearImageAction){
             alertController.addAction(action)
         }
+        //sets the test image as the chosen image
         if let action = self.action(for: .photoLibrary, title: testImageTitle){
             alertController.addAction(action)
         }
 
-        alertController.addAction(UIAlertAction(title: "Cancel", style: .cancel, handler: nil))
+        //alertController.addAction(UIAlertAction(title: "Cancel", style: .cancel, handler: nil))
+        alertController.addAction(UIAlertAction(title: "Cancel", style: .cancel) { [unowned self] _ in
+            removeImagePreview()
+        })
 
         //this shouldn't be needed
         if UIDevice.current.userInterfaceIdiom == .pad {
@@ -131,12 +152,34 @@ open class ImagePicker: NSObject {
         self.delegate?.didSelect(image: image, action: action, sender: origin!)
         }
     
+    private func addImagePreview()
+    {
+        //adds a new image view so that the user can see the current image in a larger size
+        imagePreview = UIImageView(image: origin?.backgroundImage(for: .normal))
+        //I'm not sure that I handled the unwrapping properly
+        //some of these ? might need to be ! or ??, I'm not totally sure
+        let scrollview = origin?.superview?.superview as? UIScrollView
+        imagePreview?.frame = CGRect(x: 10, y: (scrollview?.contentOffset.y ?? 0), width: UIScreen.main.bounds.width - 20, height: UIScreen.main.bounds.height / 2);
+        imagePreview?.tag = imageOverlayTag;
+        //adds the image to the super view of the button that called this
+        origin?.superview?.addSubview(imagePreview!);
+        
+        
+    }
+    
+    private func removeImagePreview()
+    {
+            imagePreview?.removeFromSuperview();
+    }
+    
 }
 
 //needed to conform to the UIImagePickerControllerDelegate
 extension ImagePicker: UIImagePickerControllerDelegate {
     //function that controls what happens when the user cancels out of the picker
     public func imagePickerControllerDidCancel(_ picker: UIImagePickerController) {
+        
+        
         //indicates to the picker controller that nothing was selected
         self.pickerController(picker, didSelect: nil, chosenAction: "Cancel")
     }
@@ -144,6 +187,7 @@ extension ImagePicker: UIImagePickerControllerDelegate {
     
     //function that tells the delegate the user picked an image
     public func imagePickerController(_ picker: UIImagePickerController, didFinishPickingMediaWithInfo info: [UIImagePickerController.InfoKey : Any]) {
+        
         //unwraps the image then passes it to the picker controller
         guard let image = info[.editedImage] as? UIImage else {
             //lets the picker controller know that no image was picked

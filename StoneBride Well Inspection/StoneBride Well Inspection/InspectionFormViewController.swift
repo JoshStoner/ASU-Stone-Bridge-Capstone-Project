@@ -29,7 +29,6 @@ class InspectionFormViewController: UIViewController, UIPickerViewDataSource, UI
     
     @IBOutlet weak var spillsField: UITextField!
     @IBOutlet weak var spillsCommentField: UITextField!
-    @IBOutlet weak var spillPhoto: UIImageView!
     
     @IBOutlet weak var oilField: UITextField!
     @IBOutlet weak var waterField: UITextField!
@@ -130,14 +129,14 @@ extension InspectionFormViewController: ImagePickerDelegate {
     
     func didSelect(image: UIImage?, action: String, sender: UIButton) {
         if (action == clearImageAction) {
-            self.spillPhoto.image = defaultImagePickerPhoto;
+
             
             //test for making the button change its own background
             // might need to set the image for every state
             sender.setBackgroundImage(defaultImagePickerPhoto, for: .normal);
             
         } else if (action == changeImageAction) {
-            self.spillPhoto.image = image;
+           
             //test for making the button change its own background
             // might need to set the image for every state
             sender.setBackgroundImage(image, for: .normal);

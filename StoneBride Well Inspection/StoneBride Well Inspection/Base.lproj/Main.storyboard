@@ -313,11 +313,6 @@
                                                 <fontDescription key="fontDescription" type="system" pointSize="14"/>
                                                 <textInputTraits key="textInputTraits"/>
                                             </textField>
-                                            <imageView clipsSubviews="YES" userInteractionEnabled="NO" contentMode="scaleAspectFit" horizontalHuggingPriority="251" verticalHuggingPriority="251" fixedFrame="YES" image="plus.rectangle.on.folder" catalog="system" translatesAutoresizingMaskIntoConstraints="NO" id="9cY-DC-vTV">
-                                                <rect key="frame" x="32" y="354" width="110" height="68"/>
-                                                <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
-                                                <color key="backgroundColor" systemColor="opaqueSeparatorColor"/>
-                                            </imageView>
                                             <button opaque="NO" contentMode="scaleToFill" fixedFrame="YES" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="system" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="Jsh-5j-Cd8">
                                                 <rect key="frame" x="90" y="492" width="128" height="30"/>
                                                 <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
@@ -383,7 +378,6 @@
                         <outlet property="oilField" destination="6kM-sZ-9Gf" id="fUq-7k-f48"/>
                         <outlet property="pictureButton" destination="7d4-TV-sMe" id="BIF-Ed-Rmb"/>
                         <outlet property="scrollView" destination="TQS-U4-Cof" id="8Si-Ul-He4"/>
-                        <outlet property="spillPhoto" destination="9cY-DC-vTV" id="FuE-HW-DIe"/>
                         <outlet property="spillsCommentField" destination="u9c-8I-4mx" id="Wvh-Z5-gH8"/>
                         <outlet property="spillsField" destination="pIF-V8-RI2" id="qGl-Gs-3AP"/>
                         <outlet property="waterField" destination="ZoC-hm-X1L" id="d0j-oR-2Pc"/>
@@ -416,9 +410,6 @@
     </scenes>
     <resources>
         <image name="plus.rectangle.on.folder" catalog="system" width="32" height="32"/>
-        <systemColor name="opaqueSeparatorColor">
-            <color red="0.77647058823529413" green="0.77647058823529413" blue="0.78431372549019607" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
-        </systemColor>
         <systemColor name="systemBackgroundColor">
             <color white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
         </systemColor>
