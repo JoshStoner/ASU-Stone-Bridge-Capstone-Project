@@ -16,7 +16,8 @@ class InspectionFormViewController: UIViewController, UIPickerViewDataSource, UI
     var formList:inspectionList?
     let choices = ["", "Yes", "No", "N/A"]
     
-    //action types for the image picker
+    //action types for the image picker, should maybe be an Enum
+    //if these get changed here they need to be changed in imageButtonHandler and ImagePicker
     let clearImageAction = "Clear"
     let changeImageAction = "Change Image"
     
@@ -32,11 +33,16 @@ class InspectionFormViewController: UIViewController, UIPickerViewDataSource, UI
     
     @IBOutlet weak var oilField: UITextField!
     @IBOutlet weak var waterField: UITextField!
+    
+    //buttons that hold teh picture information
     @IBOutlet weak var pictureButton: UIButton!
+    @IBOutlet weak var pictureButton2: UIButton!
     
     //let imagePicker = UIImagePickerController()
     var spillImagePicker: ImagePicker!
     
+    //controls the addition and removal of image buttons when images are added/removed
+    private var ibhandler : [ImageButtonHandler] = []
     override func viewDidLoad() {
         super.viewDidLoad()
 
@@ -53,6 +59,10 @@ class InspectionFormViewController: UIViewController, UIPickerViewDataSource, UI
         let dismissKeyboardTap = UITapGestureRecognizer(target: self.view,
                                                         action: #selector(UIView.endEditing))
         view.addGestureRecognizer(dismissKeyboardTap)
+        
+        //creates the image button handler
+        ibhandler.append(ImageButtonHandler(sourceButton: pictureButton, tag: 0))
+        ibhandler.append(ImageButtonHandler(sourceButton: pictureButton2, tag: 1))
     }
     
     func numberOfComponents(in pickerView: UIPickerView) -> Int
@@ -128,6 +138,16 @@ class InspectionFormViewController: UIViewController, UIPickerViewDataSource, UI
 extension InspectionFormViewController: ImagePickerDelegate {
     
     func didSelect(image: UIImage?, action: String, sender: UIButton) {
+        
+        let buttonHandlerNumber = sender.tag
+        
+        
+        let button = ibhandler[buttonHandlerNumber].handleChange(changedButton: sender, action: action, newImage: image)
+        if (button != nil){
+            button?.addTarget(self, action: #selector(showImagePicker(_:)), for: .touchUpInside)
+        }
+        //view.addSubview(button!)
+        /* this part is now just done in the imageButtonHandler
         if (action == clearImageAction) {
 
             
@@ -140,7 +160,7 @@ extension InspectionFormViewController: ImagePickerDelegate {
             //test for making the button change its own background
             // might need to set the image for every state
             sender.setBackgroundImage(image, for: .normal);
-        }
+        }*/
     }
     
 }

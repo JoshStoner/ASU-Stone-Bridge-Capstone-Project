@@ -37,6 +37,8 @@ open class ImagePicker: NSObject {
     //the image preview that gets shown when a button is clicked
     private var imagePreview: UIImageView?
     
+    
+    
     public init(presentationController: UIViewController, delegate: ImagePickerDelegate) {
         
         self.pickerController = UIImagePickerController()
