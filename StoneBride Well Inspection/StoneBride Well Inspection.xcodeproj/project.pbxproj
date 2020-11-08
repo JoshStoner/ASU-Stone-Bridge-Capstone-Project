@@ -20,6 +20,9 @@
 		2F3E687525321C31002A87EF /* inspectionList.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2F3E687425321C31002A87EF /* inspectionList.swift */; };
 		2F407B882544BE1100AA2C0F /* TableCellViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2F407B872544BE1100AA2C0F /* TableCellViewController.swift */; };
 		2F407B8C2544C0F000AA2C0F /* TableViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2F407B8B2544C0F000AA2C0F /* TableViewController.swift */; };
+		D0CAC92325575B0C0022DA9A /* InspectionFormEntity+CoreDataProperties.swift in Sources */ = {isa = PBXBuildFile; fileRef = D0CAC92225575B0C0022DA9A /* InspectionFormEntity+CoreDataProperties.swift */; };
+		D0CAC92625575B4C0022DA9A /* InspectionFormEntity+CoreDataClass.swift in Sources */ = {isa = PBXBuildFile; fileRef = D0CAC92525575B4C0022DA9A /* InspectionFormEntity+CoreDataClass.swift */; };
+		D0CAC92925575D0C0022DA9A /* inspectionFormModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = D0CAC92825575D0C0022DA9A /* inspectionFormModel.swift */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXFileReference section */
@@ -38,6 +41,9 @@
 		2F3E687425321C31002A87EF /* inspectionList.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = inspectionList.swift; sourceTree = "<group>"; };
 		2F407B872544BE1100AA2C0F /* TableCellViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TableCellViewController.swift; sourceTree = "<group>"; };
 		2F407B8B2544C0F000AA2C0F /* TableViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TableViewController.swift; sourceTree = "<group>"; };
+		D0CAC92225575B0C0022DA9A /* InspectionFormEntity+CoreDataProperties.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "InspectionFormEntity+CoreDataProperties.swift"; sourceTree = "<group>"; };
+		D0CAC92525575B4C0022DA9A /* InspectionFormEntity+CoreDataClass.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "InspectionFormEntity+CoreDataClass.swift"; sourceTree = "<group>"; };
+		D0CAC92825575D0C0022DA9A /* inspectionFormModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = inspectionFormModel.swift; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -70,14 +76,13 @@
 		2F3E685A2532196B002A87EF /* StoneBride Well Inspection */ = {
 			isa = PBXGroup;
 			children = (
+				D0CAC92F2557733B0022DA9A /* Controllers */,
+				D0CAC92C255772A20022DA9A /* CoreDataEntities */,
+				D0CAC92E255773130022DA9A /* Models */,
 				2F3E685B2532196B002A87EF /* AppDelegate.swift */,
 				2F3E685D2532196B002A87EF /* SceneDelegate.swift */,
-				2F3E685F2532196B002A87EF /* ViewController.swift */,
 				2F3E687425321C31002A87EF /* inspectionList.swift */,
 				2F3E68612532196B002A87EF /* Main.storyboard */,
-				2F407B8B2544C0F000AA2C0F /* TableViewController.swift */,
-				2F407B872544BE1100AA2C0F /* TableCellViewController.swift */,
-				2F3E687225321B0F002A87EF /* InspectionFormViewController.swift */,
 				2F3E68672532196E002A87EF /* Assets.xcassets */,
 				2F3E68692532196E002A87EF /* LaunchScreen.storyboard */,
 				2F3E686C2532196E002A87EF /* Info.plist */,
@@ -86,6 +91,34 @@
 				03BE8D3E25569E2800CB35C8 /* ImageButtonHandler.swift */,
 			);
 			path = "StoneBride Well Inspection";
+			sourceTree = "<group>";
+		};
+		D0CAC92C255772A20022DA9A /* CoreDataEntities */ = {
+			isa = PBXGroup;
+			children = (
+				D0CAC92225575B0C0022DA9A /* InspectionFormEntity+CoreDataProperties.swift */,
+				D0CAC92525575B4C0022DA9A /* InspectionFormEntity+CoreDataClass.swift */,
+			);
+			path = CoreDataEntities;
+			sourceTree = "<group>";
+		};
+		D0CAC92E255773130022DA9A /* Models */ = {
+			isa = PBXGroup;
+			children = (
+				D0CAC92825575D0C0022DA9A /* inspectionFormModel.swift */,
+			);
+			path = Models;
+			sourceTree = "<group>";
+		};
+		D0CAC92F2557733B0022DA9A /* Controllers */ = {
+			isa = PBXGroup;
+			children = (
+				2F3E685F2532196B002A87EF /* ViewController.swift */,
+				2F407B8B2544C0F000AA2C0F /* TableViewController.swift */,
+				2F407B872544BE1100AA2C0F /* TableCellViewController.swift */,
+				2F3E687225321B0F002A87EF /* InspectionFormViewController.swift */,
+			);
+			path = Controllers;
 			sourceTree = "<group>";
 		};
 /* End PBXGroup section */
@@ -160,12 +193,15 @@
 			buildActionMask = 2147483647;
 			files = (
 				2F3E68662532196B002A87EF /* StoneBride_Well_Inspection.xcdatamodeld in Sources */,
+				D0CAC92925575D0C0022DA9A /* inspectionFormModel.swift in Sources */,
 				2F3E687525321C31002A87EF /* inspectionList.swift in Sources */,
 				03BE8D3F25569E2800CB35C8 /* ImageButtonHandler.swift in Sources */,
+				D0CAC92325575B0C0022DA9A /* InspectionFormEntity+CoreDataProperties.swift in Sources */,
 				2F3E687325321B0F002A87EF /* InspectionFormViewController.swift in Sources */,
 				03F467E5253C090A00FC7B03 /* ImagePicker.swift in Sources */,
 				2F407B882544BE1100AA2C0F /* TableCellViewController.swift in Sources */,
 				2F3E68602532196B002A87EF /* ViewController.swift in Sources */,
+				D0CAC92625575B4C0022DA9A /* InspectionFormEntity+CoreDataClass.swift in Sources */,
 				2F3E685C2532196B002A87EF /* AppDelegate.swift in Sources */,
 				2F407B8C2544C0F000AA2C0F /* TableViewController.swift in Sources */,
 				2F3E685E2532196B002A87EF /* SceneDelegate.swift in Sources */,
@@ -316,7 +352,7 @@
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
 				CODE_SIGN_STYLE = Automatic;
 				INFOPLIST_FILE = "StoneBride Well Inspection/Info.plist";
-				IPHONEOS_DEPLOYMENT_TARGET = 13.6;
+				IPHONEOS_DEPLOYMENT_TARGET = 14.0;
 				LD_RUNPATH_SEARCH_PATHS = (
 					"$(inherited)",
 					"@executable_path/Frameworks",
@@ -334,7 +370,7 @@
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
 				CODE_SIGN_STYLE = Automatic;
 				INFOPLIST_FILE = "StoneBride Well Inspection/Info.plist";
-				IPHONEOS_DEPLOYMENT_TARGET = 13.6;
+				IPHONEOS_DEPLOYMENT_TARGET = 14.0;
 				LD_RUNPATH_SEARCH_PATHS = (
 					"$(inherited)",
 					"@executable_path/Frameworks",

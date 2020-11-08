@@ -6,6 +6,16 @@
 //  Copyright © 2020 ASU. All rights reserved.
 //
 
+
+
+/* This file was only for testing purposes and
+ * will not be needed for final implementation.
+ * This file was needed before the core data was
+ * implemented but it should no longer be needed
+ * but I leaving it here just in case for now.
+ */
+
+
 import Foundation
 
 class inspectionList
