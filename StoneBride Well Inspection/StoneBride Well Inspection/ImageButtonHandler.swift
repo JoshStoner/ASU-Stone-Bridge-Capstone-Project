@@ -13,6 +13,9 @@ class ImageButtonHandler {
     private var buttons : [UIButton]
     private var totalButtons = 1
     private var tag: Int // is the tag that all of its buttons will have
+    private var maxButtons: Int // total number of buttons that this can handle
+    private var buttonSpace: CGRect // the space in the application that the buttons can be spawned in
+    private var totalPictures = 0 // stores the number of buttons that have an actual image in them
     
     //action types for the image picker, should maybe be an Enum
     //if these get changed here they need to be changed in InspectionFormViewController and ImagePicker
@@ -26,14 +29,16 @@ class ImageButtonHandler {
     let defaultImagePickerPhoto = UIImage(systemName:"plus.rectangle.on.folder")
     //private var buttonAction: Selector
     
-    public init(sourceButton: UIButton, tag: Int)
+    public init(sourceButton: UIButton, tag: Int, numberOfButtons: Int, buttonSpace: CGRect)
     {
         originalButton = sourceButton
         buttons = [originalButton]
         frame = originalButton.frame
+        maxButtons = numberOfButtons
+        self.buttonSpace = buttonSpace
+        
         //buttonAction = buttonFunction
         //makeButton()
-        let test = UIImage(systemName: "plus.rectangle.on.folder")
         self.tag = tag
     }
     
@@ -86,20 +91,31 @@ class ImageButtonHandler {
             }
             
             //removes the last button from the view, then deletes it
-            //if there are more than one buttons
-            if (totalButtons > 1)
+            //if there are more than one buttons and not at the max number of buttons with each button haveing a picture
+            if (totalButtons > 1 && totalPictures != maxButtons)
             {
                 totalButtons -= 1
                 buttons.popLast()?.removeFromSuperview()
+                
+                //if we're at max buttons and each has a picture then it just sets the last buttons picture to the default image
+            } else if (totalPictures == maxButtons)
+            {
+                buttons[totalButtons-1].setBackgroundImage(defaultImagePickerPhoto, for: .normal)
             }
+            //updates the image count
+            totalPictures -= 1
         
         } else if (action == changeImageAction)
         {
-            //only makes a new button if this is the first image set to this button
+            //only makes a new button if this is the first image set to this button, and the max number of buttons hasn't been reached
             if (changedButton.backgroundImage(for: .normal) === defaultImagePickerPhoto)
             {
-                //makes a new button and adds it to the super view
-                returnButton = makeButton()
+                totalPictures += 1
+                if (totalButtons < maxButtons)
+                {
+                    //makes a new button and adds it to the super view
+                    returnButton = makeButton()
+                }
                 
             }
             changedButton.setBackgroundImage(newImage, for: .normal)

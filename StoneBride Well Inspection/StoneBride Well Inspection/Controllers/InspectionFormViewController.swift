@@ -70,8 +70,9 @@ class InspectionFormViewController: UIViewController, UIPickerViewDataSource, UI
         view.addGestureRecognizer(dismissKeyboardTap)
         
         //creates the image button handler
-        ibhandler.append(ImageButtonHandler(sourceButton: pictureButton, tag: 0))
-        ibhandler.append(ImageButtonHandler(sourceButton: pictureButton2, tag: 1))
+        let tempRect = CGRect()
+        ibhandler.append(ImageButtonHandler(sourceButton: pictureButton, tag: 0, numberOfButtons: 4, buttonSpace: tempRect))
+        ibhandler.append(ImageButtonHandler(sourceButton: pictureButton2, tag: 1, numberOfButtons: 3, buttonSpace: tempRect))
     }
     
     func numberOfComponents(in pickerView: UIPickerView) -> Int
