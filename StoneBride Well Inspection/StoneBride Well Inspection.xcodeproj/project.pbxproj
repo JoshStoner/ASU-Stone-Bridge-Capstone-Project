@@ -8,6 +8,8 @@
 
 /* Begin PBXBuildFile section */
 		03BE8D3F25569E2800CB35C8 /* ImageButtonHandler.swift in Sources */ = {isa = PBXBuildFile; fileRef = 03BE8D3E25569E2800CB35C8 /* ImageButtonHandler.swift */; };
+		03BF3D84255EA93B0053D623 /* LogInViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 03BF3D83255EA93A0053D623 /* LogInViewController.swift */; };
+		03BF3D87255EB6770053D623 /* InspectionCategory.swift in Sources */ = {isa = PBXBuildFile; fileRef = 03BF3D86255EB6770053D623 /* InspectionCategory.swift */; };
 		03F467E5253C090A00FC7B03 /* ImagePicker.swift in Sources */ = {isa = PBXBuildFile; fileRef = 03F467E4253C090900FC7B03 /* ImagePicker.swift */; };
 		2F3E685C2532196B002A87EF /* AppDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2F3E685B2532196B002A87EF /* AppDelegate.swift */; };
 		2F3E685E2532196B002A87EF /* SceneDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2F3E685D2532196B002A87EF /* SceneDelegate.swift */; };
@@ -27,6 +29,8 @@
 
 /* Begin PBXFileReference section */
 		03BE8D3E25569E2800CB35C8 /* ImageButtonHandler.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ImageButtonHandler.swift; sourceTree = "<group>"; };
+		03BF3D83255EA93A0053D623 /* LogInViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; name = LogInViewController.swift; path = "StoneBride Well Inspection/LogInViewController.swift"; sourceTree = SOURCE_ROOT; };
+		03BF3D86255EB6770053D623 /* InspectionCategory.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = InspectionCategory.swift; sourceTree = "<group>"; };
 		03F467E4253C090900FC7B03 /* ImagePicker.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ImagePicker.swift; sourceTree = "<group>"; };
 		2F3E68582532196B002A87EF /* StoneBride Well Inspection.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = "StoneBride Well Inspection.app"; sourceTree = BUILT_PRODUCTS_DIR; };
 		2F3E685B2532196B002A87EF /* AppDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AppDelegate.swift; sourceTree = "<group>"; };
@@ -89,6 +93,7 @@
 				2F3E68642532196B002A87EF /* StoneBride_Well_Inspection.xcdatamodeld */,
 				03F467E4253C090900FC7B03 /* ImagePicker.swift */,
 				03BE8D3E25569E2800CB35C8 /* ImageButtonHandler.swift */,
+				03BF3D86255EB6770053D623 /* InspectionCategory.swift */,
 			);
 			path = "StoneBride Well Inspection";
 			sourceTree = "<group>";
@@ -113,6 +118,7 @@
 		D0CAC92F2557733B0022DA9A /* Controllers */ = {
 			isa = PBXGroup;
 			children = (
+				03BF3D83255EA93A0053D623 /* LogInViewController.swift */,
 				2F3E685F2532196B002A87EF /* ViewController.swift */,
 				2F407B8B2544C0F000AA2C0F /* TableViewController.swift */,
 				2F407B872544BE1100AA2C0F /* TableCellViewController.swift */,
@@ -194,6 +200,7 @@
 			files = (
 				2F3E68662532196B002A87EF /* StoneBride_Well_Inspection.xcdatamodeld in Sources */,
 				D0CAC92925575D0C0022DA9A /* inspectionFormModel.swift in Sources */,
+				03BF3D87255EB6770053D623 /* InspectionCategory.swift in Sources */,
 				2F3E687525321C31002A87EF /* inspectionList.swift in Sources */,
 				03BE8D3F25569E2800CB35C8 /* ImageButtonHandler.swift in Sources */,
 				D0CAC92325575B0C0022DA9A /* InspectionFormEntity+CoreDataProperties.swift in Sources */,
@@ -202,6 +209,7 @@
 				2F407B882544BE1100AA2C0F /* TableCellViewController.swift in Sources */,
 				2F3E68602532196B002A87EF /* ViewController.swift in Sources */,
 				D0CAC92625575B4C0022DA9A /* InspectionFormEntity+CoreDataClass.swift in Sources */,
+				03BF3D84255EA93B0053D623 /* LogInViewController.swift in Sources */,
 				2F3E685C2532196B002A87EF /* AppDelegate.swift in Sources */,
 				2F407B8C2544C0F000AA2C0F /* TableViewController.swift in Sources */,
 				2F3E685E2532196B002A87EF /* SceneDelegate.swift in Sources */,

@@ -388,7 +388,7 @@
                 <placeholder placeholderIdentifier="IBFirstResponder" id="ut3-tP-uRo" userLabel="First Responder" customClass="UIResponder" sceneMemberID="firstResponder"/>
                 <exit id="3iu-wa-3DY" userLabel="Exit" sceneMemberID="exit"/>
             </objects>
-            <point key="canvasLocation" x="1832.8" y="-479.46026986506752"/>
+            <point key="canvasLocation" x="1791" y="-1152"/>
         </scene>
         <!--Navigation Controller-->
         <scene sceneID="2Sw-KJ-1aZ">
@@ -409,7 +409,7 @@
         </scene>
     </scenes>
     <resources>
-        <image name="plus.rectangle.on.folder" catalog="system" width="128" height="96"/>
+        <image name="plus.rectangle.on.folder" catalog="system" width="32" height="32"/>
         <systemColor name="systemBackgroundColor">
             <color white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
         </systemColor>

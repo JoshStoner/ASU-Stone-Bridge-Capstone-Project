@@ -22,6 +22,9 @@ class InspectionFormViewController: UIViewController, UIPickerViewDataSource, UI
     var formList:inspectionList?
     let choices = ["", "Yes", "No", "N/A"]
     
+    // an array of all the different inspection descriptions
+        let inspectionCategoriesNames = ["Pictures of the Well", "Pictures of the Tank Battery", "Pictures of the Location", "Pictures of the Lease Road", "Any Spills to clear up", "Any gas leaks, oil leaks on fittings", "Any leaks around wellhead", "Does any brush need cut", "Does  it need weedeated", "Any trash that needs picked up", "Any erosion occurring", "Are there concrete vaults", "Are there old salt water pits", "Does new ID placement need painted", "Tank Gauges", "Oil BBLS:     WaterBBLS:", "Any electtric drops", "Electric Meter Number", "Pump Jack make & Size", "Tubing Size", "# of Tanks and Size", "Plastic Tank/Size", "Oriifce Meter", "Separator", "Electric Motor & Size", "Gasoline Engine and Size", "Electric Line Overhead # of poles", "Concrete Sills", "Fence", "House Gas Meter/with Little Joe/Drip"]
+        
     //action types for the image picker, should maybe be an Enum
     //if these get changed here they need to be changed in imageButtonHandler and ImagePicker
     let clearImageAction = "Clear"
@@ -74,6 +77,14 @@ class InspectionFormViewController: UIViewController, UIPickerViewDataSource, UI
         let ibHandler1Space = CGRect(x: pictureButton.frame.origin.x, y: pictureButton.frame.origin.y, width: CGFloat(4) * pictureButton.frame.width, height: CGFloat(3) * pictureButton.frame.height)
         ibhandler.append(ImageButtonHandler(sourceButton: pictureButton, tag: 0, numberOfButtons: 7, buttonSpace: ibHandler1Space))
         ibhandler.append(ImageButtonHandler(sourceButton: pictureButton2, tag: 1, numberOfButtons: 3, buttonSpace: tempRect))
+    
+        
+        let point = CGPoint(x: 10, y: 650)
+        let isCategory = InspectionCategory(categoryName: "well stuff", topLeftPoint: point, view: oilField.superview!, tagNumber: 2, hasPictures: true, pullDownView: spills)
+        
+        isCategory.getSourceButton()?.addTarget(self, action: #selector(showImagePicker(_:)), for: .touchUpInside)
+        ibhandler.append(isCategory.getImageButtonHandler()!)
+        
     }
     
     func numberOfComponents(in pickerView: UIPickerView) -> Int
