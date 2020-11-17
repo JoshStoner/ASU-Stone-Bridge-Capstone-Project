@@ -212,4 +212,28 @@ class ImageButtonHandler {
         
     }
     
+    //creates an array that holds all of the images that have been added to buttons in this handler
+    public func getImages() -> [UIImage]
+    {
+        var images: [UIImage] = []
+        var i = 0
+        var moreImages = true
+        while(i < maxButtons && moreImages)
+        {
+            let buttonImage = buttons[i].backgroundImage(for: .normal)
+            //if the image is the default image there are no more images
+            if (buttonImage === defaultImagePickerPhoto || buttonImage == nil)
+            {
+                moreImages = false
+            } else
+            {
+                images.append(buttonImage!)
+            }
+            
+            i += 1
+        }
+        
+        return images
+    }
+    
 }

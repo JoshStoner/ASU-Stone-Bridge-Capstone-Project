@@ -18,12 +18,15 @@ class InspectionCategory {
     var tag : Int  // the tag that all of the elements will have
     var height : Double //total height of the rectangle that the elements use
     var width : Double //total width of the rectangle that the elements use
+    var hasPictures : Bool // whether or not this category has pictures
+    
     
     var inspectionPicturesSourceButton : UIButton?
     
     let defaultPhoto = UIImage(systemName:"plus.rectangle.on.folder")
     public init(categoryName: String, topLeftPoint: CGPoint, view: UIView, tagNumber: Int, hasPictures: Bool, pullDownView: UIPickerView)
     {
+        self.hasPictures = hasPictures
         tag = tagNumber
         //initializes all the parts of an inspection category
         defaultComment = "add optional Comment"
@@ -103,4 +106,34 @@ class InspectionCategory {
         return inspectionPictures
     }
     
+    public func getImages() -> [UIImage]
+    {
+        var images: [UIImage] = []
+        if (hasPictures)
+        {
+            images = inspectionPictures!.getImages()
+        }
+        return images
+    }
+    
+    public func getData() -> InspectionCategoryData
+    {
+        let category = inspectionLabel.text
+        let images = getImages()
+        let comment = inspectionComment.text
+        let applicable = inspectionYNField.text
+        let data = InspectionCategoryData(categoryName: category ?? "", images: images, comment: comment ?? "", applicable: applicable ?? "")
+        return data
+    }
+    
+}
+
+
+// struct that contains the data for an inspection category
+struct InspectionCategoryData
+{
+    var categoryName : String
+    var images : [UIImage]
+    var comment : String
+    var applicable : String
 }

@@ -84,6 +84,7 @@ class InspectionFormViewController: UIViewController, UIPickerViewDataSource, UI
         
         isCategory.getSourceButton()?.addTarget(self, action: #selector(showImagePicker(_:)), for: .touchUpInside)
         ibhandler.append(isCategory.getImageButtonHandler()!)
+        isCategory.getData()
         
     }
     
