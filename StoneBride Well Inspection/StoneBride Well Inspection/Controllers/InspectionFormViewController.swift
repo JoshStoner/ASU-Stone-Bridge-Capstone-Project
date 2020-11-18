@@ -53,6 +53,9 @@ class InspectionFormViewController: UIViewController, UIPickerViewDataSource, UI
     //controls the addition and removal of image buttons when images are added/removed
     private var ibhandler : [ImageButtonHandler] = []
     
+    //holds all of the inspection categories
+    private var isCategories : [InspectionCategory] = []
+    
     override func viewDidLoad() {
         super.viewDidLoad()
 
@@ -80,12 +83,12 @@ class InspectionFormViewController: UIViewController, UIPickerViewDataSource, UI
     
         
         let point = CGPoint(x: 10, y: 650)
-        let isCategory = InspectionCategory(categoryName: "well stuff", topLeftPoint: point, view: oilField.superview!, tagNumber: 2, hasPictures: true, pullDownView: spills)
+        let isCategory = InspectionCategory(categoryName: "well stuff", topLeftPoint: point, view: oilField.superview!, tagNumber: 2, hasPictures: true, pullDownView: spills, imagePresenter: self)
         
         isCategory.getSourceButton()?.addTarget(self, action: #selector(showImagePicker(_:)), for: .touchUpInside)
-        ibhandler.append(isCategory.getImageButtonHandler()!)
+        //ibhandler.append(isCategory.getImageButtonHandler()!)
         isCategory.getData()
-        
+        isCategories.append(isCategory)
     }
     
     func numberOfComponents(in pickerView: UIPickerView) -> Int
