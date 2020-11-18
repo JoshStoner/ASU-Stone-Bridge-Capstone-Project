@@ -2,7 +2,7 @@
 <document type="com.apple.InterfaceBuilder3.CocoaTouch.Storyboard.XIB" version="3.0" toolsVersion="17156" targetRuntime="iOS.CocoaTouch" propertyAccessControl="none" useAutolayout="YES" useTraitCollections="YES" useSafeAreas="YES" colorMatched="YES" initialViewController="Avi-yq-k7w">
     <device id="retina4_7" orientation="portrait" appearance="light"/>
     <dependencies>
-        <plugIn identifier="com.apple.InterfaceBuilder.IBCocoaTouchPlugin" version="17125"/>
+        <plugIn identifier="com.apple.InterfaceBuilder.IBCocoaTouchPlugin" version="17126"/>
         <capability name="Safe area layout guides" minToolsVersion="9.0"/>
         <capability name="System colors in document resources" minToolsVersion="11.0"/>
         <capability name="documents saved in the Xcode 8 format" minToolsVersion="8.0"/>
@@ -189,7 +189,7 @@
             <objects>
                 <viewController id="izk-xh-wEQ" customClass="InspectionFormViewController" customModule="StoneBride_Well_Inspection" customModuleProvider="target" sceneMemberID="viewController">
                     <view key="view" contentMode="scaleToFill" id="rxh-5d-03b">
-                        <rect key="frame" x="0.0" y="0.0" width="375" height="1100"/>
+                        <rect key="frame" x="0.0" y="0.0" width="375" height="8600"/>
                         <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
                         <subviews>
                             <navigationBar contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="HUU-Aa-zUp">
@@ -210,10 +210,10 @@
                                 </items>
                             </navigationBar>
                             <scrollView clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="TQS-U4-Cof">
-                                <rect key="frame" x="0.0" y="49" width="375" height="1051"/>
+                                <rect key="frame" x="0.0" y="49" width="375" height="8551"/>
                                 <subviews>
                                     <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="CyW-IL-XdA">
-                                        <rect key="frame" x="0.0" y="0.0" width="375" height="1000"/>
+                                        <rect key="frame" x="0.0" y="0.0" width="375" height="8500"/>
                                         <subviews>
                                             <textField opaque="NO" contentMode="scaleToFill" fixedFrame="YES" contentHorizontalAlignment="left" contentVerticalAlignment="center" borderStyle="roundedRect" textAlignment="natural" minimumFontSize="17" translatesAutoresizingMaskIntoConstraints="NO" id="mjP-lN-EUw">
                                                 <rect key="frame" x="168" y="61" width="110" height="34"/>
@@ -339,7 +339,7 @@
                                         </subviews>
                                         <color key="backgroundColor" systemColor="systemBackgroundColor"/>
                                         <constraints>
-                                            <constraint firstAttribute="height" constant="1000" id="Wv1-9I-s3f"/>
+                                            <constraint firstAttribute="height" constant="8500" id="Wv1-9I-s3f"/>
                                         </constraints>
                                     </view>
                                 </subviews>
@@ -370,7 +370,7 @@
                         </constraints>
                     </view>
                     <navigationItem key="navigationItem" id="mqi-wW-gll"/>
-                    <size key="freeformSize" width="375" height="1100"/>
+                    <size key="freeformSize" width="375" height="8600"/>
                     <connections>
                         <outlet property="dateField" destination="bKh-hp-izK" id="Oq9-iU-a68"/>
                         <outlet property="inspectionDoneField" destination="zg9-ga-ice" id="yzg-0M-74c"/>
@@ -388,7 +388,7 @@
                 <placeholder placeholderIdentifier="IBFirstResponder" id="ut3-tP-uRo" userLabel="First Responder" customClass="UIResponder" sceneMemberID="firstResponder"/>
                 <exit id="3iu-wa-3DY" userLabel="Exit" sceneMemberID="exit"/>
             </objects>
-            <point key="canvasLocation" x="1791" y="-1152"/>
+            <point key="canvasLocation" x="4159" y="-1497"/>
         </scene>
         <!--Navigation Controller-->
         <scene sceneID="2Sw-KJ-1aZ">
@@ -409,7 +409,7 @@
         </scene>
     </scenes>
     <resources>
-        <image name="plus.rectangle.on.folder" catalog="system" width="32" height="32"/>
+        <image name="plus.rectangle.on.folder" catalog="system" width="128" height="96"/>
         <systemColor name="systemBackgroundColor">
             <color white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
         </systemColor>

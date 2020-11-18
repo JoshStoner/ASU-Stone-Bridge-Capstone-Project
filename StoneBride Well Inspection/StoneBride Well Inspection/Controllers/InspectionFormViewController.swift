@@ -64,7 +64,19 @@ class InspectionFormViewController: UIViewController, UIPickerViewDataSource, UI
         let spills = UIPickerView()
         spills.delegate = self
         
+        let toolbar = UIToolbar(frame: CGRect(x: 0, y: 0, width: self.view.frame.width, height: 40))
+        
+        //add a bar style if wanted
+        //add a tintColor if wanted
+        
+        let doneButton = UIBarButtonItem(barButtonSystemItem: UIBarButtonItem.SystemItem.done, target: self, action: #selector(InspectionFormViewController.donePressed(sender:)))
+        
+        let flexButton = UIBarButtonItem(barButtonSystemItem: UIBarButtonItem.SystemItem.flexibleSpace, target: self, action: nil)
+        
+        toolbar.setItems([flexButton,doneButton], animated: true)
+        
         spillsField.inputView = spills
+        spillsField.inputAccessoryView = toolbar
         // Do any additional setup after loading the view.
         
         //initiates the image picker used for the spill photo
@@ -94,9 +106,16 @@ class InspectionFormViewController: UIViewController, UIPickerViewDataSource, UI
         point = CGPoint(x:10, y: 1000)
         for i in 0..<inspectionCategoriesNames.count
         {
-            
+            if i < 4
+            {
             isCategories.append(InspectionCategory(categoryName: inspectionCategoriesNames[i], topLeftPoint: point, view: oilField.superview!, tagNumber: 3 + i, hasPictures: true,  imagePresenter: self))
             point.y += CGFloat(isCategories[i + 1].getHeight() + 10)
+            }
+            else
+            {
+                isCategories.append(InspectionCategory(categoryName: inspectionCategoriesNames[i], topLeftPoint: point, view: oilField.superview!, tagNumber: 3 + i, hasPictures: false,  imagePresenter: self))
+                point.y += CGFloat(isCategories[i + 1].getHeight() + 10)
+            }
         }
     }
     
@@ -118,6 +137,11 @@ class InspectionFormViewController: UIViewController, UIPickerViewDataSource, UI
     func pickerView(_ pickerView: UIPickerView, didSelectRow row: Int, inComponent component: Int)
     {
         spillsField.text = choices[row]
+    }
+    
+    @objc func donePressed(sender: UIBarButtonItem)
+    {
+        spillsField.resignFirstResponder()
     }
 
     //Doesn't work on emulator, seems to work on an actual mac

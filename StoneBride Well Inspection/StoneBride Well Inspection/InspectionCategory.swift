@@ -79,7 +79,19 @@ class InspectionCategory: NSObject, UIPickerViewDataSource, UIPickerViewDelegate
         pullDown.delegate = self
         pullDown.dataSource = self
         
+        let toolbar = UIToolbar(frame: CGRect(x: 0, y: 0, width: 40, height: 40))
+        
+        //add a bar style if wanted
+        //add a tintColor if wanted
+        
+        let doneButton = UIBarButtonItem(barButtonSystemItem: UIBarButtonItem.SystemItem.done, target: self, action: #selector(InspectionFormViewController.donePressed(sender:)))
+        
+        let flexButton = UIBarButtonItem(barButtonSystemItem: UIBarButtonItem.SystemItem.flexibleSpace, target: self, action: nil)
+        
+        toolbar.setItems([flexButton, doneButton], animated: true)
+        
         inspectionYNField.inputView = pullDown
+        inspectionYNField.inputAccessoryView = toolbar
         
         
         //initializes the picture related variables
@@ -207,6 +219,11 @@ class InspectionCategory: NSObject, UIPickerViewDataSource, UIPickerViewDelegate
     func pickerView(_ pickerView: UIPickerView, didSelectRow row: Int, inComponent component: Int)
     {
         inspectionYNField.text = choices[row]
+    }
+    
+    @objc func donePressed(sender: UIBarButtonItem)
+    {
+        inspectionYNField.resignFirstResponder()
     }
     /*
     func pickerView(_ pickerView: UIPickerView, rowHeightForComponent: Int) -> CGFloat
