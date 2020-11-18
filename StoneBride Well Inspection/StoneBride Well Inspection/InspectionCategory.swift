@@ -15,7 +15,7 @@ class InspectionCategory: NSObject, UIPickerViewDataSource, UIPickerViewDelegate
     var inspectionComment : UITextField
     var inspectionPictures : ImageButtonHandler?
     var inspectionYNField : UITextField
-    var defaultComment : String // the placeholder text for the comment
+    var defaultComment : String = "Add optional comment"// the placeholder text for the comment
     var tag : Int  // the tag that all of the elements will have
     var height : Double //total height of the rectangle that the elements use
     var width : Double //total width of the rectangle that the elements use
@@ -29,13 +29,12 @@ class InspectionCategory: NSObject, UIPickerViewDataSource, UIPickerViewDelegate
     
     let choices = ["", "Yes", "No", "N/A"] // options that can be chosen in the picker view
     
-    public init(categoryName: String, topLeftPoint: CGPoint, view: UIView, tagNumber: Int, hasPictures: Bool, pullDownView: UIPickerView, imagePresenter: UIViewController)
+    public init(categoryName: String, topLeftPoint: CGPoint, view: UIView, tagNumber: Int, hasPictures: Bool,  imagePresenter: UIViewController)
     {
         
         self.hasPictures = hasPictures
         tag = tagNumber
         //initializes all the parts of an inspection category
-        defaultComment = "add optional Comment"
         
         //initializes the inspection label
         let inspectionLabelSize = CGSize(width: 200, height: 20)
@@ -51,6 +50,7 @@ class InspectionCategory: NSObject, UIPickerViewDataSource, UIPickerViewDelegate
         inspectionYNField = UITextField(frame: CGRect(x: topLeftPoint.x + inspectionLabelSize.width + 10, y: topLeftPoint.y, width: inspectionLabelYNSize.width, height: inspectionLabelYNSize.height))
         inspectionYNField.tag = tag
         inspectionYNField.borderStyle = .bezel
+        inspectionYNField.text = ""
         
         
         
@@ -113,6 +113,28 @@ class InspectionCategory: NSObject, UIPickerViewDataSource, UIPickerViewDelegate
         }
     }
     
+    //creates and returns an inspection category given a set of inspection category data and necessary information
+    public static func loadInspectionCategory(data: InspectionCategoryData, topLeftPoint: CGPoint, view: UIView, tagNumber: Int, hasPictures: Bool, pullDownView: UIPickerView, imagePresenter: UIViewController) -> InspectionCategory
+    {
+        let isCategory = InspectionCategory(categoryName: data.categoryName, topLeftPoint: topLeftPoint, view: view, tagNumber: tagNumber, hasPictures: hasPictures, imagePresenter: imagePresenter)
+        
+        //sets all of the text fields to the values in the Inspection Category data
+        isCategory.inspectionYNField.text = data.applicable
+        isCategory.inspectionComment.text = data.comment
+        
+        //checks if there are pictures
+        if (hasPictures && data.images.count > 0)
+        {
+            //adds all of the pictures to the category
+            for i in 0..<data.images.count
+            {
+                isCategory.inspectionPictures?.addImage(image: data.images[i])
+            }
+        }
+        
+        return isCategory
+    }
+    
     public func getWidth() -> Double
     {
         return width
@@ -152,6 +174,19 @@ class InspectionCategory: NSObject, UIPickerViewDataSource, UIPickerViewDelegate
         let data = InspectionCategoryData(categoryName: category ?? "", images: images, comment: comment ?? "", applicable: applicable ?? "")
         return data
     }
+    
+    //returns true if the necessary fields have been edited, currently that is just the YN field
+    func isEdited() -> Bool
+    {
+        if (inspectionYNField.text != "")
+        {
+            return true
+        }
+        return false
+    }
+    
+    
+    
     
     //functions for the picker view compatability
     func numberOfComponents(in pickerView: UIPickerView) -> Int
@@ -202,6 +237,8 @@ class InspectionCategory: NSObject, UIPickerViewDataSource, UIPickerViewDelegate
         }
         
     }
+    
+    
 }
 
 

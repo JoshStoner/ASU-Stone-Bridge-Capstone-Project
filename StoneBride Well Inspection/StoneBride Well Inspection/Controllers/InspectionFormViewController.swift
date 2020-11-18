@@ -82,13 +82,22 @@ class InspectionFormViewController: UIViewController, UIPickerViewDataSource, UI
         ibhandler.append(ImageButtonHandler(sourceButton: pictureButton2, tag: 1, numberOfButtons: 3, buttonSpace: tempRect))
     
         
-        let point = CGPoint(x: 10, y: 650)
-        let isCategory = InspectionCategory(categoryName: "well stuff", topLeftPoint: point, view: oilField.superview!, tagNumber: 2, hasPictures: true, pullDownView: spills, imagePresenter: self)
+        var point = CGPoint(x: 10, y: 650)
+        let isCategory = InspectionCategory(categoryName: "well stuff", topLeftPoint: point, view: oilField.superview!, tagNumber: 2, hasPictures: true, imagePresenter: self)
         
-        isCategory.getSourceButton()?.addTarget(self, action: #selector(showImagePicker(_:)), for: .touchUpInside)
+        //isCategory.getSourceButton()?.addTarget(self, action: #selector(showImagePicker(_:)), for: .touchUpInside)
         //ibhandler.append(isCategory.getImageButtonHandler()!)
-        isCategory.getData()
+        //isCategory.getData()
         isCategories.append(isCategory)
+        
+        //adds all of the inspection categories to the document
+        point = CGPoint(x:10, y: 1000)
+        for i in 0..<inspectionCategoriesNames.count
+        {
+            
+            isCategories.append(InspectionCategory(categoryName: inspectionCategoriesNames[i], topLeftPoint: point, view: oilField.superview!, tagNumber: 3 + i, hasPictures: true,  imagePresenter: self))
+            point.y += CGFloat(isCategories[i + 1].getHeight() + 10)
+        }
     }
     
     func numberOfComponents(in pickerView: UIPickerView) -> Int

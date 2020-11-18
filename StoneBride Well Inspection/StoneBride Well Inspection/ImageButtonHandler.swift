@@ -72,6 +72,7 @@ class ImageButtonHandler {
         return newButton
     }
     
+    //with an update to how the inspection category works, this might not need to return the button any more
     //handles what happens when a button has its image changed
     //if a new button is added it returns the new button to the class containing this to add the function to the button
     public func handleChange(changedButton: UIButton, action: String, newImage: UIImage?) -> UIButton?
@@ -138,6 +139,15 @@ class ImageButtonHandler {
         return returnButton
     }
     
+    //used to programmatically add an image
+    public func addImage(image: UIImage)
+    {
+        //makes sure there is a button to put the image in
+        if (totalPictures < maxButtons)
+        {
+            self.handleChange(changedButton: buttons[totalButtons-1], action: changeImageAction, newImage: image)
+        }
+    }
     
     //finds legal coordinates for buttons inside of the given space for the imagebuttonhandler
     //it finds up to maxButton coordinates. if it terminates early then it sets max buttons to the number of coordinates that it found
