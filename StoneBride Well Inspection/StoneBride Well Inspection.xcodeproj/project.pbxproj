@@ -22,6 +22,7 @@
 		2F3E687525321C31002A87EF /* inspectionList.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2F3E687425321C31002A87EF /* inspectionList.swift */; };
 		2F407B882544BE1100AA2C0F /* TableCellViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2F407B872544BE1100AA2C0F /* TableCellViewController.swift */; };
 		2F407B8C2544C0F000AA2C0F /* TableViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2F407B8B2544C0F000AA2C0F /* TableViewController.swift */; };
+		D05A1012256B0A75004D89CB /* InspectionFormCategory.swift in Sources */ = {isa = PBXBuildFile; fileRef = D05A1011256B0A75004D89CB /* InspectionFormCategory.swift */; };
 		D0CAC92325575B0C0022DA9A /* InspectionFormEntity+CoreDataProperties.swift in Sources */ = {isa = PBXBuildFile; fileRef = D0CAC92225575B0C0022DA9A /* InspectionFormEntity+CoreDataProperties.swift */; };
 		D0CAC92625575B4C0022DA9A /* InspectionFormEntity+CoreDataClass.swift in Sources */ = {isa = PBXBuildFile; fileRef = D0CAC92525575B4C0022DA9A /* InspectionFormEntity+CoreDataClass.swift */; };
 		D0CAC92925575D0C0022DA9A /* inspectionFormModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = D0CAC92825575D0C0022DA9A /* inspectionFormModel.swift */; };
@@ -45,6 +46,7 @@
 		2F3E687425321C31002A87EF /* inspectionList.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = inspectionList.swift; sourceTree = "<group>"; };
 		2F407B872544BE1100AA2C0F /* TableCellViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TableCellViewController.swift; sourceTree = "<group>"; };
 		2F407B8B2544C0F000AA2C0F /* TableViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TableViewController.swift; sourceTree = "<group>"; };
+		D05A1011256B0A75004D89CB /* InspectionFormCategory.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = InspectionFormCategory.swift; sourceTree = "<group>"; };
 		D0CAC92225575B0C0022DA9A /* InspectionFormEntity+CoreDataProperties.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "InspectionFormEntity+CoreDataProperties.swift"; sourceTree = "<group>"; };
 		D0CAC92525575B4C0022DA9A /* InspectionFormEntity+CoreDataClass.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "InspectionFormEntity+CoreDataClass.swift"; sourceTree = "<group>"; };
 		D0CAC92825575D0C0022DA9A /* inspectionFormModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = inspectionFormModel.swift; sourceTree = "<group>"; };
@@ -111,6 +113,7 @@
 			isa = PBXGroup;
 			children = (
 				D0CAC92825575D0C0022DA9A /* inspectionFormModel.swift */,
+				D05A1011256B0A75004D89CB /* InspectionFormCategory.swift */,
 			);
 			path = Models;
 			sourceTree = "<group>";
@@ -203,6 +206,7 @@
 				03BF3D87255EB6770053D623 /* InspectionCategory.swift in Sources */,
 				2F3E687525321C31002A87EF /* inspectionList.swift in Sources */,
 				03BE8D3F25569E2800CB35C8 /* ImageButtonHandler.swift in Sources */,
+				D05A1012256B0A75004D89CB /* InspectionFormCategory.swift in Sources */,
 				D0CAC92325575B0C0022DA9A /* InspectionFormEntity+CoreDataProperties.swift in Sources */,
 				2F3E687325321B0F002A87EF /* InspectionFormViewController.swift in Sources */,
 				03F467E5253C090A00FC7B03 /* ImagePicker.swift in Sources */,

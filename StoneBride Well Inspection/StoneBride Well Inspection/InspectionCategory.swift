@@ -31,34 +31,37 @@ class InspectionCategory: NSObject, UIPickerViewDataSource, UIPickerViewDelegate
     
     public init(categoryName: String, topLeftPoint: CGPoint, view: UIView, tagNumber: Int, hasPictures: Bool,  imagePresenter: UIViewController)
     {
-        
         self.hasPictures = hasPictures
         tag = tagNumber
         //initializes all the parts of an inspection category
         
         //initializes the inspection label
-        let inspectionLabelSize = CGSize(width: 200, height: 20)
+        let inspectionLabelSize = CGSize(width: 330, height: 20)
         
         inspectionLabel = UILabel(frame: CGRect(origin: topLeftPoint, size: inspectionLabelSize))
-        inspectionLabel.text = categoryName
+        //setting the font to be bold with a size of 18
+        let boldFont = [NSAttributedString.Key.font: UIFont.boldSystemFont(ofSize: 18)]
+        let boldText = NSMutableAttributedString(string: categoryName, attributes: boldFont)
+        
+        inspectionLabel.attributedText = boldText//categoryName
         inspectionLabel.tag = tag
         
         
         //initializes the YN text field
-        let inspectionLabelYNSize = CGSize(width: 100, height: 20)
+        let inspectionLabelYNSize = CGSize(width: 97, height: 34)
         
-        inspectionYNField = UITextField(frame: CGRect(x: topLeftPoint.x + inspectionLabelSize.width + 10, y: topLeftPoint.y, width: inspectionLabelYNSize.width, height: inspectionLabelYNSize.height))
+        inspectionYNField = UITextField(frame: CGRect(x: topLeftPoint.x, y: topLeftPoint.y+30, width: inspectionLabelYNSize.width, height: inspectionLabelYNSize.height))
         inspectionYNField.tag = tag
         inspectionYNField.borderStyle = .bezel
         inspectionYNField.text = ""
         
         
-        
         //initializes the comment
-        let InspectionCommentFrameWidth = inspectionLabelSize.width + 10 + inspectionLabelYNSize.width
-        let inspectionCommentFrame = CGRect(x: topLeftPoint.x, y: topLeftPoint.y + inspectionLabelSize.height + 10, width: InspectionCommentFrameWidth, height: 100)
+        let InspectionCommentFrameWidth = 200 + 10 + inspectionLabelYNSize.width
+        let inspectionCommentFrame = CGRect(x: topLeftPoint.x, y: topLeftPoint.y + inspectionLabelSize.height + 50, width: InspectionCommentFrameWidth, height: 100)
         inspectionComment = UITextField(frame: inspectionCommentFrame)
         inspectionComment.placeholder = defaultComment;
+        
         
         inspectionComment.tag = tag
         inspectionComment.borderStyle = .bezel
@@ -121,7 +124,7 @@ class InspectionCategory: NSObject, UIPickerViewDataSource, UIPickerViewDelegate
             inspectionPictures = nil
             
             //calculates height not including pictures
-            height = inspectionCommentFrame.maxY.native - topLeftPoint.y.native
+            height = inspectionCommentFrame.maxY.native - topLeftPoint.y.native + 20
         }
     }
     
