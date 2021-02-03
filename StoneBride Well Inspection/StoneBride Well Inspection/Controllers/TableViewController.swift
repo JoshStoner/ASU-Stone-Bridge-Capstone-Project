@@ -168,23 +168,66 @@ class TableViewController: UIViewController, UITableViewDelegate, UITableViewDat
         
             var wellName = ""
             var date = ""
+            var yn = "1"
+            var opt = "1"
             
+            var i = 0
+            //var set = CoreDataHandler.fetchSection()
+
+            var testing = fetchResults[selectedIndex.row].section
+            //NSSortDescriptor sortDescriptor = [NSSortDescriptor sortDescriptorWithKey:@"tagN" ascending:YES]
+            var ee = (testing?.allObjects as! [InspectionFormCategoryEntity]).sorted(by: {$0.tagN < $1.tagN})
+            
+                //fetchResults[selectedIndex.row].section
+            //print(set?.count)
+            print(ee.count)
             wellName = fetchResults[selectedIndex.row].wellName!
             date = fetchResults[selectedIndex.row].date!
+            while i < ee.count
+            {
+                if (i > 30)
+                {
+                    break
+                }
+                print("i = \(i)")
+                print("tagN = \(ee[i].tagN)")
+                print("category tagNum = \(ee[i].category?.tagNum)")
+                print("category ynAns = \(ee[i].category?.ynAns)")
+                print("category optComm = \(ee[i].category?.optComm)")
+                //print(set![i].tagN)
+                //print(set![i].category?.tagNum)
+                //print(set![i].category?.ynAns)
+                //print(set![i].category?.optComm)
+                //print(set?.count)
+                /*print("set[i].tagNum = \(Int(set![i].tagNum))")
+                print("set[i].yn = \(set![i].ynAns)")
+                print("set[i].optComm = \(set![i].optComm)")*/
+                if Int(ee[i].tagN) == 6
+                {
+                    print("yay")
+                    yn = (ee[i].category?.ynAns)!
+                    opt = (ee[i].category?.optComm)!
+                    break
+                }
+                i += 1
+            }
+            
             
             //let wellName = formList!.getWellName(item: selectedIndex.row)
             //let date = formList!.getDate(item: selectedIndex.row)
         
         
-            if #available(iOS 14, *) {
+            //if #available(iOS 14, *) {
                 let des = segue.destination as! TableCellViewController
             
                 //des.indexPath = selectedIndex
                 des.iFTitle = wellName
                 des.iFDate = date
-            } else {
+                des.iFyntext = yn
+                des.iFoptcomm = opt
+            //} else {
                 // Fallback on earlier versions
-            }
+            //}
         }
     }
     
@@ -204,3 +247,28 @@ class TableViewController: UIViewController, UITableViewDelegate, UITableViewDat
     }
     
 }
+
+/*class CoreDataHandler: NSObject
+{
+    private static func getContext() -> NSManagedObjectContext
+    {
+        let appDelegate = (UIApplication.shared.delegate as! AppDelegate).persistentContainer.viewContext
+        
+        return appDelegate
+    }
+    
+    static func fetchSection() -> [InspectionFormCategoryEntity]?
+    {
+        let context = getContext()
+        
+        do
+        {
+            let sections: [InspectionFormCategoryEntity] = try context.fetch(InspectionFormCategoryEntity.fetchRequest())
+            return sections
+        }
+        catch
+        {
+            return nil
+        }
+    }
+}*/

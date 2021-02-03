@@ -1,7 +1,9 @@
 <?xml version="1.0" encoding="UTF-8" standalone="yes"?>
 <model type="com.apple.IDECoreDataModeler.DataModel" documentVersion="1.0" lastSavedToolsVersion="17192" systemVersion="19H2" minimumToolsVersion="Automatic" sourceLanguage="Swift" userDefinedModelVersionIdentifier="">
-    <entity name="InspectionFormCategoryEntity" representedClassName="InspectionFormCategoryEntity" syncable="YES" codeGenerationType="class">
-        <attribute name="subView" optional="YES" attributeType="Transformable" customClassName="InspectionFormCategory"/>
+    <entity name="InspectionFormCategoryEntity" representedClassName="InspectionFormCategoryEntity" syncable="YES">
+        <attribute name="tagN" optional="YES" attributeType="Integer 64" defaultValueString="0" usesScalarValueType="YES"/>
+        <relationship name="category" optional="YES" maxCount="1" deletionRule="Nullify" destinationEntity="InspectionFormSectionEntity" inverseName="toCategories" inverseEntity="InspectionFormSectionEntity"/>
+        <relationship name="sectionNum" optional="YES" maxCount="1" deletionRule="Nullify" destinationEntity="InspectionFormEntity" inverseName="section" inverseEntity="InspectionFormEntity"/>
     </entity>
     <entity name="InspectionFormEntity" representedClassName="InspectionFormEntity" syncable="YES">
         <attribute name="date" optional="YES" attributeType="String"/>
@@ -12,9 +14,17 @@
         <attribute name="waterBarrels" optional="YES" attributeType="Integer 64" defaultValueString="0" usesScalarValueType="YES"/>
         <attribute name="wellName" optional="YES" attributeType="String"/>
         <attribute name="wellNumber" optional="YES" attributeType="Integer 64" defaultValueString="0" usesScalarValueType="YES"/>
+        <relationship name="section" optional="YES" toMany="YES" deletionRule="Nullify" destinationEntity="InspectionFormCategoryEntity" inverseName="sectionNum" inverseEntity="InspectionFormCategoryEntity"/>
+    </entity>
+    <entity name="InspectionFormSectionEntity" representedClassName="InspectionFormSectionEntity" syncable="YES">
+        <attribute name="optComm" optional="YES" attributeType="String"/>
+        <attribute name="tagNum" optional="YES" attributeType="Integer 64" defaultValueString="0" usesScalarValueType="YES"/>
+        <attribute name="ynAns" optional="YES" attributeType="String"/>
+        <relationship name="toCategories" optional="YES" toMany="YES" deletionRule="Nullify" destinationEntity="InspectionFormCategoryEntity" inverseName="category" inverseEntity="InspectionFormCategoryEntity"/>
     </entity>
     <elements>
-        <element name="InspectionFormEntity" positionX="-63" positionY="-18" width="128" height="163"/>
-        <element name="InspectionFormCategoryEntity" positionX="-63" positionY="45" width="128" height="58"/>
+        <element name="InspectionFormCategoryEntity" positionX="-163.2421875" positionY="-15.578125" width="128" height="88"/>
+        <element name="InspectionFormEntity" positionX="-324.6953125" positionY="-225.484375" width="128" height="178"/>
+        <element name="InspectionFormSectionEntity" positionX="68.3671875" positionY="-45.421875" width="128" height="103"/>
     </elements>
 </model>

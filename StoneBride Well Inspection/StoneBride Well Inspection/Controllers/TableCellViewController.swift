@@ -8,23 +8,29 @@
 import PhotosUI
 import UIKit
 
-@available(iOS 14, *)
-class TableCellViewController: UIViewController, PHPickerViewControllerDelegate// UIImagePickerControllerDelegate, UINavigationControllerDelegate
+//@available(iOS 14, *)
+class TableCellViewController: UIViewController//, PHPickerViewControllerDelegate// UIImagePickerControllerDelegate, UINavigationControllerDelegate
 {
     var didEdit:Bool?
     var newInspectionForm:inspectionForm?
     
     var indexPath:IndexPath?
     var iFTitle: String?
-    var iFDate:String?
+    var iFDate: String?
+    var iFyntext: String?
+    var iFoptcomm: String?
     
     @IBOutlet weak var titleLabel: UILabel!
     @IBOutlet weak var dateLabel: UILabel!
+    @IBOutlet weak var ynLabel: UILabel!
+    @IBOutlet weak var optLabel: UILabel!
+    @IBOutlet weak var optionalComment: UILabel!
+    @IBOutlet weak var YNtextfield: UILabel!
     
     @IBOutlet weak var imageViewer: UIImageView!
     
     
-    var config = PHPickerConfiguration(photoLibrary: PHPhotoLibrary.shared())
+    //var config = PHPickerConfiguration(photoLibrary: PHPhotoLibrary.shared())
     
     override func viewDidLoad()
     {
@@ -33,17 +39,23 @@ class TableCellViewController: UIViewController, PHPickerViewControllerDelegate/
         titleLabel.sizeToFit()
         dateLabel.text = iFDate
         dateLabel.sizeToFit()
+        
+        
+        YNtextfield.text = iFyntext
+        YNtextfield.sizeToFit()
+        optionalComment.text = iFoptcomm
+        optionalComment.sizeToFit()
         // Do any additional setup after loading the view.
         
-        config.filter = .images
-        config.selectionLimit = 4
+        //config.filter = .images
+        //config.selectionLimit = 4
     }
     
     @IBAction func selectImage(_ sender: Any)
     {
-        let picker = PHPickerViewController(configuration: config)
-        picker.delegate = self
-        present(picker, animated: true, completion: nil)
+        //let picker = PHPickerViewController(configuration: config)
+        //picker.delegate = self
+        //present(picker, animated: true, completion: nil)
         
         
         /*let photoPicker = UIImagePickerController()
@@ -52,7 +64,7 @@ class TableCellViewController: UIViewController, PHPickerViewControllerDelegate/
         self.present(photoPicker, animated: true, completion: nil)*/
     }
     
-    func picker(_ picker: PHPickerViewController, didFinishPicking results: [PHPickerResult])
+    /*func picker(_ picker: PHPickerViewController, didFinishPicking results: [PHPickerResult])
     {
         picker.dismiss(animated: true, completion: nil)
         
@@ -82,7 +94,7 @@ class TableCellViewController: UIViewController, PHPickerViewControllerDelegate/
                 print("Loaded assest is not an Image")
             }
         }
-    }
+    }*/
     
     
     

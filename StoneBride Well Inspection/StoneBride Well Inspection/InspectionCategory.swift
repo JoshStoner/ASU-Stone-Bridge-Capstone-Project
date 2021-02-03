@@ -150,6 +150,11 @@ class InspectionCategory: NSObject, UIPickerViewDataSource, UIPickerViewDelegate
         return isCategory
     }
     
+    public func getTag() -> Int
+    {
+        return tag
+    }
+    
     public func getWidth() -> Double
     {
         return width

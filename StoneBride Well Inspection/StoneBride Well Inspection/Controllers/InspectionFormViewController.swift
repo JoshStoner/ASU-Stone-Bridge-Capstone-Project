@@ -88,7 +88,7 @@ class InspectionFormViewController: UIViewController, UIPickerViewDataSource, UI
         view.addGestureRecognizer(dismissKeyboardTap)
         
         //creates the image button handler
-        let tempRect = CGRect()
+        /*let tempRect = CGRect()
         let ibHandler1Space = CGRect(x: pictureButton.frame.origin.x, y: pictureButton.frame.origin.y, width: CGFloat(4) * pictureButton.frame.width, height: CGFloat(3) * pictureButton.frame.height)
         ibhandler.append(ImageButtonHandler(sourceButton: pictureButton, tag: 0, numberOfButtons: 7, buttonSpace: ibHandler1Space))
         ibhandler.append(ImageButtonHandler(sourceButton: pictureButton2, tag: 1, numberOfButtons: 3, buttonSpace: tempRect))
@@ -100,21 +100,21 @@ class InspectionFormViewController: UIViewController, UIPickerViewDataSource, UI
         //isCategory.getSourceButton()?.addTarget(self, action: #selector(showImagePicker(_:)), for: .touchUpInside)
         //ibhandler.append(isCategory.getImageButtonHandler()!)
         //isCategory.getData()
-        isCategories.append(isCategory)
+        isCategories.append(isCategory)*/
         
         //adds all of the inspection categories to the document
-        point = CGPoint(x:10, y: 1000)
+        var point = CGPoint(x:10, y: 650)
         for i in 0..<inspectionCategoriesNames.count
         {
             if i < 4
             {
-            isCategories.append(InspectionCategory(categoryName: inspectionCategoriesNames[i], topLeftPoint: point, view: oilField.superview!, tagNumber: 3 + i, hasPictures: true,  imagePresenter: self))
-            point.y += CGFloat(isCategories[i + 1].getHeight() + 10)
+            isCategories.append(InspectionCategory(categoryName: inspectionCategoriesNames[i], topLeftPoint: point, view: oilField.superview!, tagNumber: /*3 + */i, hasPictures: true,  imagePresenter: self))
+            point.y += CGFloat(isCategories[i/* + 1*/].getHeight() + 10)
             }
             else
             {
-                isCategories.append(InspectionCategory(categoryName: inspectionCategoriesNames[i], topLeftPoint: point, view: oilField.superview!, tagNumber: 3 + i, hasPictures: false,  imagePresenter: self))
-                point.y += CGFloat(isCategories[i + 1].getHeight() + 10)
+                isCategories.append(InspectionCategory(categoryName: inspectionCategoriesNames[i], topLeftPoint: point, view: oilField.superview!, tagNumber: /*3 + */i, hasPictures: false,  imagePresenter: self))
+                point.y += CGFloat(isCategories[i/* + 1*/].getHeight() + 10)
             }
         }
     }
@@ -216,7 +216,14 @@ class InspectionFormViewController: UIViewController, UIPickerViewDataSource, UI
         
         //formList?.addForm(da: date!, inspDone: inspectionDone!, weName: wellName!, weNum: wellNumber!, spls: spills!, splsCom: spillsComment!, oil: oilBarrels!, water: waterBarrels!)*/
         
-        iModel?.saveContext(d: date, inspecDone: inspectionDone, wName: wellName, wNum: wellNumber, spilToClean: spills, spilToCleanComm: spillsComment, oBarrels: oilBarrels, wBarrels: waterBarrels)
+        iModel?.saveContext(d: date, inspecDone: inspectionDone, wName: wellName, wNum: wellNumber, spilToClean: spills, spilToCleanComm: spillsComment, oBarrels: oilBarrels, wBarrels: waterBarrels, categories: isCategories)
+        
+        /*var i = 0
+        while i < 30
+        {
+            print(isCategories[i].tag)
+            i += 1
+        }*/
     }
     /*
     // MARK: - Navigation
