@@ -40,11 +40,20 @@ class ViewController: UIViewController {
     @IBAction func addInspectionForm(_ sender: Any)
     {
         Inspection.addInspection(wellName: EnteredWellName.text!, date: EnteredDate.text!)
-        Inspection.listInspectionForm()
         
         Inspection.addWell(comment: EnteredComment.text!, Category: EnteredWellCategory.text!, YesOrNo: EnteredY_N.text!)
-        Inspection.listWell()
     }
     
+    @IBAction func deleteButton(_ sender: Any) {
+        Inspection.delete()
+        
+    }
+    
+    @IBAction func listAll(_ sender: Any) {
+        Inspection.listInspectionForm()
+
+        Inspection.listWell()
+
+    }
 }
 

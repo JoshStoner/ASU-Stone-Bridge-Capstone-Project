@@ -31,7 +31,21 @@ class InspectionForms
        
 
     }
-    
+    // Deleteing all Tables
+    func delete()
+    {
+        do{
+            try self.database.run(EmployeeTable.drop(ifExists: true))
+            try self.database.run(InspectionForm.drop(ifExists: true))
+            try self.database.run(Pictures.drop(ifExists: true))
+            try self.database.run(wellCharacteristics.drop(ifExists: true))
+        
+            print("Tables deleted Sucessfully.")
+        }catch{
+            print("Cannot delete tables.")
+        }
+        
+    }
     // EmployeeTable
     let EmployeeTable = Table("Employee")
     // Columns
@@ -205,8 +219,8 @@ class InspectionForms
             table.column(self.Category)
             table.column(self.YesOrNo)
             // NOT NULL CONSTRAINT
-           // table.column(self.wellID)
-            //table.foreignKey(self.wellID, references: self.InspectionForm, self.wellID)
+            table.column(self.wellID, primaryKey: true)
+            table.foreignKey(self.wellID, references: self.InspectionForm, self.wellID)
         }
         
         do{
@@ -243,7 +257,7 @@ class InspectionForms
                 print("Category: \(Well[self.Category])")
                 print("Y/N: \(Well[self.YesOrNo])")
                 print("Comment: \(Well[self.comment])")
-                //print("Well ID: \(Well[self.wellID])")
+                print("Well ID: \(Well[self.wellID])")
                 
             }
         }catch{
