@@ -37,16 +37,6 @@ class InspectionFormViewController: UIViewController, UIPickerViewDataSource, UI
     @IBOutlet weak var inspectionDoneField: UITextField!
     @IBOutlet weak var dateField: UITextField!
     
-    @IBOutlet weak var spillsField: UITextField!
-    @IBOutlet weak var spillsCommentField: UITextField!
-    
-    @IBOutlet weak var oilField: UITextField!
-    @IBOutlet weak var waterField: UITextField!
-    
-    //buttons that hold teh picture information
-    @IBOutlet weak var pictureButton: UIButton!
-    @IBOutlet weak var pictureButton2: UIButton!
-    
     //let imagePicker = UIImagePickerController()
     var spillImagePicker: ImagePicker!
     
@@ -75,8 +65,10 @@ class InspectionFormViewController: UIViewController, UIPickerViewDataSource, UI
         
         toolbar.setItems([flexButton,doneButton], animated: true)
         
-        spillsField.inputView = spills
-        spillsField.inputAccessoryView = toolbar
+        // these shouldn't be needed anymore
+        //spillsField.inputView = spills
+        //spillsField.inputAccessoryView = toolbar
+        
         // Do any additional setup after loading the view.
         
         //initiates the image picker used for the spill photo
@@ -103,20 +95,22 @@ class InspectionFormViewController: UIViewController, UIPickerViewDataSource, UI
         isCategories.append(isCategory)*/
         
         //adds all of the inspection categories to the document
-        var point = CGPoint(x:10, y: 650)
+        var point = CGPoint(x:10, y: 210)
         for i in 0..<inspectionCategoriesNames.count
         {
             if i < 4
             {
-            isCategories.append(InspectionCategory(categoryName: inspectionCategoriesNames[i], topLeftPoint: point, view: oilField.superview!, tagNumber: /*3 + */i, hasPictures: true,  imagePresenter: self))
+                isCategories.append(InspectionCategory(categoryName: inspectionCategoriesNames[i], topLeftPoint: point, view: wellNameField.superview!, tagNumber: /*3 + */i, editable: true, hasPictures: true, numberOfPictures: 4,  imagePresenter: self))
             point.y += CGFloat(isCategories[i/* + 1*/].getHeight() + 10)
+                
             }
             else
             {
-                isCategories.append(InspectionCategory(categoryName: inspectionCategoriesNames[i], topLeftPoint: point, view: oilField.superview!, tagNumber: /*3 + */i, hasPictures: false,  imagePresenter: self))
+                isCategories.append(InspectionCategory(categoryName: inspectionCategoriesNames[i], topLeftPoint: point, view: wellNameField.superview!, tagNumber: /*3 + */i, editable: true, hasPictures: false, numberOfPictures: 0,  imagePresenter: self))
                 point.y += CGFloat(isCategories[i/* + 1*/].getHeight() + 10)
             }
         }
+        print(point.y)
     }
     
     func numberOfComponents(in pickerView: UIPickerView) -> Int
@@ -136,12 +130,12 @@ class InspectionFormViewController: UIViewController, UIPickerViewDataSource, UI
     
     func pickerView(_ pickerView: UIPickerView, didSelectRow row: Int, inComponent component: Int)
     {
-        spillsField.text = choices[row]
+        //spillsField.text = choices[row]
     }
     
     @objc func donePressed(sender: UIBarButtonItem)
     {
-        spillsField.resignFirstResponder()
+        //spillsField.resignFirstResponder()
     }
 
     //Doesn't work on emulator, seems to work on an actual mac
@@ -195,7 +189,7 @@ class InspectionFormViewController: UIViewController, UIPickerViewDataSource, UI
         {
             date = dateField.text!
         }
-        
+        /*
         if spillsField.hasText == true
         {
             spills = spillsField.text!
@@ -213,7 +207,7 @@ class InspectionFormViewController: UIViewController, UIPickerViewDataSource, UI
         {
             waterBarrels = Int(waterField.text!)!
         }
-        
+        */
         //formList?.addForm(da: date!, inspDone: inspectionDone!, weName: wellName!, weNum: wellNumber!, spls: spills!, splsCom: spillsComment!, oil: oilBarrels!, water: waterBarrels!)*/
         
         iModel?.saveContext(d: date, inspecDone: inspectionDone, wName: wellName, wNum: wellNumber, spilToClean: spills, spilToCleanComm: spillsComment, oBarrels: oilBarrels, wBarrels: waterBarrels, categories: isCategories)

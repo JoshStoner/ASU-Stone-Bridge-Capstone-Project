@@ -71,7 +71,7 @@ public class inspectionFormModel
             let sectionCategories = InspectionFormSectionEntity(context: self.managedObjectContext!)
             
             sectionCategories.tagNum = Int64(categories[tagIndex].tag)
-            sectionCategories.ynAns = categories[tagIndex].inspectionYNField.text
+            sectionCategories.ynAns = categories[tagIndex].inspectionYNField?.text
             sectionCategories.optComm = categories[tagIndex].inspectionComment.text
             
             section.category = sectionCategories

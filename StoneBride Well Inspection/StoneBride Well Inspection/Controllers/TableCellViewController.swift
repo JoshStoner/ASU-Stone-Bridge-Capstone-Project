@@ -19,6 +19,18 @@ class TableCellViewController: UIViewController//, PHPickerViewControllerDelegat
     var iFDate: String?
     var iFyntext: String?
     var iFoptcomm: String?
+
+    var fetchResults = [InspectionFormEntity]()
+    
+    var ee : [InspectionFormCategoryEntity]?
+    
+    
+    //holds all of the inspection categories
+    private var isCategories : [InspectionCategory] = []
+    
+    // an array of all the different inspection descriptions
+        let inspectionCategoriesNames = ["Pictures of the Well", "Pictures of the Tank Battery", "Pictures of the Location", "Pictures of the Lease Road", "Any Spills to clean up", "Any gas leaks, oil leaks on fittings", "Any leaks around wellhead", "Does any brush need cut", "Does  it need weedeated", "Any trash that needs picked up", "Any erosion occurring", "Are there concrete vaults", "Are there old salt water pits", "Does new ID placement need painted", "Tank Gauges", "Oil BBLS:     WaterBBLS:", "Any electric drops", "Electric Meter Number", "Pump Jack make & Size", "Tubing Size", "# of Tanks and Size", "Plastic Tank/Size", "Oriifce Meter", "Separator", "Electric Motor & Size", "Gasoline Engine and Size", "Electric Line Overhead # of poles", "Concrete Sills", "Fence", "House Gas Meter/with Little Joe/Drip"]
+    
     
     @IBOutlet weak var titleLabel: UILabel!
     @IBOutlet weak var dateLabel: UILabel!
@@ -49,6 +61,45 @@ class TableCellViewController: UIViewController//, PHPickerViewControllerDelegat
         
         //config.filter = .images
         //config.selectionLimit = 4
+        
+        //fectches data from core data
+        //var testing = fetchResults[indexPath!.row].section
+        //NSSortDescriptor sortDescriptor = [NSSortDescriptor sortDescriptorWithKey:@"tagN" ascending:YES]
+        //var ee = (testing?.allObjects as! [InspectionFormCategoryEntity]).sorted(by: {$0.tagN < $1.tagN})
+        
+        //adds all of the inspection categories to the document
+        var i = 0
+        var point = CGPoint(x:10, y: 210)
+        while i < 30
+        {
+        
+            if i < 4
+            {
+                let images: [UIImage] = []
+                let categoryName = inspectionCategoriesNames[i]
+                let comment = ee![i].category?.optComm ?? ""
+                let applicable = ee![i].category?.ynAns ?? ""
+                let inspectionData = InspectionCategoryData(categoryName: categoryName, images:images, comment: comment, applicable: applicable)
+                isCategories.append(InspectionCategory.loadInspectionCategory(data: inspectionData, topLeftPoint: point, view: YNtextfield.superview!, tagNumber: i, editable: false, hasPictures: true, numberOfPictures: 0,  imagePresenter: self))
+                                    
+            point.y += CGFloat(isCategories[i/* + 1*/].getHeight() + 10)
+                
+            }
+            else
+            {
+                let images: [UIImage] = []
+                let categoryName = inspectionCategoriesNames[i]
+                let comment = ee![i].category?.optComm ?? ""
+                let applicable = ee![i].category?.ynAns ?? ""
+                let inspectionData = InspectionCategoryData(categoryName: categoryName, images:images, comment: comment, applicable: applicable)
+                isCategories.append(InspectionCategory.loadInspectionCategory(data: inspectionData, topLeftPoint: point, view: YNtextfield.superview!, tagNumber: i, editable: false, hasPictures: false, numberOfPictures: 0,  imagePresenter: self))
+                point.y += CGFloat(isCategories[i/* + 1*/].getHeight() + 10)
+            }
+            i += 1
+        }
+            
+        print(point.y)
+        
     }
     
     @IBAction func selectImage(_ sender: Any)

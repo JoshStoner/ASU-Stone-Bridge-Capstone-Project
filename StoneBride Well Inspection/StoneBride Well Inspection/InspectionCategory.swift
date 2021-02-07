@@ -12,16 +12,18 @@ import UIKit
 class InspectionCategory: NSObject, UIPickerViewDataSource, UIPickerViewDelegate, ImagePickerDelegate
 {
     var inspectionLabel : UILabel
-    var inspectionComment : UITextField
+    var inspectionComment : UITextView
     var inspectionPictures : ImageButtonHandler?
-    var inspectionYNField : UITextField
+    var inspectionYNField : UITextField? // used when editable
+    var inspectionYNLabel : UILabel? // used when not editable
+    
     var defaultComment : String = "Add optional comment"// the placeholder text for the comment
     var tag : Int  // the tag that all of the elements will have
     var height : Double //total height of the rectangle that the elements use
     var width : Double //total width of the rectangle that the elements use
     var hasPictures : Bool // whether or not this category has pictures
     var imagePicker : ImagePicker? //needed to present the image picker
-    
+    var editable: Bool = true // whether or not the category can be edited
     var inspectionPicturesSourceButton : UIButton?
     
     let defaultPhoto = UIImage(systemName:"plus.rectangle.on.folder")
@@ -29,9 +31,10 @@ class InspectionCategory: NSObject, UIPickerViewDataSource, UIPickerViewDelegate
     
     let choices = ["", "Yes", "No", "N/A"] // options that can be chosen in the picker view
     
-    public init(categoryName: String, topLeftPoint: CGPoint, view: UIView, tagNumber: Int, hasPictures: Bool,  imagePresenter: UIViewController)
+    public init(categoryName: String, topLeftPoint: CGPoint, view: UIView, tagNumber: Int, editable: Bool, hasPictures: Bool, numberOfPictures: Int,  imagePresenter: UIViewController)
     {
         self.hasPictures = hasPictures
+        self.editable = editable
         tag = tagNumber
         //initializes all the parts of an inspection category
         
@@ -49,27 +52,39 @@ class InspectionCategory: NSObject, UIPickerViewDataSource, UIPickerViewDelegate
         
         //initializes the YN text field
         let inspectionLabelYNSize = CGSize(width: 97, height: 34)
-        
-        inspectionYNField = UITextField(frame: CGRect(x: topLeftPoint.x, y: topLeftPoint.y+30, width: inspectionLabelYNSize.width, height: inspectionLabelYNSize.height))
-        inspectionYNField.tag = tag
-        inspectionYNField.borderStyle = .bezel
-        inspectionYNField.text = ""
-        
+        if (editable){
+            inspectionYNField = UITextField(frame: CGRect(x: topLeftPoint.x, y: topLeftPoint.y+30, width: inspectionLabelYNSize.width, height: inspectionLabelYNSize.height))
+            inspectionYNField!.tag = tag
+            inspectionYNField!.borderStyle = .bezel
+            inspectionYNField!.text = ""
+        } else {
+            inspectionYNLabel = UILabel(frame: CGRect(x: topLeftPoint.x, y: topLeftPoint.y+30, width: inspectionLabelYNSize.width, height: inspectionLabelYNSize.height))
+            inspectionYNLabel!.tag = tag
+            inspectionYNLabel!.text = ""
+        }
         
         //initializes the comment
         let InspectionCommentFrameWidth = 200 + 10 + inspectionLabelYNSize.width
         let inspectionCommentFrame = CGRect(x: topLeftPoint.x, y: topLeftPoint.y + inspectionLabelSize.height + 50, width: InspectionCommentFrameWidth, height: 100)
-        inspectionComment = UITextField(frame: inspectionCommentFrame)
-        inspectionComment.placeholder = defaultComment;
+        inspectionComment = UITextView(frame: inspectionCommentFrame)
+        inspectionComment.text = defaultComment;
+        inspectionComment.isEditable = self.editable
         
         
         inspectionComment.tag = tag
-        inspectionComment.borderStyle = .bezel
+        //inspectionComment.borderStyle = .bezel
         
         //adds all of the UI elements to the view
         view.addSubview(inspectionLabel)
         view.addSubview(inspectionComment)
-        view.addSubview(inspectionYNField)
+        if (self.editable){
+            view.addSubview(inspectionYNField!)
+        } else
+        {
+            view.addSubview(inspectionYNLabel!)
+        }
+        
+        
         
         height = -1
       
@@ -93,12 +108,13 @@ class InspectionCategory: NSObject, UIPickerViewDataSource, UIPickerViewDelegate
         
         toolbar.setItems([flexButton, doneButton], animated: true)
         
-        inspectionYNField.inputView = pullDown
-        inspectionYNField.inputAccessoryView = toolbar
-        
+        if (self.editable) {
+        inspectionYNField!.inputView = pullDown
+        inspectionYNField!.inputAccessoryView = toolbar
+        }
         
         //initializes the picture related variables
-        if (hasPictures) {
+        if (hasPictures && numberOfPictures > 0) {
             
             imagePicker = ImagePicker(presentationController: imagePresenter, delegate: self)
             
@@ -108,9 +124,10 @@ class InspectionCategory: NSObject, UIPickerViewDataSource, UIPickerViewDelegate
             inspectionPicturesSourceButton?.tag = tag
             inspectionPicturesSourceButton?.setBackgroundImage(defaultPhoto, for: .normal)
             
+            if (self.editable) { // only adds the action to add another picture if it is editable
             inspectionPicturesSourceButton?.addTarget(self, action: #selector(showImagePicker(_:)), for: .touchUpInside)
-            
-            inspectionPictures = ImageButtonHandler(sourceButton: inspectionPicturesSourceButton!, tag: tag, numberOfButtons: 4, buttonSpace: pictureFrame)
+            }
+            inspectionPictures = ImageButtonHandler(sourceButton: inspectionPicturesSourceButton!, tag: tag, numberOfButtons: numberOfPictures, buttonSpace: pictureFrame)
             
             //calculates height including pictures
             height = pictureFrame.maxY.native - topLeftPoint.y.native
@@ -129,14 +146,18 @@ class InspectionCategory: NSObject, UIPickerViewDataSource, UIPickerViewDelegate
     }
     
     //creates and returns an inspection category given a set of inspection category data and necessary information
-    public static func loadInspectionCategory(data: InspectionCategoryData, topLeftPoint: CGPoint, view: UIView, tagNumber: Int, hasPictures: Bool, pullDownView: UIPickerView, imagePresenter: UIViewController) -> InspectionCategory
+    public static func loadInspectionCategory(data: InspectionCategoryData, topLeftPoint: CGPoint, view: UIView, tagNumber: Int, editable: Bool, hasPictures: Bool, numberOfPictures: Int, imagePresenter: UIViewController) -> InspectionCategory
     {
-        let isCategory = InspectionCategory(categoryName: data.categoryName, topLeftPoint: topLeftPoint, view: view, tagNumber: tagNumber, hasPictures: hasPictures, imagePresenter: imagePresenter)
+        let isCategory = InspectionCategory(categoryName: data.categoryName, topLeftPoint: topLeftPoint, view: view, tagNumber: tagNumber, editable: editable, hasPictures: hasPictures, numberOfPictures: numberOfPictures, imagePresenter: imagePresenter)
         
         //sets all of the text fields to the values in the Inspection Category data
-        isCategory.inspectionYNField.text = data.applicable
         isCategory.inspectionComment.text = data.comment
-        
+        if (editable) {
+            isCategory.inspectionYNField!.text = data.applicable
+            
+        } else {
+            isCategory.inspectionYNLabel!.text = data.applicable
+        }
         //checks if there are pictures
         if (hasPictures && data.images.count > 0)
         {
@@ -190,15 +211,20 @@ class InspectionCategory: NSObject, UIPickerViewDataSource, UIPickerViewDelegate
         let category = inspectionLabel.text
         let images = getImages()
         let comment = inspectionComment.text
-        let applicable = inspectionYNField.text
-        let data = InspectionCategoryData(categoryName: category ?? "", images: images, comment: comment ?? "", applicable: applicable ?? "")
+        var applicable = ""
+        if (self.editable) {
+            applicable = inspectionYNField!.text ?? ""
+        } else {
+            applicable = inspectionYNLabel!.text ?? ""
+        }
+        let data = InspectionCategoryData(categoryName: category ?? "", images: images, comment: comment ?? "", applicable: applicable)
         return data
     }
     
     //returns true if the necessary fields have been edited, currently that is just the YN field
     func isEdited() -> Bool
     {
-        if (inspectionYNField.text != "")
+        if (self.editable && inspectionYNField!.text != "")
         {
             return true
         }
@@ -224,14 +250,15 @@ class InspectionCategory: NSObject, UIPickerViewDataSource, UIPickerViewDelegate
         return choices[row]
     }
     
+    // this function might need to have the force unwrap be contained inside a check for editable, but I'm not sure
     func pickerView(_ pickerView: UIPickerView, didSelectRow row: Int, inComponent component: Int)
     {
-        inspectionYNField.text = choices[row]
+        inspectionYNField!.text = choices[row]
     }
     
     @objc func donePressed(sender: UIBarButtonItem)
     {
-        inspectionYNField.resignFirstResponder()
+        inspectionYNField!.resignFirstResponder()
     }
     /*
     func pickerView(_ pickerView: UIPickerView, rowHeightForComponent: Int) -> CGFloat
@@ -257,7 +284,7 @@ class InspectionCategory: NSObject, UIPickerViewDataSource, UIPickerViewDelegate
         
         
         let button = inspectionPictures!.handleChange(changedButton: sender, action: action, newImage: image)
-        if (button != nil){
+        if (button != nil && self.editable){
             button?.addTarget(self, action: #selector(showImagePicker(_:)), for: .touchUpInside)
         }
         

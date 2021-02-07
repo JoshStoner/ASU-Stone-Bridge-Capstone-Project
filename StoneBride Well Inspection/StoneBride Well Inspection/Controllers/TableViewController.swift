@@ -19,7 +19,9 @@ class TableViewController: UIViewController, UITableViewDelegate, UITableViewDat
     var iModel:inspectionFormModel?
     var fetchResults = [InspectionFormEntity]()
     var selectedInspecEntity:InspectionFormEntity?
-
+    
+    
+    
     @IBOutlet weak var inspectionFormTable: UITableView!
     
     /*init(context: NSManagedObjectContext)
@@ -173,10 +175,14 @@ class TableViewController: UIViewController, UITableViewDelegate, UITableViewDat
             
             var i = 0
             //var set = CoreDataHandler.fetchSection()
-
+            
+            
+            
             var testing = fetchResults[selectedIndex.row].section
             //NSSortDescriptor sortDescriptor = [NSSortDescriptor sortDescriptorWithKey:@"tagN" ascending:YES]
             var ee = (testing?.allObjects as! [InspectionFormCategoryEntity]).sorted(by: {$0.tagN < $1.tagN})
+            
+
             
                 //fetchResults[selectedIndex.row].section
             //print(set?.count)
@@ -209,6 +215,13 @@ class TableViewController: UIViewController, UITableViewDelegate, UITableViewDat
                     opt = (ee[i].category?.optComm)!
                     break
                 }
+                
+                
+                
+                
+                
+                
+                
                 i += 1
             }
             
@@ -218,13 +231,14 @@ class TableViewController: UIViewController, UITableViewDelegate, UITableViewDat
         
         
             //if #available(iOS 14, *) {
-                let des = segue.destination as! TableCellViewController
-            
-                //des.indexPath = selectedIndex
+                
+            let des = segue.destination as! TableCellViewController                //des.indexPath = selectedIndex
                 des.iFTitle = wellName
                 des.iFDate = date
                 des.iFyntext = yn
                 des.iFoptcomm = opt
+            des.indexPath = selectedIndex
+            des.ee = ee
             //} else {
                 // Fallback on earlier versions
             //}
