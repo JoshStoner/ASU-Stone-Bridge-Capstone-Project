@@ -209,6 +209,7 @@ class InspectionForms
     }
     
     let wellCharacteristics = Table("wellCharacteristics")
+    let charID = Expression<String>("charID")
     let comment = Expression<String> ("comment")
     let Category = Expression<String>("Category")
     func createWellCharacteristicsTable()
@@ -264,6 +265,123 @@ class InspectionForms
             print(error)
         }
     }
-   
+    
+    //relationship tables
+    //Fill Table
+    let fillTable = Table("fillTable")
+    
+    func createFillTable()
+    {
+        let createTable = self.fillTable.create{    (table) in
+            table.column(self.employeeID)
+            table.column(self.wellID)
+            table.column(self.date)
+            table.foreignKey(self.employeeID, references: EmployeeTable.employeeID)
+            table.foreignKey(self.wellID, references: InspectionForm.wellID)
+            table.foreignKey(self.date, references: InspectionForm.date)
+        }
+        
+        do{
+            try self.database.run(createTable)
+            print("Created fillTable Table")
+            
+        }catch{
+            print(error)
+        }
+    }
+    
+    func listFill()
+    {
+        do{
+            let fills = try! self.database.prepare(self.fillTable)
+            
+            for fill in fills
+            {
+                print("Employee ID: \(fill[self.employeeID])")
+                print("Well ID: \(fill[self.wellID])")
+                print("Date: \(fill[self.date])")
+            }
+        }catch{
+            print(error)
+        }
+    }
+    
+    //WellImages:
+    let wellImageTable = Table("wellImageTable")
+    
+    func createWellImageTable()
+    {
+        let createTable = self.wellImageTable.create{   (table) in
+            table.column(self.wellID)
+            table.column(self.date)
+            table.picID(self.PicID)
+            table.foreignKey(self.wellID, references: InspectionForm.wellID)
+            table.foreignKey(self.date, references: InspectionForm.date)
+            table.foreignKey(self.PicID, reference: Pictures.PicID)
+        }
+        
+        do{
+            try self.database.run(createTable)
+            print("Created wellImageTable Table")
+            
+        }catch{
+            print(error)
+        }
+    }
+    
+    func listWellImage()
+    {
+        do{
+            let wellImages = try! self.database.prepare(self.wellImageTable)
+            
+            for wellImage in wellImages
+            {
+                print("Well ID: \(fill[self.wellID])")
+                print("Date: \(fill[self.date])")
+                print("Pic ID: \(fill[self.PicID])")
+            }
+        }catch{
+            print(error)
+        }
+    }
+    
+    //WellDescription:
+    let wellDescTable = Table("wellDescTable")
+    
+    func createWellDescTable()
+    {
+        let createTable = self.wellDescTable.create{   (table) in
+            table.column(self.wellID)
+            table.column(self.date)
+            table.charID(self.charID)
+            table.foreignKey(self.wellID, references: InspectionForm.wellID)
+            table.foreignKey(self.date, references: InspectionForm.date)
+            //table.foreignKey(self.charID, reference: Pictures.charID)
+        }
+        
+        do{
+            try self.database.run(createTable)
+            print("Created wellDescTable Table")
+            
+        }catch{
+            print(error)
+        }
+    }
+    
+    func listWellDesc()
+    {
+        do{
+            let wellDescs = try! self.database.prepare(self.wellImageTable)
+            
+            for wellDesc in wellDescs
+            {
+                print("Well ID: \(fill[self.wellID])")
+                print("Date: \(fill[self.date])")
+                //print("Char ID: \(fill[self.charID])")
+            }
+        }catch{
+            print(error)
+        }
+    }
 }
 
