@@ -29,7 +29,11 @@ class ViewController: UIViewController {
         Inspection.createEmployeeTable()
         Inspection.createInspectionFormTable()
         Inspection.createPictureTable()
-        Inspection.createWellCharacteristicsTable()
+        Inspection.createInspectionDescriptionTable()
+        
+        Inspection.createFillTable()
+        Inspection.createWellImageTable()
+        Inspection.createWellDescTable()
     }
     @IBAction func addEmployee(_ sender: Any)
     {
@@ -40,8 +44,8 @@ class ViewController: UIViewController {
     @IBAction func addInspectionForm(_ sender: Any)
     {
         Inspection.addInspection(wellName: EnteredWellName.text!, date: EnteredDate.text!)
-        
         Inspection.addWell(comment: EnteredComment.text!, Category: EnteredWellCategory.text!, YesOrNo: EnteredY_N.text!)
+        
     }
     
     @IBAction func deleteButton(_ sender: Any) {
@@ -55,5 +59,8 @@ class ViewController: UIViewController {
         Inspection.listWell()
 
     }
+    
+
+        
 }
 

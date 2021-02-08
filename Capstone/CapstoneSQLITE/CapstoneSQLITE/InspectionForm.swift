@@ -38,7 +38,7 @@ class InspectionForms
             try self.database.run(EmployeeTable.drop(ifExists: true))
             try self.database.run(InspectionForm.drop(ifExists: true))
             try self.database.run(Pictures.drop(ifExists: true))
-            try self.database.run(wellCharacteristics.drop(ifExists: true))
+            try self.database.run(InspectionDescription.drop(ifExists: true))
         
             print("Tables deleted Sucessfully.")
         }catch{
@@ -94,11 +94,10 @@ class InspectionForms
             for employee in employees
             {
                 print("Employee Name: \(employee[self.Name])")
-                print("Employee ID: \(employee[self.employeeID])")
-                print("Employee Password: \(employee[self.password])")
+                //print("Employee ID: \(employee[self.employeeID])")
+                //print("Employee Password: \(employee[self.password])")
                 
             }
-            
             
         }catch{
             print(error)
@@ -117,7 +116,6 @@ class InspectionForms
     {
         let createTable = self.InspectionForm.create { (table) in
             table.column(self.wellName)
-            // This is saying there cannot be a duplicate ID
             table.column(self.date)
             // Primary key will increment
             table.column(self.wellID, primaryKey: true)
@@ -146,12 +144,19 @@ class InspectionForms
         }
         
     }
+    func updateDate(date: String)
+    {
+        
+        
+        
+        
+    }
     
     func listInspectionForm()
     {
         do{
-            let Inspections = try! self.database.prepare(self.InspectionForm)
             
+            let Inspections = try! self.database.prepare(self.InspectionForm)
             for Inspection in Inspections
             {
                 print("Well ID: \(Inspection[wellID])")
@@ -208,13 +213,12 @@ class InspectionForms
         
     }
     
-    let wellCharacteristics = Table("wellCharacteristics")
-    let charID = Expression<String>("charID")
+    let InspectionDescription = Table("InspectionDescription")
     let comment = Expression<String> ("comment")
     let Category = Expression<String>("Category")
-    func createWellCharacteristicsTable()
+    func createInspectionDescriptionTable()
     {
-        let createTable = self.wellCharacteristics.create { (table) in
+        let createTable = self.InspectionDescription.create { (table) in
             
             table.column(self.comment)
             table.column(self.Category)
@@ -226,7 +230,7 @@ class InspectionForms
         
         do{
             try self.database.run(createTable)
-            print("Created WellCharacteristics Table")
+            print("Created InspectionDescription Table")
             
         }catch{
             print(error)
@@ -237,7 +241,7 @@ class InspectionForms
     func addWell(comment: String, Category: String, YesOrNo: String)
     {
         
-        let insertWell = self.wellCharacteristics.insert(self.comment <- comment, self.Category <- Category, self.YesOrNo <- YesOrNo)
+        let insertWell = self.InspectionDescription.insert(self.comment <- comment, self.Category <- Category, self.YesOrNo <- YesOrNo)
         
         do{
             try self.database.run(insertWell)
@@ -250,22 +254,20 @@ class InspectionForms
     func listWell()
     {
         do{
-            let Wells = try! self.database.prepare(self.wellCharacteristics)
+            let Wells = try! self.database.prepare(self.InspectionDescription)
             
             for Well in Wells
             {
                 
-                print("Category: \(Well[self.Category])")
+                print("Inspection Description: \(Well[self.Category])")
                 print("Y/N: \(Well[self.YesOrNo])")
                 print("Comment: \(Well[self.comment])")
                 print("Well ID: \(Well[self.wellID])")
-                
             }
         }catch{
             print(error)
         }
     }
-    
     //relationship tables
     //Fill Table
     let fillTable = Table("fillTable")
@@ -276,9 +278,9 @@ class InspectionForms
             table.column(self.employeeID)
             table.column(self.wellID)
             table.column(self.date)
-            table.foreignKey(self.employeeID, references: EmployeeTable.employeeID)
-            table.foreignKey(self.wellID, references: InspectionForm.wellID)
-            table.foreignKey(self.date, references: InspectionForm.date)
+            table.foreignKey(self.employeeID, references: self.EmployeeTable, self.employeeID)
+            table.foreignKey(self.wellID, references: self.InspectionForm, self.wellID)
+            table.foreignKey(self.date, references: self.InspectionForm, self.date)
         }
         
         do{
@@ -289,7 +291,6 @@ class InspectionForms
             print(error)
         }
     }
-    
     func listFill()
     {
         do{
@@ -305,8 +306,6 @@ class InspectionForms
             print(error)
         }
     }
-    
-    //WellImages:
     let wellImageTable = Table("wellImageTable")
     
     func createWellImageTable()
@@ -314,10 +313,10 @@ class InspectionForms
         let createTable = self.wellImageTable.create{   (table) in
             table.column(self.wellID)
             table.column(self.date)
-            table.picID(self.PicID)
-            table.foreignKey(self.wellID, references: InspectionForm.wellID)
-            table.foreignKey(self.date, references: InspectionForm.date)
-            table.foreignKey(self.PicID, reference: Pictures.PicID)
+            table.column(self.PicID)
+            table.foreignKey(self.wellID, references: InspectionForm, self.wellID)
+            table.foreignKey(self.date, references: InspectionForm, self.date)
+            table.foreignKey(self.PicID, references: Pictures, self.PicID)
         }
         
         do{
@@ -336,9 +335,9 @@ class InspectionForms
             
             for wellImage in wellImages
             {
-                print("Well ID: \(fill[self.wellID])")
-                print("Date: \(fill[self.date])")
-                print("Pic ID: \(fill[self.PicID])")
+                print("Well ID: \(wellImage[self.wellID])")
+                print("Date: \(wellImage[self.date])")
+                print("Pic ID: \(wellImage[self.PicID])")
             }
         }catch{
             print(error)
@@ -347,15 +346,16 @@ class InspectionForms
     
     //WellDescription:
     let wellDescTable = Table("wellDescTable")
-    
+    let charID = Expression<Int>("charID")
+
     func createWellDescTable()
     {
         let createTable = self.wellDescTable.create{   (table) in
             table.column(self.wellID)
             table.column(self.date)
-            table.charID(self.charID)
-            table.foreignKey(self.wellID, references: InspectionForm.wellID)
-            table.foreignKey(self.date, references: InspectionForm.date)
+            table.column(self.charID)
+            table.foreignKey(self.wellID, references: InspectionForm, self.wellID)
+            table.foreignKey(self.date, references: InspectionForm, self.date)
             //table.foreignKey(self.charID, reference: Pictures.charID)
         }
         
@@ -375,13 +375,14 @@ class InspectionForms
             
             for wellDesc in wellDescs
             {
-                print("Well ID: \(fill[self.wellID])")
-                print("Date: \(fill[self.date])")
-                //print("Char ID: \(fill[self.charID])")
+                print("Well ID: \(wellDesc[self.wellID])")
+                print("Date: \(wellDesc[self.date])")
+                print("Char ID: \(wellDesc[self.charID])")
             }
         }catch{
             print(error)
         }
     }
+   
 }
 
