@@ -133,6 +133,7 @@ class ImageButtonHandler {
                 }
                 
             }
+            //changedButton.setImage(newImage, for: .normal)
             changedButton.setBackgroundImage(newImage, for: .normal)
             
         }

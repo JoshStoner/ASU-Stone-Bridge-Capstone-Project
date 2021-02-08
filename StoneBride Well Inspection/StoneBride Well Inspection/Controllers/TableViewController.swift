@@ -238,7 +238,7 @@ class TableViewController: UIViewController, UITableViewDelegate, UITableViewDat
                 des.iFyntext = yn
                 des.iFoptcomm = opt
             des.indexPath = selectedIndex
-            des.ee = ee
+            des.ifCategory = ee
             //} else {
                 // Fallback on earlier versions
             //}

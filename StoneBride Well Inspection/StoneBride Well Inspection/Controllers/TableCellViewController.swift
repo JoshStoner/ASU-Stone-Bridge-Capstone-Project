@@ -22,7 +22,7 @@ class TableCellViewController: UIViewController//, PHPickerViewControllerDelegat
 
     var fetchResults = [InspectionFormEntity]()
     
-    var ee : [InspectionFormCategoryEntity]?
+    var ifCategory : [InspectionFormCategoryEntity]?
     
     
     //holds all of the inspection categories
@@ -75,22 +75,45 @@ class TableCellViewController: UIViewController//, PHPickerViewControllerDelegat
         
             if i < 4
             {
-                let images: [UIImage] = []
-                let categoryName = inspectionCategoriesNames[i]
-                let comment = ee![i].category?.optComm ?? ""
-                let applicable = ee![i].category?.ynAns ?? ""
-                let inspectionData = InspectionCategoryData(categoryName: categoryName, images:images, comment: comment, applicable: applicable)
-                isCategories.append(InspectionCategory.loadInspectionCategory(data: inspectionData, topLeftPoint: point, view: YNtextfield.superview!, tagNumber: i, editable: false, hasPictures: true, numberOfPictures: 0,  imagePresenter: self))
-                                    
-            point.y += CGFloat(isCategories[i/* + 1*/].getHeight() + 10)
+                var images: [UIImage] = []
+                
+                if (ifCategory![i].category?.pictureData?.hasPics == true)
+                {
+                    let savedPicEnt = (ifCategory![i].category?.pictureData?.pic?.allObjects as! [InspectionFormPicturesEntity]).sorted(by: {$0.picTag < $1.picTag})
+                    
+                    //print("Before")
+                    //print(savedPicEnt.count)
+                    //print(savedPicEnt[i].picTag)
+                    //print("AFTER")
+                    
+                    //There is something wrong with the pictures being saved or trying to be loaded into the button
+                    //I think its because the image isn't being uploaded to the button when the user tries to select a picture
+                    var j = i
+                    while j < savedPicEnt.count
+                    {
+                        //print(savedPicEnt[j].picData)
+                        let img = savedPicEnt[j].picData!
+                        images.append(UIImage(data: img)!)
+                        //print("images.count = \(images.count)")
+                        //print("Added an img to images")
+                        j += 1
+                    }
+                    let categoryName = inspectionCategoriesNames[i]
+                    let comment = ifCategory![i].category?.optComm ?? ""
+                    let applicable = ifCategory![i].category?.ynAns ?? ""
+                    let inspectionData = InspectionCategoryData(categoryName: categoryName, images:images, comment: comment, applicable: applicable)
+                    isCategories.append(InspectionCategory.loadInspectionCategory(data: inspectionData, topLeftPoint: point, view: YNtextfield.superview!, tagNumber: i, editable: false, hasPictures: true, numberOfPictures: images.count,  imagePresenter: self))
+                }
+                //print(i)
+                point.y += CGFloat(isCategories[i/* + 1*/].getHeight() + 10)
                 
             }
             else
             {
                 let images: [UIImage] = []
                 let categoryName = inspectionCategoriesNames[i]
-                let comment = ee![i].category?.optComm ?? ""
-                let applicable = ee![i].category?.ynAns ?? ""
+                let comment = ifCategory![i].category?.optComm ?? ""
+                let applicable = ifCategory![i].category?.ynAns ?? ""
                 let inspectionData = InspectionCategoryData(categoryName: categoryName, images:images, comment: comment, applicable: applicable)
                 isCategories.append(InspectionCategory.loadInspectionCategory(data: inspectionData, topLeftPoint: point, view: YNtextfield.superview!, tagNumber: i, editable: false, hasPictures: false, numberOfPictures: 0,  imagePresenter: self))
                 point.y += CGFloat(isCategories[i/* + 1*/].getHeight() + 10)

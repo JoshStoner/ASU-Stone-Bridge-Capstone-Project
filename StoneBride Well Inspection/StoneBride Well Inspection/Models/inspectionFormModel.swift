@@ -5,7 +5,7 @@
 //  Created by Tyler Ipema on 11/7/20.
 //  Copyright © 2020 ASU. All rights reserved.
 //
-
+import UIKit
 import Foundation
 import CoreData
 
@@ -76,6 +76,34 @@ public class inspectionFormModel
             
             section.category = sectionCategories
             
+            let pictures = InspectionFormPicContainerEntity(context:  self.managedObjectContext!)
+            
+            if(tagIndex < 4)
+            {
+                pictures.hasPics = true
+                
+                let pictureData = InspectionFormPicturesEntity(context: self.managedObjectContext!)
+                
+                let pics = categories[tagIndex].getImages()
+                    //categories[tagIndex].inspectionPictures?.getImages()
+                print("Hey pics is next")
+                print(pics)
+                
+                var i = 0
+                while (i < pics.count)
+                {
+                    pictureData.picData = pics[i].jpegData(compressionQuality: 1.0)
+                    pictureData.picTag = Int64(i)
+                    print("Hello")
+                    i += 1
+                }
+                pictures.addToPic(pictureData)
+            }
+            else
+            {
+                pictures.hasPics = false
+            }
+            sectionCategories.pictureData = pictures
             
             
             //section.tagNum = Int64(categories[tagIndex].tag)
