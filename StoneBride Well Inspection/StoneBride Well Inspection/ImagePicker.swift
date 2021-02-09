@@ -149,6 +149,7 @@ open class ImagePicker: NSObject {
     }
 
     private func pickerController(_ controller: UIImagePickerController, didSelect image: UIImage?, chosenAction action: String) {
+        
             controller.dismiss(animated: true, completion: nil)
 
         self.delegate?.didSelect(image: image, action: action, sender: origin!)
@@ -191,7 +192,7 @@ extension ImagePicker: UIImagePickerControllerDelegate {
     public func imagePickerController(_ picker: UIImagePickerController, didFinishPickingMediaWithInfo info: [UIImagePickerController.InfoKey : Any]) {
         
         //unwraps the image then passes it to the picker controller
-        guard let image = info[.editedImage] as? UIImage else {
+        guard let image = info[.originalImage] as? UIImage else {
             //lets the picker controller know that no image was picked
             self.pickerController(picker, didSelect: nil, chosenAction: "Cancel")
             return

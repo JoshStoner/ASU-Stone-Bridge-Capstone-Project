@@ -285,7 +285,9 @@ class InspectionCategory: NSObject, UIPickerViewDataSource, UIPickerViewDelegate
         
         let button = inspectionPictures!.handleChange(changedButton: sender, action: action, newImage: image)
         if (button != nil && self.editable){
+            //print("Adding the new image")
             button?.addTarget(self, action: #selector(showImagePicker(_:)), for: .touchUpInside)
+            //print("New Image added")
         }
         
     }

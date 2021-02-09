@@ -82,7 +82,7 @@ public class inspectionFormModel
             {
                 pictures.hasPics = true
                 
-                let pictureData = InspectionFormPicturesEntity(context: self.managedObjectContext!)
+                
                 
                 let pics = categories[tagIndex].getImages()
                     //categories[tagIndex].inspectionPictures?.getImages()
@@ -92,12 +92,14 @@ public class inspectionFormModel
                 var i = 0
                 while (i < pics.count)
                 {
+                    let pictureData = InspectionFormPicturesEntity(context: self.managedObjectContext!)
                     pictureData.picData = pics[i].jpegData(compressionQuality: 1.0)
                     pictureData.picTag = Int64(i)
-                    print("Hello")
+                    pictures.addToPic(pictureData)
+                    print("Looped once")
                     i += 1
                 }
-                pictures.addToPic(pictureData)
+                
             }
             else
             {

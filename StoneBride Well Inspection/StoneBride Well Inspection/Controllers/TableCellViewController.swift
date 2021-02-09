@@ -86,18 +86,25 @@ class TableCellViewController: UIViewController//, PHPickerViewControllerDelegat
                     //print(savedPicEnt[i].picTag)
                     //print("AFTER")
                     
-                    //There is something wrong with the pictures being saved or trying to be loaded into the button
-                    //I think its because the image isn't being uploaded to the button when the user tries to select a picture
                     var j = i
+                    //print("In loop")
                     while j < savedPicEnt.count
                     {
                         //print(savedPicEnt[j].picData)
                         let img = savedPicEnt[j].picData!
-                        images.append(UIImage(data: img)!)
+                        let saveImage = UIImage(data: img)
+                        images.insert(saveImage!, at: j)
+                        //images.append(saveImage!)
                         //print("images.count = \(images.count)")
                         //print("Added an img to images")
+                        //print("j = \(j)")
+                        //print("images.count = \(images.count)")
+                        //print("images = \(images)")
                         j += 1
                     }
+                    //print("Out of loop")
+                    //print("images.count = \(images.count)")
+                    //print("images = \(images)")
                     let categoryName = inspectionCategoriesNames[i]
                     let comment = ifCategory![i].category?.optComm ?? ""
                     let applicable = ifCategory![i].category?.ynAns ?? ""

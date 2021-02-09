@@ -186,7 +186,7 @@ class TableViewController: UIViewController, UITableViewDelegate, UITableViewDat
             
                 //fetchResults[selectedIndex.row].section
             //print(set?.count)
-            print(ee.count)
+            //print(ee.count)
             wellName = fetchResults[selectedIndex.row].wellName!
             date = fetchResults[selectedIndex.row].date!
             while i < ee.count
@@ -195,11 +195,11 @@ class TableViewController: UIViewController, UITableViewDelegate, UITableViewDat
                 {
                     break
                 }
-                print("i = \(i)")
+                /*print("i = \(i)")
                 print("tagN = \(ee[i].tagN)")
                 print("category tagNum = \(ee[i].category?.tagNum)")
                 print("category ynAns = \(ee[i].category?.ynAns)")
-                print("category optComm = \(ee[i].category?.optComm)")
+                print("category optComm = \(ee[i].category?.optComm)")*/
                 //print(set![i].tagN)
                 //print(set![i].category?.tagNum)
                 //print(set![i].category?.ynAns)
@@ -210,7 +210,7 @@ class TableViewController: UIViewController, UITableViewDelegate, UITableViewDat
                 print("set[i].optComm = \(set![i].optComm)")*/
                 if Int(ee[i].tagN) == 6
                 {
-                    print("yay")
+                    //print("yay")
                     yn = (ee[i].category?.ynAns)!
                     opt = (ee[i].category?.optComm)!
                     break
