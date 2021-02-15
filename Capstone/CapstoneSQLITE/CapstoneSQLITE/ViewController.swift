@@ -10,6 +10,7 @@ import UIKit
 class ViewController: UIViewController {
     var Inspection = InspectionForms()
     
+    @IBOutlet weak var EnteredEmployeeID: UITextField!
     @IBOutlet weak var EnteredPassword: UITextField!
     @IBOutlet weak var EnteredName: UITextField!
     @IBOutlet weak var EnteredWellName: UITextField!
@@ -18,6 +19,10 @@ class ViewController: UIViewController {
     @IBOutlet weak var EnteredComment: UITextField!
     @IBOutlet weak var EnteredY_N: UITextField!
     @IBOutlet weak var EnteredWellCategory: UITextField!
+    
+    @IBOutlet weak var EnteredWorkingEmployeeID: UITextField!
+    @IBOutlet weak var EnteredWellID: UITextField!
+    @IBOutlet weak var EnteredCharID: UITextField!
 
     override func viewDidLoad() {
         super.viewDidLoad()
@@ -37,14 +42,16 @@ class ViewController: UIViewController {
     }
     @IBAction func addEmployee(_ sender: Any)
     {
-        Inspection.addEmployee(name: EnteredName.text!, pw: EnteredPassword.text!)
+        Inspection.addEmployee(employeeID: Int(EnteredEmployeeID.text!)!, name: EnteredName.text!, pw: EnteredPassword.text!)
         Inspection.listEmployees()
     }
     
     @IBAction func addInspectionForm(_ sender: Any)
     {
-        Inspection.addInspection(wellName: EnteredWellName.text!, date: EnteredDate.text!)
-        Inspection.addWell(comment: EnteredComment.text!, Category: EnteredWellCategory.text!, YesOrNo: EnteredY_N.text!)
+        Inspection.addInspection(wellID: Int(EnteredWellID.text!)!, wellName: EnteredWellName.text!, date: EnteredDate.text!)
+        Inspection.addWell(charID: Int(EnteredCharID.text!)!, comment: EnteredComment.text!, Category: EnteredWellCategory.text!, YesOrNo: EnteredY_N.text!)
+        Inspection.addFill(employeeID: Int(EnteredWorkingEmployeeID.text!)!, wellID: Int(EnteredWellID.text!)!, date: EnteredDate.text!)
+        Inspection.addWellDesc(wellID: Int(EnteredWellID.text!)!, charID: Int(EnteredCharID.text!)!, date: EnteredDate.text!)
         
     }
     

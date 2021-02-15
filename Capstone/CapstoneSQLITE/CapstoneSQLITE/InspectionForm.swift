@@ -39,6 +39,9 @@ class InspectionForms
             try self.database.run(InspectionForm.drop(ifExists: true))
             try self.database.run(Pictures.drop(ifExists: true))
             try self.database.run(InspectionDescription.drop(ifExists: true))
+            try self.database.run(fillTable.drop(ifExists:true))
+            try self.database.run(wellImageTable.drop(ifExists:true))
+            try self.database.run(wellDescTable.drop(ifExists:true))
         
             print("Tables deleted Sucessfully.")
         }catch{
@@ -71,10 +74,10 @@ class InspectionForms
         }
         
     }
-    func addEmployee(name: String, pw: String)
+    func addEmployee(employeeID: Int, name: String, pw: String)
     {
         
-        let insertEmployee = self.EmployeeTable.insert(self.Name <- name, self.password <- pw)
+        let insertEmployee = self.EmployeeTable.insert(self.employeeID <- employeeID, self.Name <- name, self.password <- pw)
         
         do{
             try self.database.run(insertEmployee)
@@ -94,7 +97,7 @@ class InspectionForms
             for employee in employees
             {
                 print("Employee Name: \(employee[self.Name])")
-                //print("Employee ID: \(employee[self.employeeID])")
+                print("Employee ID: \(employee[self.employeeID])")
                 //print("Employee Password: \(employee[self.password])")
                 
             }
@@ -131,10 +134,10 @@ class InspectionForms
         
     }
     
-    func addInspection(wellName: String, date: String)
+    func addInspection(wellID: Int, wellName: String, date: String)
     {
         
-        let insertInspection = self.InspectionForm.insert(self.wellName <- wellName, self.date <- date)
+        let insertInspection = self.InspectionForm.insert(self.wellID <- wellID, self.wellName <- wellName, self.date <- date)
         
         do{
             try self.database.run(insertInspection)
@@ -186,8 +189,8 @@ class InspectionForms
             table.column(self.PicOfLocation)
             table.column(self.PicOfLeaseRoad)
             table.column(self.YesOrNo)
-            table.column(self.wellID)
-            table.foreignKey(self.wellID, references: self.InspectionForm, self.wellID)
+            //table.column(self.wellID)
+            //table.foreignKey(self.wellID, references: self.InspectionForm, self.wellID)
         }
         
         do{
@@ -214,6 +217,7 @@ class InspectionForms
     }
     
     let InspectionDescription = Table("InspectionDescription")
+    let charID = Expression<Int>("charID")
     let comment = Expression<String> ("comment")
     let Category = Expression<String>("Category")
     func createInspectionDescriptionTable()
@@ -224,8 +228,8 @@ class InspectionForms
             table.column(self.Category)
             table.column(self.YesOrNo)
             // NOT NULL CONSTRAINT
-            table.column(self.wellID, primaryKey: true)
-            table.foreignKey(self.wellID, references: self.InspectionForm, self.wellID)
+            table.column(self.charID, primaryKey: true)
+            //table.foreignKey(self.wellID, references: self.InspectionForm, self.wellID)
         }
         
         do{
@@ -238,10 +242,10 @@ class InspectionForms
         
     }
     
-    func addWell(comment: String, Category: String, YesOrNo: String)
+    func addWell(charID: Int, comment: String, Category: String, YesOrNo: String)
     {
         
-        let insertWell = self.InspectionDescription.insert(self.comment <- comment, self.Category <- Category, self.YesOrNo <- YesOrNo)
+        let insertWell = self.InspectionDescription.insert(self.charID <- charID, self.comment <- comment, self.Category <- Category, self.YesOrNo <- YesOrNo)
         
         do{
             try self.database.run(insertWell)
@@ -262,7 +266,7 @@ class InspectionForms
                 print("Inspection Description: \(Well[self.Category])")
                 print("Y/N: \(Well[self.YesOrNo])")
                 print("Comment: \(Well[self.comment])")
-                print("Well ID: \(Well[self.wellID])")
+                print("Description ID: \(Well[self.charID])")
             }
         }catch{
             print(error)
@@ -290,6 +294,20 @@ class InspectionForms
         }catch{
             print(error)
         }
+    }
+    func addFill(employeeID: Int, wellID: Int, date: String)
+    {
+        
+        let insertFill = self.fillTable.insert(self.employeeID <- employeeID, self.wellID <- wellID, self.date <- date)
+        
+        do{
+            try self.database.run(insertFill)
+            print("Inserted Fill")
+        }catch{
+            print(error)
+        }
+
+        
     }
     func listFill()
     {
@@ -327,7 +345,20 @@ class InspectionForms
             print(error)
         }
     }
-    
+    func addWellImage(wellID: Int, PicID: Int, date: String)
+    {
+        
+        let insertWellImage = self.wellImageTable.insert(self.wellID <- wellID, self.PicID <- PicID, self.date <- date)
+        
+        do{
+            try self.database.run(insertWellImage)
+            print("Inserted WellImage")
+        }catch{
+            print(error)
+        }
+
+        
+    }
     func listWellImage()
     {
         do{
@@ -346,7 +377,6 @@ class InspectionForms
     
     //WellDescription:
     let wellDescTable = Table("wellDescTable")
-    let charID = Expression<Int>("charID")
 
     func createWellDescTable()
     {
@@ -356,7 +386,7 @@ class InspectionForms
             table.column(self.charID)
             table.foreignKey(self.wellID, references: InspectionForm, self.wellID)
             table.foreignKey(self.date, references: InspectionForm, self.date)
-            //table.foreignKey(self.charID, reference: Pictures.charID)
+            table.foreignKey(self.charID, references: InspectionDescription, self.charID)
         }
         
         do{
@@ -367,7 +397,20 @@ class InspectionForms
             print(error)
         }
     }
-    
+    func addWellDesc(wellID: Int, charID: Int, date: String)
+    {
+        
+        let insertWellDesc = self.wellDescTable.insert(self.wellID <- wellID, self.charID <- charID, self.date <- date)
+        
+        do{
+            try self.database.run(insertWellDesc)
+            print("Inserted WellDesc")
+        }catch{
+            print(error)
+        }
+
+        
+    }
     func listWellDesc()
     {
         do{
