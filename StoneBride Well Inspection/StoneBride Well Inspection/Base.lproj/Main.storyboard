@@ -202,6 +202,7 @@
                                                 <segue destination="kUf-ro-per" kind="unwind" unwindAction="returnedToTableWithSegue:sender:" id="L5g-8T-yQ8"/>
                                             </connections>
                                         </barButtonItem>
+                                        <barButtonItem key="rightBarButtonItem" title="Edit" id="SzL-yu-piJ"/>
                                     </navigationItem>
                                 </items>
                             </navigationBar>

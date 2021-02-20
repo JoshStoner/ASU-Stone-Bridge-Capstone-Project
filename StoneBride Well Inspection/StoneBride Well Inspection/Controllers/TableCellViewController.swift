@@ -93,8 +93,8 @@ class TableCellViewController: UIViewController//, PHPickerViewControllerDelegat
                         //print(savedPicEnt[j].picData)
                         let img = savedPicEnt[j].picData!
                         let saveImage = UIImage(data: img)
-                        images.insert(saveImage!, at: j)
-                        //images.append(saveImage!)
+                        //images.insert(saveImage!, at: j) // this didn't work for me when there was more than one image saved but below did - Josh
+                        images.append(saveImage!)
                         //print("images.count = \(images.count)")
                         //print("Added an img to images")
                         //print("j = \(j)")
