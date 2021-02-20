@@ -16,6 +16,9 @@ class InspectionFormViewController: UIViewController, UIPickerViewDataSource, UI
     
     var iModel:inspectionFormModel?
     
+    var load = false // variable used to tell the form to load an already created form rather than make one from scratch
+    var loadIndex: IndexPath?
+    var loadedCategories: [InspectionFormCategoryEntity]?
     
     let defaultImagePickerPhoto = UIImage(systemName:"plus.rectangle.on.folder")
     let testImage = UIImage(systemName: "house")
@@ -48,7 +51,7 @@ class InspectionFormViewController: UIViewController, UIPickerViewDataSource, UI
     
     override func viewDidLoad() {
         super.viewDidLoad()
-
+        print(load)
         iModel = inspectionFormModel(context: managedObjectContext)
         
         let spills = UIPickerView()
@@ -96,20 +99,90 @@ class InspectionFormViewController: UIViewController, UIPickerViewDataSource, UI
         
         //adds all of the inspection categories to the document
         var point = CGPoint(x:10, y: 210)
-        for i in 0..<inspectionCategoriesNames.count
-        {
-            if i < 4
+        
+        //creates a new form if load is false
+        if (load == false) {
+            for i in 0..<inspectionCategoriesNames.count
             {
-                isCategories.append(InspectionCategory(categoryName: inspectionCategoriesNames[i], topLeftPoint: point, view: wellNameField.superview!, tagNumber: /*3 + */i, editable: true, hasPictures: true, numberOfPictures: 4,  imagePresenter: self))
-            point.y += CGFloat(isCategories[i/* + 1*/].getHeight() + 10)
-                
-            }
-            else
-            {
-                isCategories.append(InspectionCategory(categoryName: inspectionCategoriesNames[i], topLeftPoint: point, view: wellNameField.superview!, tagNumber: /*3 + */i, editable: true, hasPictures: false, numberOfPictures: 0,  imagePresenter: self))
+                if i < 4
+                {
+                    isCategories.append(InspectionCategory(categoryName: inspectionCategoriesNames[i], topLeftPoint: point, view: wellNameField.superview!, tagNumber: /*3 + */i, editable: true, hasPictures: true, numberOfPictures: 4,  imagePresenter: self))
                 point.y += CGFloat(isCategories[i/* + 1*/].getHeight() + 10)
+                    
+                }
+                else
+                {
+                    isCategories.append(InspectionCategory(categoryName: inspectionCategoriesNames[i], topLeftPoint: point, view: wellNameField.superview!, tagNumber: /*3 + */i, editable: true, hasPictures: false, numberOfPictures: 0,  imagePresenter: self))
+                    point.y += CGFloat(isCategories[i/* + 1*/].getHeight() + 10)
+                }
             }
         }
+        //loads an saved form if load is true
+        else {
+            //adds all of the inspection categories to the document
+            var i = 0
+            var point = CGPoint(x:10, y: 210)
+            let ifCategory = loadedCategories
+            while i < 30
+            {
+            
+                if i < 4
+                {
+                    var images: [UIImage] = []
+                    
+                    if (ifCategory![i].category?.pictureData?.hasPics == true)
+                    {
+                        let savedPicEnt = (ifCategory![i].category?.pictureData?.pic?.allObjects as! [InspectionFormPicturesEntity]).sorted(by: {$0.picTag < $1.picTag})
+                        
+                        //print("Before")
+                        //print(savedPicEnt.count)
+                        //print(savedPicEnt[i].picTag)
+                        //print("AFTER")
+                        
+                        var j = i
+                        //print("In loop")
+                        while j < savedPicEnt.count
+                        {
+                            //print(savedPicEnt[j].picData)
+                            let img = savedPicEnt[j].picData!
+                            let saveImage = UIImage(data: img)
+                            //images.insert(saveImage!, at: j) // this didn't work for me when there was more than one image saved but below did - Josh
+                            images.append(saveImage!)
+                            //print("images.count = \(images.count)")
+                            //print("Added an img to images")
+                            //print("j = \(j)")
+                            //print("images.count = \(images.count)")
+                            //print("images = \(images)")
+                            j += 1
+                        }
+                        //print("Out of loop")
+                        //print("images.count = \(images.count)")
+                        //print("images = \(images)")
+                        let categoryName = inspectionCategoriesNames[i]
+                        let comment = ifCategory![i].category?.optComm ?? ""
+                        let applicable = ifCategory![i].category?.ynAns ?? ""
+                        let inspectionData = InspectionCategoryData(categoryName: categoryName, images:images, comment: comment, applicable: applicable)
+                        isCategories.append(InspectionCategory.loadInspectionCategory(data: inspectionData, topLeftPoint: point, view: wellNameField.superview!, tagNumber: i, editable: true, hasPictures: true, numberOfPictures: 4,  imagePresenter: self))
+                    }
+                    //print(i)
+                    point.y += CGFloat(isCategories[i/* + 1*/].getHeight() + 10)
+                    
+                }
+                else
+                {
+                    let images: [UIImage] = []
+                    let categoryName = inspectionCategoriesNames[i]
+                    let comment = ifCategory![i].category?.optComm ?? ""
+                    let applicable = ifCategory![i].category?.ynAns ?? ""
+                    let inspectionData = InspectionCategoryData(categoryName: categoryName, images:images, comment: comment, applicable: applicable)
+                    isCategories.append(InspectionCategory.loadInspectionCategory(data: inspectionData, topLeftPoint: point, view: wellNameField.superview!, tagNumber: i, editable: true, hasPictures: false, numberOfPictures: 0,  imagePresenter: self))
+                    point.y += CGFloat(isCategories[i/* + 1*/].getHeight() + 10)
+                }
+                i += 1
+            }
+            
+        }
+        
         print(point.y)
     }
     

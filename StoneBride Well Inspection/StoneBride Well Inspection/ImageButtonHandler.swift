@@ -141,13 +141,17 @@ class ImageButtonHandler {
     }
     
     //used to programmatically add an image
-    public func addImage(image: UIImage)
+    //returns buttons that need to have actions added to them
+    public func addImage(image: UIImage) -> UIButton?
     {
+        
         //makes sure there is a button to put the image in
         if (totalPictures < maxButtons)
         {
-            self.handleChange(changedButton: buttons[totalButtons-1], action: changeImageAction, newImage: image)
+            return handleChange(changedButton: buttons[totalButtons-1], action: changeImageAction, newImage: image)
+            
         }
+        return nil
     }
     
     //finds legal coordinates for buttons inside of the given space for the imagebuttonhandler

@@ -20,6 +20,8 @@ class TableCellViewController: UIViewController//, PHPickerViewControllerDelegat
     var iFyntext: String?
     var iFoptcomm: String?
 
+    var formList: inspectionList?
+    
     var fetchResults = [InspectionFormEntity]()
     
     var ifCategory : [InspectionFormCategoryEntity]?
@@ -130,6 +132,19 @@ class TableCellViewController: UIViewController//, PHPickerViewControllerDelegat
             
         print(point.y)
         
+    }
+    
+    
+    override func prepare(for segue: UIStoryboardSegue, sender: Any?)
+    {
+        //prepares the inspection form view controller to load a preexisting inpsection form rather than create a new one
+        if (segue.identifier == "toInspectionForm") {
+            let des = segue.destination as! InspectionFormViewController
+            des.load = true
+            des.loadIndex = indexPath
+            des.formList = formList
+            des.loadedCategories = ifCategory
+        }
     }
     
     @IBAction func selectImage(_ sender: Any)

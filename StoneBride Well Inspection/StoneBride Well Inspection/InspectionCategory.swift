@@ -125,7 +125,7 @@ class InspectionCategory: NSObject, UIPickerViewDataSource, UIPickerViewDelegate
             inspectionPicturesSourceButton?.setBackgroundImage(defaultPhoto, for: .normal)
             
             if (self.editable) { // only adds the action to add another picture if it is editable
-            inspectionPicturesSourceButton?.addTarget(self, action: #selector(showImagePicker(_:)), for: .touchUpInside)
+                inspectionPicturesSourceButton?.addTarget(self, action: #selector(showImagePicker(_:)), for: .touchUpInside)
             }
             inspectionPictures = ImageButtonHandler(sourceButton: inspectionPicturesSourceButton!, tag: tag, numberOfButtons: numberOfPictures, buttonSpace: pictureFrame)
             
@@ -161,11 +161,20 @@ class InspectionCategory: NSObject, UIPickerViewDataSource, UIPickerViewDelegate
         //checks if there are pictures
         if (hasPictures && data.images.count > 0)
         {
+            
             //adds all of the pictures to the category
             for i in 0..<data.images.count
             {
-                isCategory.inspectionPictures?.addImage(image: data.images[i])
+                var button = isCategory.inspectionPictures?.addImage(image: data.images[i])
+                
+                if (editable )// && button != nil)
+                {
+                    
+                  button?.addTarget(self, action: #selector(showImagePicker(_:)), for: .touchUpInside)
+                }
             }
+            
+            
         }
         
         return isCategory
@@ -277,6 +286,10 @@ class InspectionCategory: NSObject, UIPickerViewDataSource, UIPickerViewDelegate
         imagePicker.modalPresentationStyle = .popover
         imagePicker.allowsEditing = false
         present(imagePicker, animated: true, completion: nil)*/
+        imagePicker?.present(from: sender)
+    }
+    
+    @objc func showImagePicker2(_ sender: UIButton) {
         imagePicker?.present(from: sender)
     }
     
