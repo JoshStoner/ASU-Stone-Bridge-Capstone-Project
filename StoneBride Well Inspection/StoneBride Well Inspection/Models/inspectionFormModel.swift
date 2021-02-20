@@ -44,6 +44,99 @@ public class inspectionFormModel
     
     //date: String, inspectionDone: String, wellName: String, wellNumber: Int, spillsToClean: String, spillsToCleanComments: String, oilBarrels: Int, waterBarrels: Int
     
+    func updateContext(contextObject: InspectionFormEntity, d: String, inspecDone: String, wName: String, wNum: Int, spilToClean: String, spilToCleanComm: String, oBarrels: Int, wBarrels: Int, categories: [InspectionCategory])
+    {
+        contextObject.date = d
+        contextObject.inspectionDone = inspecDone
+        contextObject.wellName = wName
+        contextObject.wellNumber = Int64(wNum)
+        contextObject.spillsToClean = spilToClean
+        contextObject.spillsToCleanComments = spilToCleanComm
+        contextObject.oilBarrels = Int64(oBarrels)
+        contextObject.waterBarrels = Int64(wBarrels)
+        
+        print("Hey ur before the deltion")
+        //Should remove every category currently saved
+        let deletingOldSections = contextObject.section
+        contextObject.removeFromSection(deletingOldSections!)
+        print("Hey it should be deleted")
+        
+        var tagIndex = 0
+        var maxTag = 30
+        while(tagIndex < maxTag)
+        {
+            //print(categories[tagIndex].tag)
+            let section = InspectionFormCategoryEntity(context: self.managedObjectContext!)
+            
+            section.tagN = Int64(categories[tagIndex].tag)
+            
+            let sectionCategories = InspectionFormSectionEntity(context: self.managedObjectContext!)
+            
+            sectionCategories.tagNum = Int64(categories[tagIndex].tag)
+            sectionCategories.ynAns = categories[tagIndex].inspectionYNField?.text
+            sectionCategories.optComm = categories[tagIndex].inspectionComment.text
+            
+            section.category = sectionCategories
+            
+            let pictures = InspectionFormPicContainerEntity(context:  self.managedObjectContext!)
+            
+            if(tagIndex < 4)
+            {
+                pictures.hasPics = true
+                
+                
+                
+                let pics = categories[tagIndex].getImages()
+                    //categories[tagIndex].inspectionPictures?.getImages()
+                print("Hey pics is next")
+                print(pics)
+                
+                var i = 0
+                while (i < pics.count)
+                {
+                    let pictureData = InspectionFormPicturesEntity(context: self.managedObjectContext!)
+                    pictureData.picData = pics[i].jpegData(compressionQuality: 1.0)
+                    pictureData.picTag = Int64(i)
+                    pictures.addToPic(pictureData)
+                    print("Looped once")
+                    i += 1
+                }
+                
+            }
+            else
+            {
+                pictures.hasPics = false
+            }
+            sectionCategories.pictureData = pictures
+            
+            
+            //section.tagNum = Int64(categories[tagIndex].tag)
+            //print(section.tagNum)
+            //section.ynAns = categories[tagIndex].inspectionYNField.text
+            //section.optComm = categories[tagIndex].inspectionComment.text
+         
+            contextObject.addToSection(section)
+            tagIndex += 1
+        }
+        
+        
+        
+        /*newInspectionForm.set(date: d, inspectionDone: inspecDone, wellName: wName, wellNumber: wNum, spillsToClean: spilToClean, spillsToCleanComments: spilToCleanComm, oilBarrels: oBarrels, waterBarrels: wBarrels)*/
+        
+        //newInspectionForm.date = d
+        //newInspectionForm.wellName = wName
+        
+        do
+        {
+            try self.managedObjectContext!.save()
+            print("Successfully updated core data")
+        }
+        catch
+        {
+            print("An error occured when trying to save this inspection form to Core Data")
+        }
+    }
+    
     //Save an inspection form
     func saveContext(d: String, inspecDone: String, wName: String, wNum: Int, spilToClean: String, spilToCleanComm: String, oBarrels: Int, wBarrels: Int, categories: [InspectionCategory])
     {

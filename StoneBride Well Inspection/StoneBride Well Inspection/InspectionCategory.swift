@@ -287,6 +287,7 @@ class InspectionCategory: NSObject, UIPickerViewDataSource, UIPickerViewDelegate
         imagePicker.allowsEditing = false
         present(imagePicker, animated: true, completion: nil)*/
         imagePicker?.present(from: sender)
+        
     }
     
     @objc func showImagePicker2(_ sender: UIButton) {
@@ -295,7 +296,7 @@ class InspectionCategory: NSObject, UIPickerViewDataSource, UIPickerViewDelegate
     
     func didSelect(image: UIImage?, action: String, sender: UIButton) {
         
-        
+        //print("oo")
         let button = inspectionPictures!.handleChange(changedButton: sender, action: action, newImage: image)
         if (button != nil && self.editable){
             //print("Adding the new image")

@@ -19,6 +19,11 @@ class InspectionFormViewController: UIViewController, UIPickerViewDataSource, UI
     var load = false // variable used to tell the form to load an already created form rather than make one from scratch
     var loadIndex: IndexPath?
     var loadedCategories: [InspectionFormCategoryEntity]?
+    var loadedEnt: InspectionFormEntity?
+    var loadedWellName: String?
+    var loadedWellNumber: String?
+    var loadedInspecDone: String?
+    var loadedDate: String?
     
     let defaultImagePickerPhoto = UIImage(systemName:"plus.rectangle.on.folder")
     let testImage = UIImage(systemName: "house")
@@ -51,7 +56,16 @@ class InspectionFormViewController: UIViewController, UIPickerViewDataSource, UI
     
     override func viewDidLoad() {
         super.viewDidLoad()
-        print(load)
+        //print(load)
+        
+        if(load == true)
+        {
+            wellNameField.text = loadedWellName
+            wellNumberField.text = loadedWellNumber
+            inspectionDoneField.text = loadedInspecDone
+            dateField.text = loadedDate
+        }
+        
         iModel = inspectionFormModel(context: managedObjectContext)
         
         let spills = UIPickerView()
@@ -183,7 +197,7 @@ class InspectionFormViewController: UIViewController, UIPickerViewDataSource, UI
             
         }
         
-        print(point.y)
+        //print(point.y)
     }
     
     func numberOfComponents(in pickerView: UIPickerView) -> Int
@@ -283,8 +297,14 @@ class InspectionFormViewController: UIViewController, UIPickerViewDataSource, UI
         */
         //formList?.addForm(da: date!, inspDone: inspectionDone!, weName: wellName!, weNum: wellNumber!, spls: spills!, splsCom: spillsComment!, oil: oilBarrels!, water: waterBarrels!)*/
         
-        iModel?.saveContext(d: date, inspecDone: inspectionDone, wName: wellName, wNum: wellNumber, spilToClean: spills, spilToCleanComm: spillsComment, oBarrels: oilBarrels, wBarrels: waterBarrels, categories: isCategories)
-        
+        if (load == false)
+        {
+            iModel?.saveContext(d: date, inspecDone: inspectionDone, wName: wellName, wNum: wellNumber, spilToClean: spills, spilToCleanComm: spillsComment, oBarrels: oilBarrels, wBarrels: waterBarrels, categories: isCategories)
+        }
+        else
+        {
+            iModel?.updateContext(contextObject: loadedEnt!, d: date, inspecDone: inspectionDone, wName: wellName, wNum: wellNumber, spilToClean: spills, spilToCleanComm: spillsComment, oBarrels: oilBarrels, wBarrels: waterBarrels, categories: isCategories)
+        }
         /*var i = 0
         while i < 30
         {
@@ -308,9 +328,7 @@ class InspectionFormViewController: UIViewController, UIPickerViewDataSource, UI
 extension InspectionFormViewController: ImagePickerDelegate {
     
     func didSelect(image: UIImage?, action: String, sender: UIButton) {
-        
         let buttonHandlerNumber = sender.tag
-        
         
         let button = ibhandler[buttonHandlerNumber].handleChange(changedButton: sender, action: action, newImage: image)
         if (button != nil){

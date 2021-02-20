@@ -169,14 +169,15 @@ class TableViewController: UIViewController, UITableViewDelegate, UITableViewDat
             let selectedIndex:IndexPath = self.inspectionFormTable.indexPath(for: sender as! UITableViewCell)!
         
             var wellName = ""
+            var wellNumber = ""
+            var inspectionDoneBy = ""
             var date = ""
             var yn = "1"
             var opt = "1"
             
             var i = 0
-            //var set = CoreDataHandler.fetchSection()
             
-            
+            var ent = fetchResults[selectedIndex.row]
             
             var testing = fetchResults[selectedIndex.row].section
             //NSSortDescriptor sortDescriptor = [NSSortDescriptor sortDescriptorWithKey:@"tagN" ascending:YES]
@@ -188,6 +189,8 @@ class TableViewController: UIViewController, UITableViewDelegate, UITableViewDat
             //print(set?.count)
             //print(ee.count)
             wellName = fetchResults[selectedIndex.row].wellName!
+            wellNumber = "\(fetchResults[selectedIndex.row].wellNumber)"
+            inspectionDoneBy = fetchResults[selectedIndex.row].inspectionDone!
             date = fetchResults[selectedIndex.row].date!
             while i < ee.count
             {
@@ -233,13 +236,16 @@ class TableViewController: UIViewController, UITableViewDelegate, UITableViewDat
             //if #available(iOS 14, *) {
                 
             let des = segue.destination as! TableCellViewController                //des.indexPath = selectedIndex
-                des.iFTitle = wellName
-                des.iFDate = date
-                des.iFyntext = yn
-                des.iFoptcomm = opt
+            des.iFWellName = wellName
+            des.iFWellNumber = wellNumber
+            des.iFInspecDone = inspectionDoneBy
+            des.iFDate = date
+            des.iFyntext = yn
+            des.iFoptcomm = opt
             des.formList = formList
             des.indexPath = selectedIndex
             des.ifCategory = ee
+            des.ifEnt = ent
             //} else {
                 // Fallback on earlier versions
             //}

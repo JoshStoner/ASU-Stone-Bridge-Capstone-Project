@@ -14,8 +14,11 @@ class TableCellViewController: UIViewController//, PHPickerViewControllerDelegat
     var didEdit:Bool?
     var newInspectionForm:inspectionForm?
     
-    var indexPath:IndexPath?
-    var iFTitle: String?
+    var indexPath: IndexPath?
+    var ifEnt: InspectionFormEntity?
+    var iFWellName: String?
+    var iFWellNumber: String?
+    var iFInspecDone: String?
     var iFDate: String?
     var iFyntext: String?
     var iFoptcomm: String?
@@ -32,33 +35,32 @@ class TableCellViewController: UIViewController//, PHPickerViewControllerDelegat
     
     // an array of all the different inspection descriptions
         let inspectionCategoriesNames = ["Pictures of the Well", "Pictures of the Tank Battery", "Pictures of the Location", "Pictures of the Lease Road", "Any Spills to clean up", "Any gas leaks, oil leaks on fittings", "Any leaks around wellhead", "Does any brush need cut", "Does  it need weedeated", "Any trash that needs picked up", "Any erosion occurring", "Are there concrete vaults", "Are there old salt water pits", "Does new ID placement need painted", "Tank Gauges", "Oil BBLS:     WaterBBLS:", "Any electric drops", "Electric Meter Number", "Pump Jack make & Size", "Tubing Size", "# of Tanks and Size", "Plastic Tank/Size", "Oriifce Meter", "Separator", "Electric Motor & Size", "Gasoline Engine and Size", "Electric Line Overhead # of poles", "Concrete Sills", "Fence", "House Gas Meter/with Little Joe/Drip"]
+
     
-    
-    @IBOutlet weak var titleLabel: UILabel!
+    @IBOutlet weak var wellNameLabel: UILabel!
+    @IBOutlet weak var wellNumberLabel: UILabel!
+    @IBOutlet weak var inspectionDoneLabel: UILabel!
     @IBOutlet weak var dateLabel: UILabel!
-    @IBOutlet weak var ynLabel: UILabel!
-    @IBOutlet weak var optLabel: UILabel!
-    @IBOutlet weak var optionalComment: UILabel!
-    @IBOutlet weak var YNtextfield: UILabel!
-    
-    @IBOutlet weak var imageViewer: UIImageView!
-    
     
     //var config = PHPickerConfiguration(photoLibrary: PHPhotoLibrary.shared())
     
     override func viewDidLoad()
     {
         super.viewDidLoad()
-        titleLabel.text = iFTitle
-        titleLabel.sizeToFit()
+        wellNameLabel.text = iFWellName
+        wellNameLabel.sizeToFit()
+        wellNumberLabel.text = iFWellNumber
+        wellNumberLabel.sizeToFit()
+        inspectionDoneLabel.text = iFInspecDone
+        inspectionDoneLabel.sizeToFit()
         dateLabel.text = iFDate
         dateLabel.sizeToFit()
-        
-        
-        YNtextfield.text = iFyntext
-        YNtextfield.sizeToFit()
-        optionalComment.text = iFoptcomm
-        optionalComment.sizeToFit()
+        //print("ok")
+        //print(dateLabel.superview!)
+        //YNtextfield.text = iFyntext
+        //YNtextfield.sizeToFit()
+        //optionalComment.text = iFoptcomm
+        //optionalComment.sizeToFit()
         // Do any additional setup after loading the view.
         
         //config.filter = .images
@@ -74,7 +76,6 @@ class TableCellViewController: UIViewController//, PHPickerViewControllerDelegat
         var point = CGPoint(x:10, y: 210)
         while i < 30
         {
-        
             if i < 4
             {
                 var images: [UIImage] = []
@@ -111,7 +112,7 @@ class TableCellViewController: UIViewController//, PHPickerViewControllerDelegat
                     let comment = ifCategory![i].category?.optComm ?? ""
                     let applicable = ifCategory![i].category?.ynAns ?? ""
                     let inspectionData = InspectionCategoryData(categoryName: categoryName, images:images, comment: comment, applicable: applicable)
-                    isCategories.append(InspectionCategory.loadInspectionCategory(data: inspectionData, topLeftPoint: point, view: YNtextfield.superview!, tagNumber: i, editable: false, hasPictures: true, numberOfPictures: images.count,  imagePresenter: self))
+                    isCategories.append(InspectionCategory.loadInspectionCategory(data: inspectionData, topLeftPoint: point, view: dateLabel.superview!, tagNumber: i, editable: false, hasPictures: true, numberOfPictures: images.count,  imagePresenter: self))
                 }
                 //print(i)
                 point.y += CGFloat(isCategories[i/* + 1*/].getHeight() + 10)
@@ -124,13 +125,13 @@ class TableCellViewController: UIViewController//, PHPickerViewControllerDelegat
                 let comment = ifCategory![i].category?.optComm ?? ""
                 let applicable = ifCategory![i].category?.ynAns ?? ""
                 let inspectionData = InspectionCategoryData(categoryName: categoryName, images:images, comment: comment, applicable: applicable)
-                isCategories.append(InspectionCategory.loadInspectionCategory(data: inspectionData, topLeftPoint: point, view: YNtextfield.superview!, tagNumber: i, editable: false, hasPictures: false, numberOfPictures: 0,  imagePresenter: self))
+                isCategories.append(InspectionCategory.loadInspectionCategory(data: inspectionData, topLeftPoint: point, view: dateLabel.superview!, tagNumber: i, editable: false, hasPictures: false, numberOfPictures: 0,  imagePresenter: self))
                 point.y += CGFloat(isCategories[i/* + 1*/].getHeight() + 10)
             }
             i += 1
         }
             
-        print(point.y)
+        //print(point.y)
         
     }
     
@@ -144,11 +145,16 @@ class TableCellViewController: UIViewController//, PHPickerViewControllerDelegat
             des.loadIndex = indexPath
             des.formList = formList
             des.loadedCategories = ifCategory
+            des.loadedEnt = ifEnt!
+            des.loadedWellName = iFWellName
+            des.loadedWellNumber = iFWellNumber
+            des.loadedInspecDone = iFInspecDone
+            des.loadedDate = iFDate
         }
     }
     
-    @IBAction func selectImage(_ sender: Any)
-    {
+    //@IBAction func selectImage(_ sender: Any)
+    //{
         //let picker = PHPickerViewController(configuration: config)
         //picker.delegate = self
         //present(picker, animated: true, completion: nil)
@@ -158,7 +164,7 @@ class TableCellViewController: UIViewController//, PHPickerViewControllerDelegat
         photoPicker.delegate = self
         photoPicker.sourceType = .photoLibrary
         self.present(photoPicker, animated: true, completion: nil)*/
-    }
+    //}
     
     /*func picker(_ picker: PHPickerViewController, didFinishPicking results: [PHPickerResult])
     {
