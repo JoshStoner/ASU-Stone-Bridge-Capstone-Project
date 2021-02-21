@@ -10,7 +10,7 @@ import UIKit
 
 class ImageButtonHandler {
     private var originalButton : UIButton
-    private var buttons : [UIButton]
+    var buttons : [UIButton]
     private var totalButtons = 1
     private var tag: Int // is the tag that all of its buttons will have
     private var maxButtons: Int // total number of buttons that this can handle

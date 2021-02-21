@@ -312,6 +312,99 @@ class InspectionFormViewController: UIViewController, UIPickerViewDataSource, UI
             i += 1
         }*/
     }
+    
+    //this function determines if all necessary parts of the inspection categories are complete
+    //it returns the index of all incomplete categories
+    func areCategoriesComplete() -> Bool
+    {
+        var allComplete = true
+        for category in isCategories {
+            if (category.isEdited() == false)
+            {
+                allComplete = false
+                category.highlightUnedited()
+            }
+        }
+        
+        return allComplete
+    }
+    
+    //this function determines if all the necessary parts of the form are completed, currently this is just the four parts at the top of the form and the YN for all the categories
+    //if parts of the form aren't complete it highlights them
+    func isFormComplete() -> Bool
+    {
+        var complete = true
+        
+        
+        //checks the text fields at the top of the form
+        if (wellNameField.text == "")
+        {
+            complete = false
+            wellNameField.backgroundColor = .red
+        }
+        
+        //makes sure well number field is a number
+        if (wellNumberField.text == "" || (Int(wellNumberField.text!) ?? -1) == -1)
+        {
+            complete = false
+            wellNumberField.backgroundColor = .red
+        }
+        
+        if (inspectionDoneField.text == "")
+        {
+            complete = false
+            inspectionDoneField.backgroundColor = .red
+        }
+        
+        if (dateField.text == "")
+        {
+            complete = false
+            dateField.backgroundColor = .red
+        }
+        
+        if (areCategoriesComplete() == false)
+        {
+            complete = false
+        }
+        
+        
+        return complete
+        
+    }
+    
+    //this function determines if all necessary parts of the form are complete and then pushes it to the server if they are connected to the internet
+    //if the form is not complete it will highlight the missing parts
+    //if they are not connected to the internet it will tell them
+    @IBAction func publishForm(_ sender: Any) {
+        let formComplete = isFormComplete()
+        
+        if (formComplete == false)
+        {
+            //sends an alert to the user that some information is incomplete
+            // in the future this could be put in the isFormComplete function and send a more specific alert
+            let alert = UIAlertController(title: "Form Incomplete", message: "Please fill out and/or fix the highlighted fields", preferredStyle: .alert)
+            alert.addAction(UIAlertAction(title: "Confirm", style: .cancel, handler: nil))
+            self.present(alert, animated: true, completion: nil)
+        }
+        
+        //check internet connection UNIMPLIMENTED
+        
+        
+        //make connection to database this will probably need something to prevent the user from changing views
+        
+        //send form to data base
+    }
+    
+    
+    //used by the text fields to change their backgroundColor back to clear if they have been edited
+    @IBAction func changeBackgroundColor(_ sender: UITextField) {
+        if (sender.text != "")
+        {
+            sender.backgroundColor = .clear
+        }
+    }
+    
+    
     /*
     // MARK: - Navigation
 

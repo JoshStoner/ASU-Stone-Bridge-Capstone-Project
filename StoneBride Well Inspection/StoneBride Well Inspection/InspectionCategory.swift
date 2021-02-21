@@ -165,13 +165,22 @@ class InspectionCategory: NSObject, UIPickerViewDataSource, UIPickerViewDelegate
             //adds all of the pictures to the category
             for i in 0..<data.images.count
             {
+                /*
                 var button = isCategory.inspectionPictures?.addImage(image: data.images[i])
                 
                 if (editable )// && button != nil)
                 {
                     
-                  button?.addTarget(self, action: #selector(showImagePicker(_:)), for: .touchUpInside)
+                  button?.addTarget(self, action: #selector(testFunc), for: .touchUpInside)
+                }*/
+                
+                let button = isCategory.inspectionPictures!.handleChange(changedButton: isCategory.inspectionPictures!.buttons[isCategory.inspectionPictures!.buttons.count-1], action: "Change Image", newImage: data.images[i])
+                if (button != nil && editable == true){
+                    //print("Adding the new image")
+                    button?.addTarget(self, action: #selector(showImagePicker(_:)), for: .touchUpInside)
+                    //print("New Image added")
                 }
+                
             }
             
             
@@ -231,6 +240,7 @@ class InspectionCategory: NSObject, UIPickerViewDataSource, UIPickerViewDelegate
     }
     
     //returns true if the necessary fields have been edited, currently that is just the YN field
+    //the formatting of this function should be very similar to the highlight function
     func isEdited() -> Bool
     {
         if (self.editable && inspectionYNField!.text != "")
@@ -240,7 +250,14 @@ class InspectionCategory: NSObject, UIPickerViewDataSource, UIPickerViewDelegate
         return false
     }
     
-    
+    //this function highlights necessary fields in this inspection category taht haven't been filled out
+    func highlightUnedited()
+    {
+        if (self.editable && inspectionYNField!.text == "")
+        {
+            inspectionYNField?.backgroundColor = .red
+        }
+    }
     
     
     //functions for the picker view compatability
@@ -263,6 +280,11 @@ class InspectionCategory: NSObject, UIPickerViewDataSource, UIPickerViewDelegate
     func pickerView(_ pickerView: UIPickerView, didSelectRow row: Int, inComponent component: Int)
     {
         inspectionYNField!.text = choices[row]
+        //changes the color of the background to clear to indicate that it has been edited
+        if (inspectionYNField!.text != "")
+        {
+            inspectionYNField?.backgroundColor = .clear
+        }
     }
     
     @objc func donePressed(sender: UIBarButtonItem)
@@ -292,6 +314,11 @@ class InspectionCategory: NSObject, UIPickerViewDataSource, UIPickerViewDelegate
     
     @objc func showImagePicker2(_ sender: UIButton) {
         imagePicker?.present(from: sender)
+    }
+    
+    @objc func testFunc()
+    {
+        print("got here")
     }
     
     func didSelect(image: UIImage?, action: String, sender: UIButton) {
