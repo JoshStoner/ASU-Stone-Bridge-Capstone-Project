@@ -9,7 +9,7 @@
 import UIKit
 import CoreData
 
-class InspectionFormViewController: UIViewController, UIPickerViewDataSource, UIPickerViewDelegate//, UIImagePickerControllerDelegate, UINavigationControllerDelegate
+class InspectionFormViewController: UIViewController, UIPickerViewDataSource, UIPickerViewDelegate //, UIImagePickerControllerDelegate, UINavigationControllerDelegate
 {
 
     let managedObjectContext = (UIApplication.shared.delegate as! AppDelegate).persistentContainer.viewContext
@@ -29,6 +29,8 @@ class InspectionFormViewController: UIViewController, UIPickerViewDataSource, UI
     let testImage = UIImage(systemName: "house")
     var formList:inspectionList?
     let choices = ["", "Yes", "No", "N/A"]
+    
+    var changed = false // keeps track of if there have been changes since last save
     
     // an array of all the different inspection descriptions
         let inspectionCategoriesNames = ["Pictures of the Well", "Pictures of the Tank Battery", "Pictures of the Location", "Pictures of the Lease Road", "Any Spills to clean up", "Any gas leaks, oil leaks on fittings", "Any leaks around wellhead", "Does any brush need cut", "Does  it need weedeated", "Any trash that needs picked up", "Any erosion occurring", "Are there concrete vaults", "Are there old salt water pits", "Does new ID placement need painted", "Tank Gauges", "Oil BBLS:     WaterBBLS:", "Any electric drops", "Electric Meter Number", "Pump Jack make & Size", "Tubing Size", "# of Tanks and Size", "Plastic Tank/Size", "Oriifce Meter", "Separator", "Electric Motor & Size", "Gasoline Engine and Size", "Electric Line Overhead # of poles", "Concrete Sills", "Fence", "House Gas Meter/with Little Joe/Drip"]
@@ -65,6 +67,12 @@ class InspectionFormViewController: UIViewController, UIPickerViewDataSource, UI
             inspectionDoneField.text = loadedInspecDone
             dateField.text = loadedDate
         }
+        
+        //adds the change handler to the fields at the top
+        wellNameField.addTarget(self, action: #selector(fieldChanged(_:)), for: .editingChanged)
+        wellNumberField.addTarget(self, action: #selector(fieldChanged(_:)), for: .editingChanged)
+        inspectionDoneField.addTarget(self, action: #selector(fieldChanged(_:)), for: .editingChanged)
+        dateField.addTarget(self, action: #selector(fieldChanged(_:)), for: .editingChanged)
         
         iModel = inspectionFormModel(context: managedObjectContext)
         
@@ -305,6 +313,14 @@ class InspectionFormViewController: UIViewController, UIPickerViewDataSource, UI
         {
             iModel?.updateContext(contextObject: loadedEnt!, d: date, inspecDone: inspectionDone, wName: wellName, wNum: wellNumber, spilToClean: spills, spilToCleanComm: spillsComment, oBarrels: oilBarrels, wBarrels: waterBarrels, categories: isCategories)
         }
+        
+        //updates all teh categories to let them know it has been saved
+        for category in isCategories
+        {
+            category.changed = false
+        }
+        changed = false
+        
         /*var i = 0
         while i < 30
         {
@@ -393,8 +409,37 @@ class InspectionFormViewController: UIViewController, UIPickerViewDataSource, UI
         //make connection to database this will probably need something to prevent the user from changing views
         
         //send form to data base
+        //performSegue(withIdentifier: "FormToTable", sender: nil)
     }
     
+    
+    func hasFormChanged() -> Bool
+    {
+        //checks if any of the text fields at the top have been changed
+        if (changed == true)
+        {
+            return true
+        }
+        
+        
+        //checks if any of the categories have been changed
+        for category in isCategories
+        {
+            if (category.changed == true)
+            {
+                return true
+            }
+        }
+        
+        return false
+        
+    }
+    
+    
+    @IBAction func fieldChanged(_ sender: Any)
+    {
+        changed = true
+    }
     
     //used by the text fields to change their backgroundColor back to clear if they have been edited
     @IBAction func changeBackgroundColor(_ sender: UITextField) {
@@ -404,7 +449,34 @@ class InspectionFormViewController: UIViewController, UIPickerViewDataSource, UI
         }
     }
     
+    func determineSegue()
+    {
+        if (load == true)
+        {
+            performSegue(withIdentifier: "FormToTable", sender: self)
+        } else{
+            performSegue(withIdentifier: "FormToMenu", sender: self)
+        }    }
     
+    //this function handles the logic for the back button
+    @IBAction func unwindSegue(_ sender: Any)
+    {
+        //first step is to check if anything has changed
+        if (hasFormChanged())
+        {
+            //do alert the user that stuff is unsaved
+            
+            let alert = UIAlertController(title: "Unsaved Changes", message: "Are you sure you want to leave? Unsaved changes will be lost", preferredStyle: .alert)
+            alert.addAction(UIAlertAction(title: "Stay", style: .cancel, handler: nil))
+            //this action segues if the user confrims
+            alert.addAction(UIAlertAction(title: "Leave", style: .destructive, handler: {(_) -> () in self.determineSegue()}))
+            self.present(alert, animated: true, completion: nil)
+        } else
+        {
+            //decide which unwind segue to use
+            determineSegue()
+        }
+    }
     /*
     // MARK: - Navigation
 

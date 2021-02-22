@@ -9,7 +9,7 @@
 
 import UIKit
 
-class InspectionCategory: NSObject, UIPickerViewDataSource, UIPickerViewDelegate, ImagePickerDelegate
+class InspectionCategory: NSObject, UIPickerViewDataSource, UIPickerViewDelegate, UITextViewDelegate, ImagePickerDelegate
 {
     var inspectionLabel : UILabel
     var inspectionComment : UITextView
@@ -25,6 +25,8 @@ class InspectionCategory: NSObject, UIPickerViewDataSource, UIPickerViewDelegate
     var imagePicker : ImagePicker? //needed to present the image picker
     var editable: Bool = true // whether or not the category can be edited
     var inspectionPicturesSourceButton : UIButton?
+    var changed = false
+    
     
     let defaultPhoto = UIImage(systemName:"plus.rectangle.on.folder")
     
@@ -92,6 +94,8 @@ class InspectionCategory: NSObject, UIPickerViewDataSource, UIPickerViewDelegate
         
         
         super.init()
+        
+        inspectionComment.delegate = self
         
         let pullDown = UIPickerView()
         pullDown.delegate = self
@@ -279,6 +283,12 @@ class InspectionCategory: NSObject, UIPickerViewDataSource, UIPickerViewDelegate
     // this function might need to have the force unwrap be contained inside a check for editable, but I'm not sure
     func pickerView(_ pickerView: UIPickerView, didSelectRow row: Int, inComponent component: Int)
     {
+        //checks to see if the text changed
+        if (inspectionYNField!.text != choices[row])
+        {
+            changed = true
+        }
+        
         inspectionYNField!.text = choices[row]
         //changes the color of the background to clear to indicate that it has been edited
         if (inspectionYNField!.text != "")
@@ -324,6 +334,11 @@ class InspectionCategory: NSObject, UIPickerViewDataSource, UIPickerViewDelegate
     func didSelect(image: UIImage?, action: String, sender: UIButton) {
         
         //print("oo")
+        //makes note of the change or delete
+        if (action == inspectionPictures?.changeImageAction || action == inspectionPictures?.clearImageAction)
+        {
+            changed = true
+        }
         let button = inspectionPictures!.handleChange(changedButton: sender, action: action, newImage: image)
         if (button != nil && self.editable){
             //print("Adding the new image")
@@ -333,6 +348,13 @@ class InspectionCategory: NSObject, UIPickerViewDataSource, UIPickerViewDelegate
         
     }
     
+    
+    
+    //function for knowing when a text view changed
+    func textViewDidChange(_ textView: UITextView) {
+        changed = true
+        print("itWorked")
+    }
     
 }
 
