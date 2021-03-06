@@ -150,8 +150,9 @@ class InspectionCategory: NSObject, UIPickerViewDataSource, UIPickerViewDelegate
     }
     
     //creates and returns an inspection category given a set of inspection category data and necessary information
-    public static func loadInspectionCategory(data: InspectionCategoryData, topLeftPoint: CGPoint, view: UIView, tagNumber: Int, editable: Bool, hasPictures: Bool, numberOfPictures: Int, imagePresenter: UIViewController) -> InspectionCategory
+    public static func loadInspectionCategory(data: InspectionCategoryData, topLeftPoint: CGPoint, view: UIView, tagNumber: Int, editable: Bool, hasPictures: Bool, numberOfPictures: Int, imagePresenter: UIViewController) -> InspectionCategoryStuff
     {
+        var buttonArr: [UIButton] = []
         let isCategory = InspectionCategory(categoryName: data.categoryName, topLeftPoint: topLeftPoint, view: view, tagNumber: tagNumber, editable: editable, hasPictures: hasPictures, numberOfPictures: numberOfPictures, imagePresenter: imagePresenter)
         
         //sets all of the text fields to the values in the Inspection Category data
@@ -181,16 +182,30 @@ class InspectionCategory: NSObject, UIPickerViewDataSource, UIPickerViewDelegate
                 let button = isCategory.inspectionPictures!.handleChange(changedButton: isCategory.inspectionPictures!.buttons[isCategory.inspectionPictures!.buttons.count-1], action: "Change Image", newImage: data.images[i])
                 if (button != nil && editable == true){
                     //print("Adding the new image")
-                    button?.addTarget(self, action: #selector(showImagePicker(_:)), for: .touchUpInside)
+                    button?.addTarget(imagePresenter, action: #selector(showImagePicker(_:)), for: .touchUpInside)
+                    buttonArr.append(button!)
                     //print("New Image added")
                 }
+                
+                //I tried this for adding the extra ImageButtonHandler for the extra empty button but the button is
+                //always nil
+                /*if(data.images.count < 5)
+                {
+                    var button = isCategory.inspectionPictures?.addImage(image: UIImage(systemName:"plus.rectangle.on.folder")!)
+                    if(editable && button != nil)
+                    {
+                        print("Added extra button")
+                        button?.addTarget(imagePresenter, action: #selector(showImagePicker(_:)), for: .touchUpInside)
+                        buttonArr.append(button!)
+                    }
+                }*/
                 
             }
             
             
         }
-        
-        return isCategory
+        let a = InspectionCategoryStuff(categories: isCategory, buttons: buttonArr)
+        return a//isCategory
     }
     
     public func getTag() -> Int
@@ -366,4 +381,11 @@ struct InspectionCategoryData
     var images : [UIImage]
     var comment : String
     var applicable : String
+}
+
+//Struct that contains the category information and buttons for that category
+struct InspectionCategoryStuff
+{
+    var categories: InspectionCategory
+    var buttons: [UIButton]
 }

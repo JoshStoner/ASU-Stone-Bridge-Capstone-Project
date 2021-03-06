@@ -233,11 +233,11 @@ class ImageButtonHandler {
         var images: [UIImage] = []
         var i = 0
         var moreImages = true
-        while(i < maxButtons && moreImages)
+        while(i < buttons.count && moreImages)//buttons.count used to be maxButtons
         {
             let buttonImage = buttons[i].backgroundImage(for: .normal)
             //if the image is the default image there are no more images
-            if (buttonImage === defaultImagePickerPhoto || buttonImage == nil)
+            if (buttonImage == defaultImagePickerPhoto || buttonImage == nil)
             {
                 moreImages = false
             } else
@@ -249,6 +249,12 @@ class ImageButtonHandler {
         }
         
         return images
+    }
+    
+    //Used to get all of the buttons to show in the InspectionFormViewController starting at line 221
+    public func getButtons() -> [UIButton]
+    {
+        return buttons
     }
     
 }

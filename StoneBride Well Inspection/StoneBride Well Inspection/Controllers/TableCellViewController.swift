@@ -112,7 +112,8 @@ class TableCellViewController: UIViewController//, PHPickerViewControllerDelegat
                     let comment = ifCategory![i].category?.optComm ?? ""
                     let applicable = ifCategory![i].category?.ynAns ?? ""
                     let inspectionData = InspectionCategoryData(categoryName: categoryName, images:images, comment: comment, applicable: applicable)
-                    isCategories.append(InspectionCategory.loadInspectionCategory(data: inspectionData, topLeftPoint: point, view: dateLabel.superview!, tagNumber: i, editable: false, hasPictures: true, numberOfPictures: images.count,  imagePresenter: self))
+                    let inspecCategoryStuff = InspectionCategory.loadInspectionCategory(data: inspectionData, topLeftPoint: point, view: dateLabel.superview!, tagNumber: i, editable: false, hasPictures: true, numberOfPictures: images.count,  imagePresenter: self)
+                    isCategories.append(inspecCategoryStuff.categories)
                 }
                 //print(i)
                 point.y += CGFloat(isCategories[i/* + 1*/].getHeight() + 10)
@@ -125,7 +126,8 @@ class TableCellViewController: UIViewController//, PHPickerViewControllerDelegat
                 let comment = ifCategory![i].category?.optComm ?? ""
                 let applicable = ifCategory![i].category?.ynAns ?? ""
                 let inspectionData = InspectionCategoryData(categoryName: categoryName, images:images, comment: comment, applicable: applicable)
-                isCategories.append(InspectionCategory.loadInspectionCategory(data: inspectionData, topLeftPoint: point, view: dateLabel.superview!, tagNumber: i, editable: false, hasPictures: false, numberOfPictures: 0,  imagePresenter: self))
+                let inspecCategoryStuff = InspectionCategory.loadInspectionCategory(data: inspectionData, topLeftPoint: point, view: dateLabel.superview!, tagNumber: i, editable: false, hasPictures: false, numberOfPictures: 0,  imagePresenter: self)
+                isCategories.append(inspecCategoryStuff.categories)
                 point.y += CGFloat(isCategories[i/* + 1*/].getHeight() + 10)
             }
             i += 1

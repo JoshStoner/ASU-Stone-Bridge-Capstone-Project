@@ -56,6 +56,12 @@ class InspectionFormViewController: UIViewController, UIPickerViewDataSource, UI
     //holds all of the inspection categories
     private var isCategories : [InspectionCategory] = []
     
+    struct categoryButton
+    {
+        var categoryTag: Int
+        var buttons: [UIButton]
+    }
+    
     override func viewDidLoad() {
         super.viewDidLoad()
         //print(load)
@@ -150,6 +156,7 @@ class InspectionFormViewController: UIViewController, UIPickerViewDataSource, UI
             
                 if i < 4
                 {
+                    var catButtons: [categoryButton] = []
                     var images: [UIImage] = []
                     
                     if (ifCategory![i].category?.pictureData?.hasPics == true)
@@ -184,7 +191,52 @@ class InspectionFormViewController: UIViewController, UIPickerViewDataSource, UI
                         let comment = ifCategory![i].category?.optComm ?? ""
                         let applicable = ifCategory![i].category?.ynAns ?? ""
                         let inspectionData = InspectionCategoryData(categoryName: categoryName, images:images, comment: comment, applicable: applicable)
-                        isCategories.append(InspectionCategory.loadInspectionCategory(data: inspectionData, topLeftPoint: point, view: wellNameField.superview!, tagNumber: i, editable: true, hasPictures: true, numberOfPictures: 4,  imagePresenter: self))
+                        let inspecCategoryStuff = InspectionCategory.loadInspectionCategory(data: inspectionData, topLeftPoint: point, view: wellNameField.superview!, tagNumber: i, editable: true, hasPictures: true, numberOfPictures: 4,  imagePresenter: self)
+                        isCategories.append(inspecCategoryStuff.categories)
+                        
+                        //Need to update the ibhandler for all buttons in the categories
+                        //Currently have every button with each category it goes to
+                        catButtons.append(categoryButton(categoryTag: i, buttons: inspecCategoryStuff.buttons))
+                        
+                        j = 0
+                        //Might need to mess with this rect a bit
+                        let rect = CGRect(x: 0, y: 0, width: 100, height: 100)
+                        print("images.count is \(images.count)")
+                        while(j < images.count)
+                        {
+                            
+                            let b = ImageButtonHandler(sourceButton: catButtons[i].buttons[j], tag: j, numberOfButtons: images.count, buttonSpace: rect)
+                            ibhandler.append(b)
+                            j += 1
+                        }
+                        
+                        //This part is specifically for when the user wants to add a new image to the category
+                        //Meaning the new image should be in a button and that button should have an ImageButtonHandler
+                        //Need to create an extra button for every category that has less than 5 pictures
+                        //if(saved.PicEnt.count < 5)
+                        //{
+                            //Next need the create an ImageButtonHandler for the extra button
+                            //Then need to save ibhandler.append(new ImageButtonHandler)
+                        //}
+                        
+                        j = 0
+                        var k = 0
+                        print("Showing the tag numbers for each button")
+                        while(j < ibhandler.count)
+                        {
+                            //This should get all buttons in the ibhandler at position j
+                            let testing = ibhandler[j].getButtons()
+                            print("testing.count is \(testing.count)")
+                            k = 0
+                            while(k < testing.count)
+                            {
+                                //This should print every button's tag
+                                print("For the button at element \(j) the tags are \(testing[k].tag)")
+                                k += 1
+                            }
+                            j += 1
+                        }
+                        
                     }
                     //print(i)
                     point.y += CGFloat(isCategories[i/* + 1*/].getHeight() + 10)
@@ -197,7 +249,8 @@ class InspectionFormViewController: UIViewController, UIPickerViewDataSource, UI
                     let comment = ifCategory![i].category?.optComm ?? ""
                     let applicable = ifCategory![i].category?.ynAns ?? ""
                     let inspectionData = InspectionCategoryData(categoryName: categoryName, images:images, comment: comment, applicable: applicable)
-                    isCategories.append(InspectionCategory.loadInspectionCategory(data: inspectionData, topLeftPoint: point, view: wellNameField.superview!, tagNumber: i, editable: true, hasPictures: false, numberOfPictures: 0,  imagePresenter: self))
+                    let inspecCategoryStuff = InspectionCategory.loadInspectionCategory(data: inspectionData, topLeftPoint: point, view: wellNameField.superview!, tagNumber: i, editable: true, hasPictures: false, numberOfPictures: 0,  imagePresenter: self)
+                    isCategories.append(inspecCategoryStuff.categories)
                     point.y += CGFloat(isCategories[i/* + 1*/].getHeight() + 10)
                 }
                 i += 1
@@ -495,10 +548,17 @@ extension InspectionFormViewController: ImagePickerDelegate {
     func didSelect(image: UIImage?, action: String, sender: UIButton) {
         let buttonHandlerNumber = sender.tag
         
+        print("buttonHandlerNumber is \(buttonHandlerNumber)")
+        //Currently I think every button tag number is not updating meaning every button tag number is 0
+        //So this will replace the very first button handler in the ibhandler but will change the correct button's
+        //information in the handleChange function
+        //Also we need to find either a new way to hold the ImageButtonHandlers because the button tag id should
+        //all be in a range like 0 to 5 for four different categories
         let button = ibhandler[buttonHandlerNumber].handleChange(changedButton: sender, action: action, newImage: image)
         if (button != nil){
             button?.addTarget(self, action: #selector(showImagePicker(_:)), for: .touchUpInside)
         }
+        
         //view.addSubview(button!)
         /* this part is now just done in the imageButtonHandler
         if (action == clearImageAction) {
