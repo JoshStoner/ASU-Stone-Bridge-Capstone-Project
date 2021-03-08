@@ -17,7 +17,7 @@ class InspectionCategory: NSObject, UIPickerViewDataSource, UIPickerViewDelegate
     var inspectionYNField : UITextField? // used when editable
     var inspectionYNLabel : UILabel? // used when not editable
     
-    var defaultComment : String = "Add optional comment"// the placeholder text for the comment
+    let defaultComment : String = "Add optional comment"// the placeholder text for the comment
     var tag : Int  // the tag that all of the elements will have
     var height : Double //total height of the rectangle that the elements use
     var width : Double //total width of the rectangle that the elements use
@@ -27,6 +27,8 @@ class InspectionCategory: NSObject, UIPickerViewDataSource, UIPickerViewDelegate
     var inspectionPicturesSourceButton : UIButton?
     var changed = false
     
+    //the font that gets used for the textView
+    var textViewFont: UIFont = UIFont(name: "Verdana", size: 16.0)!
     
     let defaultPhoto = UIImage(systemName:"plus.rectangle.on.folder")
     
@@ -71,8 +73,10 @@ class InspectionCategory: NSObject, UIPickerViewDataSource, UIPickerViewDelegate
         inspectionComment = UITextView(frame: inspectionCommentFrame)
         inspectionComment.text = defaultComment;
         inspectionComment.isEditable = self.editable
-        
-        
+        inspectionComment.font = textViewFont
+        inspectionComment.textColor = UIColor.darkGray
+        inspectionComment.layer.borderColor = UIColor.lightGray.cgColor
+        inspectionComment.layer.borderWidth = 1
         inspectionComment.tag = tag
         //inspectionComment.borderStyle = .bezel
         
@@ -157,6 +161,13 @@ class InspectionCategory: NSObject, UIPickerViewDataSource, UIPickerViewDelegate
         
         //sets all of the text fields to the values in the Inspection Category data
         isCategory.inspectionComment.text = data.comment
+        if (data.comment != isCategory.defaultComment || editable == false)
+        {
+            isCategory.inspectionComment.textColor = UIColor.black
+        }
+        
+        
+        
         if (editable) {
             isCategory.inspectionYNField!.text = data.applicable
             
@@ -368,9 +379,26 @@ class InspectionCategory: NSObject, UIPickerViewDataSource, UIPickerViewDelegate
     //function for knowing when a text view changed
     func textViewDidChange(_ textView: UITextView) {
         changed = true
-        print("itWorked")
+        //print("itWorked")
     }
     
+    //if the text view has the default comment it empties the text view on edit
+    func textViewDidBeginEditing(_ textView: UITextView) {
+        if (textView.text == defaultComment)
+        {
+            textView.text = ""
+            textView.textColor = UIColor.black
+        }
+    }
+    
+    //if the text view is empty it adds in the default comment
+    func textViewDidEndEditing(_ textView: UITextView) {
+        if (textView.text == "")
+        {
+            textView.text = defaultComment
+            textView.textColor = UIColor.darkGray
+        }
+    }
 }
 
 

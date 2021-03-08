@@ -72,6 +72,15 @@ class InspectionFormViewController: UIViewController, UIPickerViewDataSource, UI
             wellNumberField.text = loadedWellNumber
             inspectionDoneField.text = loadedInspecDone
             dateField.text = loadedDate
+        } else
+        {
+            //sets up the date to be the current day
+            let date = Date()
+            let dateFormatter = DateFormatter()
+            dateFormatter.dateFormat = "MM/dd/yyyy"
+            dateField.text = dateFormatter.string(from: date)
+            
+            //autofill the inspectionDoneField to be the name of the user who has logged in COMPLETE LATER
         }
         
         //adds the change handler to the fields at the top

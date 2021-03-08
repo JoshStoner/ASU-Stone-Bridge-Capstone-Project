@@ -29,6 +29,8 @@ class TableCellViewController: UIViewController//, PHPickerViewControllerDelegat
     
     var ifCategory : [InspectionFormCategoryEntity]?
     
+    let defaultComment = "Add optional comment"
+    let defaultCommentReplacement = "No Comment"
     
     //holds all of the inspection categories
     private var isCategories : [InspectionCategory] = []
@@ -109,7 +111,9 @@ class TableCellViewController: UIViewController//, PHPickerViewControllerDelegat
                     //print("images.count = \(images.count)")
                     //print("images = \(images)")
                     let categoryName = inspectionCategoriesNames[i]
-                    let comment = ifCategory![i].category?.optComm ?? ""
+                    //if the form has the default comment then it replaces it with the defaultCommentReplacement when viewing the form
+                    var comment = ifCategory![i].category?.optComm ?? ""
+                    comment = (comment == defaultComment ? defaultCommentReplacement : comment)
                     let applicable = ifCategory![i].category?.ynAns ?? ""
                     let inspectionData = InspectionCategoryData(categoryName: categoryName, images:images, comment: comment, applicable: applicable)
                     let inspecCategoryStuff = InspectionCategory.loadInspectionCategory(data: inspectionData, topLeftPoint: point, view: dateLabel.superview!, tagNumber: i, editable: false, hasPictures: true, numberOfPictures: images.count,  imagePresenter: self)
