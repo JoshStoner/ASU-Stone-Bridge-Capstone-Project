@@ -91,7 +91,7 @@ class TableCellViewController: UIViewController//, PHPickerViewControllerDelegat
                     //print(savedPicEnt[i].picTag)
                     //print("AFTER")
                     
-                    var j = i
+                    var j = 0 //changed from i to 0
                     //print("In loop")
                     while j < savedPicEnt.count
                     {

@@ -179,10 +179,12 @@ class InspectionFormViewController: UIViewController, UIPickerViewDataSource, UI
                         //print(savedPicEnt[i].picTag)
                         //print("AFTER")
                         
-                        var j = i
+                        var j = 0 //changed from i to 0
                         //print("In loop")
+                        print("the count is \(savedPicEnt.count)")
                         while j < savedPicEnt.count
                         {
+                            print("loaded a picture, j is \(j)")
                             //print(savedPicEnt[j].picData)
                             //print(Int(savedPicEnt[j].picTag))
                             let img = savedPicEnt[j].picData!
