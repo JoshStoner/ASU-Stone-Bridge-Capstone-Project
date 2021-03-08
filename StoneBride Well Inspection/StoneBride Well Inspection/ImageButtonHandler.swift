@@ -56,7 +56,7 @@ class ImageButtonHandler {
     }
     
     //helper method to create a button
-    private func makeButton() -> UIButton
+    private func makeButton(newTag: Int) -> UIButton
     {
         
         // uses the next button position for setting the coordinates
@@ -64,7 +64,7 @@ class ImageButtonHandler {
         let newButton = UIButton(frame: newButtonFrame)
         //originalButton.actions(forTarget: <#T##Any?#>, forControlEvent: <#T##UIControl.Event#>)
         
-        newButton.tag = tag
+        newButton.tag = newTag
         newButton.setBackgroundImage(defaultImagePickerPhoto, for: .normal)
         originalButton.superview?.addSubview(newButton)
         buttons.append(newButton)
@@ -129,7 +129,7 @@ class ImageButtonHandler {
                 if (totalButtons < maxButtons)
                 {
                     //makes a new button and adds it to the super view
-                    returnButton = makeButton()
+                    returnButton = makeButton(newTag: changedButton.tag+1)
                 }
                 
             }

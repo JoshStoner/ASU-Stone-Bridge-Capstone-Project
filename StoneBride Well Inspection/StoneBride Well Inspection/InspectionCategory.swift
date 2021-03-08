@@ -125,7 +125,7 @@ class InspectionCategory: NSObject, UIPickerViewDataSource, UIPickerViewDelegate
             //creates the original picture button
             let pictureFrame = CGRect(x: topLeftPoint.x, y: inspectionCommentFrame.maxY + 10, width: InspectionCommentFrameWidth, height: 100)
             inspectionPicturesSourceButton = UIButton(frame: CGRect(x: topLeftPoint.x, y: pictureFrame.minY, width: 80, height: 60))
-            inspectionPicturesSourceButton?.tag = tag
+            inspectionPicturesSourceButton?.tag = tag*4
             inspectionPicturesSourceButton?.setBackgroundImage(defaultPhoto, for: .normal)
             
             if (self.editable) { // only adds the action to add another picture if it is editable
@@ -150,9 +150,9 @@ class InspectionCategory: NSObject, UIPickerViewDataSource, UIPickerViewDelegate
     }
     
     //creates and returns an inspection category given a set of inspection category data and necessary information
-    public static func loadInspectionCategory(data: InspectionCategoryData, topLeftPoint: CGPoint, view: UIView, tagNumber: Int, editable: Bool, hasPictures: Bool, numberOfPictures: Int, imagePresenter: UIViewController) -> InspectionCategoryStuff
+    public static func loadInspectionCategory(data: InspectionCategoryData, topLeftPoint: CGPoint, view: UIView, tagNumber: Int, editable: Bool, hasPictures: Bool, numberOfPictures: Int, imagePresenter: UIViewController) -> InspectionCategory
     {
-        var buttonArr: [UIButton] = []
+        //var buttonArr: [UIButton] = []
         let isCategory = InspectionCategory(categoryName: data.categoryName, topLeftPoint: topLeftPoint, view: view, tagNumber: tagNumber, editable: editable, hasPictures: hasPictures, numberOfPictures: numberOfPictures, imagePresenter: imagePresenter)
         
         //sets all of the text fields to the values in the Inspection Category data
@@ -183,7 +183,7 @@ class InspectionCategory: NSObject, UIPickerViewDataSource, UIPickerViewDelegate
                 if (button != nil && editable == true){
                     //print("Adding the new image")
                     button?.addTarget(imagePresenter, action: #selector(showImagePicker(_:)), for: .touchUpInside)
-                    buttonArr.append(button!)
+                    //buttonArr.append(button!)
                     //print("New Image added")
                 }
                 
@@ -204,8 +204,8 @@ class InspectionCategory: NSObject, UIPickerViewDataSource, UIPickerViewDelegate
             
             
         }
-        let a = InspectionCategoryStuff(categories: isCategory, buttons: buttonArr)
-        return a//isCategory
+        //let a = InspectionCategoryStuff(categories: isCategory, buttons: buttonArr)
+        return isCategory
     }
     
     public func getTag() -> Int

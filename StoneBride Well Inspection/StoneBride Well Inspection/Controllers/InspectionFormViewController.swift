@@ -56,11 +56,11 @@ class InspectionFormViewController: UIViewController, UIPickerViewDataSource, UI
     //holds all of the inspection categories
     private var isCategories : [InspectionCategory] = []
     
-    struct categoryButton
+    /*struct categoryButton
     {
         var categoryTag: Int
         var buttons: [UIButton]
-    }
+    }*/
     
     override func viewDidLoad() {
         super.viewDidLoad()
@@ -134,13 +134,13 @@ class InspectionFormViewController: UIViewController, UIPickerViewDataSource, UI
             {
                 if i < 4
                 {
-                    isCategories.append(InspectionCategory(categoryName: inspectionCategoriesNames[i], topLeftPoint: point, view: wellNameField.superview!, tagNumber: /*3 + */i, editable: true, hasPictures: true, numberOfPictures: 4,  imagePresenter: self))
+                    isCategories.append(InspectionCategory(categoryName: inspectionCategoriesNames[i], topLeftPoint: point, view: wellNameField.superview!, tagNumber: i, editable: true, hasPictures: true, numberOfPictures: 4,  imagePresenter: self))
                 point.y += CGFloat(isCategories[i/* + 1*/].getHeight() + 10)
                     
                 }
                 else
                 {
-                    isCategories.append(InspectionCategory(categoryName: inspectionCategoriesNames[i], topLeftPoint: point, view: wellNameField.superview!, tagNumber: /*3 + */i, editable: true, hasPictures: false, numberOfPictures: 0,  imagePresenter: self))
+                    isCategories.append(InspectionCategory(categoryName: inspectionCategoriesNames[i], topLeftPoint: point, view: wellNameField.superview!, tagNumber: i, editable: true, hasPictures: false, numberOfPictures: 0,  imagePresenter: self))
                     point.y += CGFloat(isCategories[i/* + 1*/].getHeight() + 10)
                 }
             }
@@ -156,15 +156,17 @@ class InspectionFormViewController: UIViewController, UIPickerViewDataSource, UI
             
                 if i < 4
                 {
-                    var catButtons: [categoryButton] = []
+                    //var catButtons: [categoryButton] = []
                     var images: [UIImage] = []
                     
                     if (ifCategory![i].category?.pictureData?.hasPics == true)
                     {
                         let savedPicEnt = (ifCategory![i].category?.pictureData?.pic?.allObjects as! [InspectionFormPicturesEntity]).sorted(by: {$0.picTag < $1.picTag})
                         
+                        
+                        
                         //print("Before")
-                        //print(savedPicEnt.count)
+                        print(savedPicEnt.count)
                         //print(savedPicEnt[i].picTag)
                         //print("AFTER")
                         
@@ -173,6 +175,7 @@ class InspectionFormViewController: UIViewController, UIPickerViewDataSource, UI
                         while j < savedPicEnt.count
                         {
                             //print(savedPicEnt[j].picData)
+                            //print(Int(savedPicEnt[j].picTag))
                             let img = savedPicEnt[j].picData!
                             let saveImage = UIImage(data: img)
                             //images.insert(saveImage!, at: j) // this didn't work for me when there was more than one image saved but below did - Josh
@@ -192,23 +195,25 @@ class InspectionFormViewController: UIViewController, UIPickerViewDataSource, UI
                         let applicable = ifCategory![i].category?.ynAns ?? ""
                         let inspectionData = InspectionCategoryData(categoryName: categoryName, images:images, comment: comment, applicable: applicable)
                         let inspecCategoryStuff = InspectionCategory.loadInspectionCategory(data: inspectionData, topLeftPoint: point, view: wellNameField.superview!, tagNumber: i, editable: true, hasPictures: true, numberOfPictures: 4,  imagePresenter: self)
-                        isCategories.append(inspecCategoryStuff.categories)
+                        isCategories.append(inspecCategoryStuff)
                         
+                        let b = isCategories[i].inspectionPictures
+                        ibhandler.append(b!)
                         //Need to update the ibhandler for all buttons in the categories
                         //Currently have every button with each category it goes to
-                        catButtons.append(categoryButton(categoryTag: i, buttons: inspecCategoryStuff.buttons))
+                        //catButtons.append(categoryButton(categoryTag: i, buttons: inspecCategoryStuff.buttons))
                         
-                        j = 0
+                        /*j = 0
                         //Might need to mess with this rect a bit
                         let rect = CGRect(x: 0, y: 0, width: 100, height: 100)
                         print("images.count is \(images.count)")
                         while(j < images.count)
                         {
                             
-                            let b = ImageButtonHandler(sourceButton: catButtons[i].buttons[j], tag: j, numberOfButtons: images.count, buttonSpace: rect)
-                            ibhandler.append(b)
+                            //let b = ImageButtonHandler(sourceButton: catButtons[i].buttons[j], tag: j, numberOfButtons: images.count, buttonSpace: rect)
+                            ibhandler.append(b!)
                             j += 1
-                        }
+                        }*/
                         
                         //This part is specifically for when the user wants to add a new image to the category
                         //Meaning the new image should be in a button and that button should have an ImageButtonHandler
@@ -219,7 +224,7 @@ class InspectionFormViewController: UIViewController, UIPickerViewDataSource, UI
                             //Then need to save ibhandler.append(new ImageButtonHandler)
                         //}
                         
-                        j = 0
+                        /*j = 0
                         var k = 0
                         print("Showing the tag numbers for each button")
                         while(j < ibhandler.count)
@@ -235,11 +240,11 @@ class InspectionFormViewController: UIViewController, UIPickerViewDataSource, UI
                                 k += 1
                             }
                             j += 1
-                        }
+                        }*/
                         
                     }
                     //print(i)
-                    point.y += CGFloat(isCategories[i/* + 1*/].getHeight() + 10)
+                    point.y += CGFloat(isCategories[i].getHeight() + 10)
                     
                 }
                 else
@@ -250,13 +255,31 @@ class InspectionFormViewController: UIViewController, UIPickerViewDataSource, UI
                     let applicable = ifCategory![i].category?.ynAns ?? ""
                     let inspectionData = InspectionCategoryData(categoryName: categoryName, images:images, comment: comment, applicable: applicable)
                     let inspecCategoryStuff = InspectionCategory.loadInspectionCategory(data: inspectionData, topLeftPoint: point, view: wellNameField.superview!, tagNumber: i, editable: true, hasPictures: false, numberOfPictures: 0,  imagePresenter: self)
-                    isCategories.append(inspecCategoryStuff.categories)
-                    point.y += CGFloat(isCategories[i/* + 1*/].getHeight() + 10)
+                    isCategories.append(inspecCategoryStuff)
+                    point.y += CGFloat(isCategories[i].getHeight() + 10)
                 }
                 i += 1
             }
+            var j = 0
+            var k = 0
+            print("Showing the tag numbers for each button")
+            while(j < ibhandler.count)
+            {
+                //This should get all buttons in the ibhandler at position j
+                let testing = ibhandler[j].getButtons()
+                print("testing.count is \(testing.count)")
+                k = 0
+                while(k < testing.count)
+                {
+                    //This should print every button's tag
+                    print("For the button at element \(j) the tags are \(testing[k].tag)")
+                    k += 1
+                }
+                j += 1
+            }
             
         }
+        
         
         //print(point.y)
     }
@@ -554,10 +577,33 @@ extension InspectionFormViewController: ImagePickerDelegate {
         //information in the handleChange function
         //Also we need to find either a new way to hold the ImageButtonHandlers because the button tag id should
         //all be in a range like 0 to 5 for four different categories
-        let button = ibhandler[buttonHandlerNumber].handleChange(changedButton: sender, action: action, newImage: image)
+        var i = 0
+        var j = 0
+        var found = false
+        while (i < ibhandler.count)
+        {
+            j = 0
+            while (j < ibhandler[i].buttons.count)
+            {
+                if ibhandler[i].buttons[j].tag == buttonHandlerNumber
+                {
+                    found = true
+                    break
+                }
+                j += 1
+            }
+            if (found == true)
+            {
+                break
+            }
+            i += 1
+        }
+        let changedButton = ibhandler[i].handleChange(changedButton: ibhandler[i].buttons[j], action: action, newImage: image)
+        
+        /*let button = ibhandler[buttonHandlerNumber].handleChange(changedButton: sender, action: action, newImage: image)
         if (button != nil){
             button?.addTarget(self, action: #selector(showImagePicker(_:)), for: .touchUpInside)
-        }
+        }*/
         
         //view.addSubview(button!)
         /* this part is now just done in the imageButtonHandler

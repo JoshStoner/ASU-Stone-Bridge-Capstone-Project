@@ -55,11 +55,11 @@ public class inspectionFormModel
         contextObject.oilBarrels = Int64(oBarrels)
         contextObject.waterBarrels = Int64(wBarrels)
         
-        print("Hey ur before the deltion")
+        //print("Hey ur before the deltion")
         //Should remove every category currently saved
         let deletingOldSections = contextObject.section
         contextObject.removeFromSection(deletingOldSections!)
-        print("Hey it should be deleted")
+        //print("Hey it should be deleted")
         
         var tagIndex = 0
         var maxTag = 30
@@ -110,6 +110,7 @@ public class inspectionFormModel
             sectionCategories.pictureData = pictures
             
             
+            //print(section.category?.pictureData)
             //section.tagNum = Int64(categories[tagIndex].tag)
             //print(section.tagNum)
             //section.ynAns = categories[tagIndex].inspectionYNField.text
