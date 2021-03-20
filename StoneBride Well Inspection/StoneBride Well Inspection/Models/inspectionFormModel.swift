@@ -80,7 +80,7 @@ public class inspectionFormModel
             
             let pictures = InspectionFormPicContainerEntity(context:  self.managedObjectContext!)
             
-            if(tagIndex < 4)
+            if(tagIndex < 30)//4)
             {
                 pictures.hasPics = true
                 
@@ -172,7 +172,7 @@ public class inspectionFormModel
             
             let pictures = InspectionFormPicContainerEntity(context:  self.managedObjectContext!)
             
-            if(tagIndex < 4)
+            if(tagIndex < 30)//4)
             {
                 pictures.hasPics = true
                 

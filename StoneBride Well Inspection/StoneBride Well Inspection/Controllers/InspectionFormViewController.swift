@@ -32,8 +32,10 @@ class InspectionFormViewController: UIViewController, UIPickerViewDataSource, UI
     
     var changed = false // keeps track of if there have been changes since last save
     
+    let inspectionCategoriesNames = ["Pictures of the Lease Road", "Pictures of the Tank Battery", "Are there concrete vaults", "Are there old salt water pits", "Does it need new ID/repaint", "Tank Gauges", "Oil BBLS:     Water BBLS:", "# of Tanks and Size", "Plastic Tank/Size", "Orifice Meter", "Separator", "House Gas Meter/with Little Joe/Drip", "Pictures of the Well", "Pump Jack Make & Size", "Tubing Size", "Electric Motor & Size", "Gasoline Engine & Size", "Concrete Sills", "Any leaks around Wellhead", "Pictures of the Well Location", "Any spills to clean up", "Any gas leaks, oil leaks on fittings", "Does any brush need cut", "Does it need weedeated", "Any trash that needs picked up", "Any erosion occuring", "Any electric drops", "Electric Meter Number", "Electric Line overhead # of poles", "Fence"]
+    
     // an array of all the different inspection descriptions
-        let inspectionCategoriesNames = ["Pictures of the Well", "Pictures of the Tank Battery", "Pictures of the Location", "Pictures of the Lease Road", "Any Spills to clean up", "Any gas leaks, oil leaks on fittings", "Any leaks around wellhead", "Does any brush need cut", "Does  it need weedeated", "Any trash that needs picked up", "Any erosion occurring", "Are there concrete vaults", "Are there old salt water pits", "Does new ID placement need painted", "Tank Gauges", "Oil BBLS:     WaterBBLS:", "Any electric drops", "Electric Meter Number", "Pump Jack make & Size", "Tubing Size", "# of Tanks and Size", "Plastic Tank/Size", "Oriifce Meter", "Separator", "Electric Motor & Size", "Gasoline Engine and Size", "Electric Line Overhead # of poles", "Concrete Sills", "Fence", "House Gas Meter/with Little Joe/Drip"]
+       // let inspectionCategoriesNames = ["Pictures of the Well", "Pictures of the Tank Battery", "Pictures of the Location", "Pictures of the Lease Road", "Any Spills to clean up", "Any gas leaks, oil leaks on fittings", "Any leaks around wellhead", "Does any brush need cut", "Does  it need weedeated", "Any trash that needs picked up", "Any erosion occurring", "Are there concrete vaults", "Are there old salt water pits", "Does new ID placement need painted", "Tank Gauges", "Oil BBLS:     WaterBBLS:", "Any electric drops", "Electric Meter Number", "Pump Jack make & Size", "Tubing Size", "# of Tanks and Size", "Plastic Tank/Size", "Oriifce Meter", "Separator", "Electric Motor & Size", "Gasoline Engine and Size", "Electric Line Overhead # of poles", "Concrete Sills", "Fence", "House Gas Meter/with Little Joe/Drip"]
         
     //action types for the image picker, should maybe be an Enum
     //if these get changed here they need to be changed in imageButtonHandler and ImagePicker
@@ -62,10 +64,26 @@ class InspectionFormViewController: UIViewController, UIPickerViewDataSource, UI
         var buttons: [UIButton]
     }*/
     
+    //Used to change the scrollView height but needs to implemented differently. This height is for the height of the entire page. We need a different function for adding new buttons into the page to shift everything below a specific y height down whatever the height of the button is.
+    @IBAction func increasePageLength(_ sender: Any)
+    {
+        print("Added 500 to height")
+        var maxHeight : CGFloat = 0
+        for view in scrollView.subviews
+        {
+            let newHeight = view.frame.origin.y + view.frame.height
+            if newHeight > maxHeight
+            {
+                maxHeight = newHeight
+            }
+        }
+        scrollView.contentSize = CGSize(width: scrollView.contentSize.width, height: maxHeight + 500.0)
+    }
+    
     override func viewDidLoad() {
         super.viewDidLoad()
         //print(load)
-        
+        //print("The count of s is \(s.count)")
         if(load == true)
         {
             wellNameField.text = loadedWellName
@@ -141,9 +159,9 @@ class InspectionFormViewController: UIViewController, UIPickerViewDataSource, UI
         if (load == false) {
             for i in 0..<inspectionCategoriesNames.count
             {
-                if i < 4
+                if i < 30//4
                 {
-                    isCategories.append(InspectionCategory(categoryName: inspectionCategoriesNames[i], topLeftPoint: point, view: wellNameField.superview!, tagNumber: i, editable: true, hasPictures: true, numberOfPictures: 4,  imagePresenter: self))
+                    isCategories.append(InspectionCategory(categoryName: inspectionCategoriesNames[i], topLeftPoint: point, view: wellNameField.superview!, tagNumber: i, editable: true, hasPictures: true, numberOfPictures: 20/*4*/,  imagePresenter: self))
                 point.y += CGFloat(isCategories[i/* + 1*/].getHeight() + 10)
                     
                 }
@@ -163,7 +181,7 @@ class InspectionFormViewController: UIViewController, UIPickerViewDataSource, UI
             while i < 30
             {
             
-                if i < 4
+                if i < 30//4
                 {
                     //var catButtons: [categoryButton] = []
                     var images: [UIImage] = []
@@ -205,7 +223,7 @@ class InspectionFormViewController: UIViewController, UIPickerViewDataSource, UI
                         let comment = ifCategory![i].category?.optComm ?? ""
                         let applicable = ifCategory![i].category?.ynAns ?? ""
                         let inspectionData = InspectionCategoryData(categoryName: categoryName, images:images, comment: comment, applicable: applicable)
-                        let inspecCategoryStuff = InspectionCategory.loadInspectionCategory(data: inspectionData, topLeftPoint: point, view: wellNameField.superview!, tagNumber: i, editable: true, hasPictures: true, numberOfPictures: 4,  imagePresenter: self)
+                        let inspecCategoryStuff = InspectionCategory.loadInspectionCategory(data: inspectionData, topLeftPoint: point, view: wellNameField.superview!, tagNumber: i, editable: true, hasPictures: true, numberOfPictures: 20/*4*/,  imagePresenter: self)
                         isCategories.append(inspecCategoryStuff)
                         
                         let b = isCategories[i].inspectionPictures

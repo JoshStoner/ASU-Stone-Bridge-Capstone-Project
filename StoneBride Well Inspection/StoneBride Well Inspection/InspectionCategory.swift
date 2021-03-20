@@ -129,7 +129,7 @@ class InspectionCategory: NSObject, UIPickerViewDataSource, UIPickerViewDelegate
             //creates the original picture button
             let pictureFrame = CGRect(x: topLeftPoint.x, y: inspectionCommentFrame.maxY + 10, width: InspectionCommentFrameWidth, height: 100)
             inspectionPicturesSourceButton = UIButton(frame: CGRect(x: topLeftPoint.x, y: pictureFrame.minY, width: 80, height: 60))
-            inspectionPicturesSourceButton?.tag = tag*4
+            inspectionPicturesSourceButton?.tag = tag*20//4
             inspectionPicturesSourceButton?.setBackgroundImage(defaultPhoto, for: .normal)
             
             if (self.editable) { // only adds the action to add another picture if it is editable

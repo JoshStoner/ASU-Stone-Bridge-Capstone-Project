@@ -83,7 +83,8 @@ class ImageButtonHandler {
         //this makes sure that this is the handler in charge of this button
         var currentButtonNumber = -1
         for button in 0..<buttons.count {
-            if changedButton === buttons[button] {
+            if changedButton == buttons[button]//had 3 equal signs
+            {
                 currentButtonNumber = button
             }
         }

@@ -35,8 +35,10 @@ class TableCellViewController: UIViewController//, PHPickerViewControllerDelegat
     //holds all of the inspection categories
     private var isCategories : [InspectionCategory] = []
     
+    let inspectionCategoriesNames = ["Pictures of the Lease Road", "Pictures of the Tank Battery", "Are there concrete vaults", "Are there old salt water pits", "Does it need new ID/repaint", "Tank Gauges", "Oil BBLS:     Water BBLS:", "# of Tanks and Size", "Plastic Tank/Size", "Orifice Meter", "Separator", "House Gas Meter/with Little Joe/Drip", "Pictures of the Well", "Pump Jack Make & Size", "Tubing Size", "Electric Motor & Size", "Gasoline Engine & Size", "Concrete Sills", "Any leaks around Wellhead", "Pictures of the Well Location", "Any spills to clean up", "Any gas leaks, oil leaks on fittings", "Does any brush need cut", "Does it need weedeated", "Any trash that needs picked up", "Any erosion occuring", "Any electric drops", "Electric Meter Number", "Electric Line overhead # of poles", "Fence"]
+    
     // an array of all the different inspection descriptions
-        let inspectionCategoriesNames = ["Pictures of the Well", "Pictures of the Tank Battery", "Pictures of the Location", "Pictures of the Lease Road", "Any Spills to clean up", "Any gas leaks, oil leaks on fittings", "Any leaks around wellhead", "Does any brush need cut", "Does  it need weedeated", "Any trash that needs picked up", "Any erosion occurring", "Are there concrete vaults", "Are there old salt water pits", "Does new ID placement need painted", "Tank Gauges", "Oil BBLS:     WaterBBLS:", "Any electric drops", "Electric Meter Number", "Pump Jack make & Size", "Tubing Size", "# of Tanks and Size", "Plastic Tank/Size", "Oriifce Meter", "Separator", "Electric Motor & Size", "Gasoline Engine and Size", "Electric Line Overhead # of poles", "Concrete Sills", "Fence", "House Gas Meter/with Little Joe/Drip"]
+      //  let inspectionCategoriesNames = ["Pictures of the Well", "Pictures of the Tank Battery", "Pictures of the Location", "Pictures of the Lease Road", "Any Spills to clean up", "Any gas leaks, oil leaks on fittings", "Any leaks around wellhead", "Does any brush need cut", "Does  it need weedeated", "Any trash that needs picked up", "Any erosion occurring", "Are there concrete vaults", "Are there old salt water pits", "Does new ID placement need painted", "Tank Gauges", "Oil BBLS:     WaterBBLS:", "Any electric drops", "Electric Meter Number", "Pump Jack make & Size", "Tubing Size", "# of Tanks and Size", "Plastic Tank/Size", "Oriifce Meter", "Separator", "Electric Motor & Size", "Gasoline Engine and Size", "Electric Line Overhead # of poles", "Concrete Sills", "Fence", "House Gas Meter/with Little Joe/Drip"]
 
     
     @IBOutlet weak var wellNameLabel: UILabel!
@@ -78,7 +80,7 @@ class TableCellViewController: UIViewController//, PHPickerViewControllerDelegat
         var point = CGPoint(x:10, y: 210)
         while i < 30
         {
-            if i < 4
+            if i < 30//4
             {
                 var images: [UIImage] = []
                 
