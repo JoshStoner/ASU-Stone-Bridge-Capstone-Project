@@ -257,4 +257,21 @@ public class inspectionFormModel
             print("An error occured when trying to delete all inspection forms in the table")
         }
     }
+    
+    func searchEnt(sWellName: String, sDate: String, sWellNumber: Int, sInspectionDone: String) -> InspectionFormEntity?
+    {
+        let fetchRequest = NSFetchRequest<NSFetchRequestResult>(entityName: "InspectionFormEntity")
+        
+        let fetchResults = ((try? managedObjectContext?.fetch(fetchRequest)) as? [InspectionFormEntity])!
+        
+        for contextObject in fetchResults
+        {
+            if contextObject.date == sDate && contextObject.wellName == sWellName && contextObject.wellNumber == Int64(sWellNumber) && contextObject.inspectionDone == sInspectionDone
+            {
+                return contextObject
+            }
+        }
+        
+        return nil
+    }
 }
