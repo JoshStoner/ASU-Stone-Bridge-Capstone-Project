@@ -36,13 +36,15 @@ class ImageButtonHandler {
     let defaultImagePickerPhoto = UIImage(systemName:"plus.rectangle.on.folder")
     //private var buttonAction: Selector
     
+    //button space currently assumes that it has unlimited height to work with and new buttons will have space made for them
     public init(sourceButton: UIButton, tag: Int, numberOfButtons: Int, buttonSpace: CGRect)
     {
         originalButton = sourceButton
         buttons = [originalButton]
         frame = originalButton.frame
         maxButtons = numberOfButtons
-        self.buttonSpace = buttonSpace
+        self.buttonSpace = CGRect(x: buttonSpace.minX, y: buttonSpace.minY, width: buttonSpace.width, height: CGFloat((Int(frame.height) + yGap) * numberOfButtons))
+        
         
         //buttonAction = buttonFunction
         //makeButton()
@@ -155,6 +157,12 @@ class ImageButtonHandler {
         return nil
     }
     
+    //returns the max y position taken up by a button
+    public func getHeight() -> CGFloat
+    {
+        return buttons[totalButtons-1].frame.maxY
+    }
+    
     //finds legal coordinates for buttons inside of the given space for the imagebuttonhandler
     //it finds up to maxButton coordinates. if it terminates early then it sets max buttons to the number of coordinates that it found
     // lays out buttons in a grid starting from the position of the given button
@@ -168,7 +176,7 @@ class ImageButtonHandler {
         var downAmount = 0
         let origin = frame.origin // the location of the original button
 
-        while(canMoveDown)
+        while(canMoveDown && buttonPositions.count < maxButtons)
         {
             while(canMoveRight)
             {
@@ -250,6 +258,15 @@ class ImageButtonHandler {
         }
         
         return images
+    }
+    
+    //moves all the buttons down by amount
+    public func shiftButtonsVertically(amount: Int)
+    {
+        for button in buttons
+        {
+            button.frame = CGRect(x: button.frame.minX, y: button.frame.minY + CGFloat(amount), width: button.frame.width, height: button.frame.height)
+        }
     }
     
     //Used to get all of the buttons to show in the InspectionFormViewController starting at line 221

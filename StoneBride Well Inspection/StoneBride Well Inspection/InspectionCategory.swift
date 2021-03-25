@@ -26,6 +26,12 @@ class InspectionCategory: NSObject, UIPickerViewDataSource, UIPickerViewDelegate
     var editable: Bool = true // whether or not the category can be edited
     var inspectionPicturesSourceButton : UIButton?
     var changed = false
+
+    var topLeftPoint: CGPoint
+    
+    //i don't love this solution to moving inspetion categories when one changes
+    //this is needed to signal to the viewController that it needs to move categories down
+    var viewController: InspectionFormViewController?
     
     //the font that gets used for the textView
     var textViewFont: UIFont = UIFont(name: "Verdana", size: 16.0)!
@@ -40,6 +46,7 @@ class InspectionCategory: NSObject, UIPickerViewDataSource, UIPickerViewDelegate
         self.hasPictures = hasPictures
         self.editable = editable
         tag = tagNumber
+        self.topLeftPoint = topLeftPoint
         //initializes all the parts of an inspection category
         
         //initializes the inspection label
@@ -138,7 +145,7 @@ class InspectionCategory: NSObject, UIPickerViewDataSource, UIPickerViewDelegate
             inspectionPictures = ImageButtonHandler(sourceButton: inspectionPicturesSourceButton!, tag: tag, numberOfButtons: numberOfPictures, buttonSpace: pictureFrame)
             
             //calculates height including pictures
-            height = pictureFrame.maxY.native - topLeftPoint.y.native
+            calculateHeight()
             
             //adds the button to the view
             view.addSubview(inspectionPicturesSourceButton!)
@@ -149,7 +156,25 @@ class InspectionCategory: NSObject, UIPickerViewDataSource, UIPickerViewDelegate
             inspectionPictures = nil
             
             //calculates height not including pictures
-            height = inspectionCommentFrame.maxY.native - topLeftPoint.y.native + 20
+            calculateHeight()
+        }
+    }
+    
+    //calculates the vertical space this category needs for the current number of buttons it has
+    public func calculateHeight()
+    {
+        let lastHeight = height
+        if (hasPictures)
+        {
+            height = inspectionPictures!.getHeight().native - topLeftPoint.y.native + 20
+        } else
+        {
+            height = inspectionComment.frame.maxY.native - topLeftPoint.y.native + 20
+        }
+        
+        if (lastHeight != height)
+        {
+            viewController?.shiftCategories(tag: self.tag, amount: Int(height - lastHeight))
         }
     }
     
@@ -219,6 +244,24 @@ class InspectionCategory: NSObject, UIPickerViewDataSource, UIPickerViewDelegate
         return isCategory
     }
     
+    //shifts all the parts of the category down by the given amount
+    public func shiftVertically(amount:Int)
+    {
+        inspectionLabel.frame = CGRect(x: inspectionLabel.frame.minX, y: inspectionLabel.frame.minY + CGFloat(amount), width: inspectionLabel.frame.width, height: inspectionLabel.frame.height)
+        inspectionComment.frame = CGRect(x: inspectionComment.frame.minX, y: inspectionComment.frame.minY + CGFloat(amount), width: inspectionComment.frame.width, height: inspectionComment.frame.height)
+        if (editable)
+        {
+            inspectionYNField!.frame = CGRect(x: inspectionYNField!.frame.minX, y: inspectionYNField!.frame.minY + CGFloat(amount), width: inspectionYNField!.frame.width, height: inspectionYNField!.frame.height)
+        } else
+        {
+            inspectionYNLabel?.frame = CGRect(x: inspectionYNLabel!.frame.minX, y: inspectionYNLabel!.frame.minY + CGFloat(amount), width: inspectionYNLabel!.frame.width, height: inspectionYNLabel!.frame.height)
+        }
+        if (hasPictures)
+        {
+            inspectionPictures?.shiftButtonsVertically(amount: amount)
+        }
+    }
+    
     public func getTag() -> Int
     {
         return tag
@@ -267,6 +310,12 @@ class InspectionCategory: NSObject, UIPickerViewDataSource, UIPickerViewDelegate
         }
         let data = InspectionCategoryData(categoryName: category ?? "", images: images, comment: comment ?? "", applicable: applicable)
         return data
+    }
+    
+    //this is needed so that the inspection category can tell the inspection form when it has changed size
+    func setViewController(vc: InspectionFormViewController)
+    {
+        viewController = vc
     }
     
     //returns true if the necessary fields have been edited, currently that is just the YN field
@@ -371,7 +420,7 @@ class InspectionCategory: NSObject, UIPickerViewDataSource, UIPickerViewDelegate
             button?.addTarget(self, action: #selector(showImagePicker(_:)), for: .touchUpInside)
             //print("New Image added")
         }
-        
+        calculateHeight()
     }
     
     

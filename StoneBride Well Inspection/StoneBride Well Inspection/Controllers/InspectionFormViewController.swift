@@ -42,7 +42,9 @@ class InspectionFormViewController: UIViewController, UIPickerViewDataSource, UI
     let clearImageAction = "Clear"
     let changeImageAction = "Change Image"
     
+    //scroll view is the scrollview for the page, main view is the view inside of the scroll view
     @IBOutlet weak var scrollView: UIScrollView!
+    @IBOutlet weak var mainView: UIView!
     
     @IBOutlet weak var wellNameField: UITextField!
     @IBOutlet weak var wellNumberField: UITextField!
@@ -78,6 +80,13 @@ class InspectionFormViewController: UIViewController, UIPickerViewDataSource, UI
             }
         }
         scrollView.contentSize = CGSize(width: scrollView.contentSize.width, height: maxHeight + 500.0)
+        print(scrollView.contentSize.height)
+    }
+    
+    override func viewDidAppear(_ animated: Bool) {
+        //sets the initial height of the scroll view
+        mainView.sizeToFit()
+        scrollView.contentSize = CGSize(width: scrollView.contentSize.width, height: mainView.frame.height)
     }
     
     override func viewDidLoad() {
@@ -162,12 +171,14 @@ class InspectionFormViewController: UIViewController, UIPickerViewDataSource, UI
                 if i < 30//4
                 {
                     isCategories.append(InspectionCategory(categoryName: inspectionCategoriesNames[i], topLeftPoint: point, view: wellNameField.superview!, tagNumber: i, editable: true, hasPictures: true, numberOfPictures: 20/*4*/,  imagePresenter: self))
+                    isCategories[i].setViewController(vc: self)
                 point.y += CGFloat(isCategories[i/* + 1*/].getHeight() + 10)
                     
                 }
                 else
                 {
                     isCategories.append(InspectionCategory(categoryName: inspectionCategoriesNames[i], topLeftPoint: point, view: wellNameField.superview!, tagNumber: i, editable: true, hasPictures: false, numberOfPictures: 0,  imagePresenter: self))
+                    isCategories[i].setViewController(vc: self)
                     point.y += CGFloat(isCategories[i/* + 1*/].getHeight() + 10)
                 }
             }
@@ -176,7 +187,7 @@ class InspectionFormViewController: UIViewController, UIPickerViewDataSource, UI
         else {
             //adds all of the inspection categories to the document
             var i = 0
-            var point = CGPoint(x:10, y: 210)
+            //var point = CGPoint(x:10, y: 210)
             let ifCategory = loadedCategories
             while i < 30
             {
@@ -224,6 +235,7 @@ class InspectionFormViewController: UIViewController, UIPickerViewDataSource, UI
                         let applicable = ifCategory![i].category?.ynAns ?? ""
                         let inspectionData = InspectionCategoryData(categoryName: categoryName, images:images, comment: comment, applicable: applicable)
                         let inspecCategoryStuff = InspectionCategory.loadInspectionCategory(data: inspectionData, topLeftPoint: point, view: wellNameField.superview!, tagNumber: i, editable: true, hasPictures: true, numberOfPictures: 20/*4*/,  imagePresenter: self)
+                        inspecCategoryStuff.setViewController(vc: self)
                         isCategories.append(inspecCategoryStuff)
                         
                         let b = isCategories[i].inspectionPictures
@@ -284,11 +296,14 @@ class InspectionFormViewController: UIViewController, UIPickerViewDataSource, UI
                     let applicable = ifCategory![i].category?.ynAns ?? ""
                     let inspectionData = InspectionCategoryData(categoryName: categoryName, images:images, comment: comment, applicable: applicable)
                     let inspecCategoryStuff = InspectionCategory.loadInspectionCategory(data: inspectionData, topLeftPoint: point, view: wellNameField.superview!, tagNumber: i, editable: true, hasPictures: false, numberOfPictures: 0,  imagePresenter: self)
+                    inspecCategoryStuff.setViewController(vc: self)
                     isCategories.append(inspecCategoryStuff)
                     point.y += CGFloat(isCategories[i].getHeight() + 10)
+                    
                 }
                 i += 1
             }
+            
             var j = 0
             var k = 0
             print("Showing the tag numbers for each button")
@@ -308,9 +323,13 @@ class InspectionFormViewController: UIViewController, UIPickerViewDataSource, UI
             }
             
         }
+        print("got here")
+        //sets the scroll views height to the total height of the UI elements plus a little bit
+        mainView.frame = CGRect(x: 0, y: 0, width: mainView.frame.minX, height: point.y + 100)
+        scrollView.contentSize = CGSize(width: scrollView.contentSize.width, height: point.y)
         
         
-        //print(point.y)
+        
     }
     
     func numberOfComponents(in pickerView: UIPickerView) -> Int
@@ -582,6 +601,25 @@ class InspectionFormViewController: UIViewController, UIPickerViewDataSource, UI
             determineSegue()
         }
     }
+    
+    public func shiftCategories(tag: Int, amount: Int)
+    {
+        //shifts all of the categories that come after the one that got changed
+        var i = tag + 1
+        while (i < isCategories.count)
+        {
+            isCategories[i].shiftVertically(amount: amount)
+            
+            
+            i += 1
+        }
+        
+        //adjusts the scroll view to fit everything properly
+        mainView.frame = CGRect(x: mainView.frame.minX, y: mainView.frame.minY, width: mainView.frame.width, height: mainView.frame.height + CGFloat(amount))
+        scrollView.contentSize = CGSize(width: scrollView.contentSize.width, height: mainView.frame.height)
+        print(mainView.frame.height)
+    }
+    
     /*
     // MARK: - Navigation
 
