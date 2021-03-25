@@ -2,7 +2,7 @@
 <document type="com.apple.InterfaceBuilder3.CocoaTouch.Storyboard.XIB" version="3.0" toolsVersion="17156" targetRuntime="iOS.CocoaTouch" propertyAccessControl="none" useAutolayout="YES" useTraitCollections="YES" useSafeAreas="YES" colorMatched="YES" initialViewController="Avi-yq-k7w">
     <device id="retina4_7" orientation="portrait" appearance="light"/>
     <dependencies>
-        <plugIn identifier="com.apple.InterfaceBuilder.IBCocoaTouchPlugin" version="17125"/>
+        <plugIn identifier="com.apple.InterfaceBuilder.IBCocoaTouchPlugin" version="17126"/>
         <capability name="Safe area layout guides" minToolsVersion="9.0"/>
         <capability name="System colors in document resources" minToolsVersion="11.0"/>
         <capability name="documents saved in the Xcode 8 format" minToolsVersion="8.0"/>
@@ -318,11 +318,7 @@
                                                     <action selector="unwindSegue:" destination="izk-xh-wEQ" id="c3l-Ym-S4E"/>
                                                 </connections>
                                             </barButtonItem>
-                                            <barButtonItem title="Item" id="gZV-NO-Bmw">
-                                                <connections>
-                                                    <action selector="increasePageLength:" destination="izk-xh-wEQ" id="cPv-fw-O0D"/>
-                                                </connections>
-                                            </barButtonItem>
+                                            <barButtonItem title="Item" id="gZV-NO-Bmw"/>
                                         </leftBarButtonItems>
                                         <rightBarButtonItems>
                                             <barButtonItem title="Save" id="NoL-qq-z9K">
@@ -449,6 +445,7 @@
                         <outlet property="inspectionDoneField" destination="zg9-ga-ice" id="yzg-0M-74c"/>
                         <outlet property="mainView" destination="CyW-IL-XdA" id="I76-e2-bPx"/>
                         <outlet property="scrollView" destination="TQS-U4-Cof" id="8Si-Ul-He4"/>
+                        <outlet property="uiViewHeight" destination="Wv1-9I-s3f" id="x1q-gr-He2"/>
                         <outlet property="wellNameField" destination="Q5M-Un-1vi" id="KQf-bC-9Eq"/>
                         <outlet property="wellNumberField" destination="mjP-lN-EUw" id="Avp-Yf-g8V"/>
                         <segue destination="3iu-wa-3DY" kind="unwind" identifier="FormToTable" unwindAction="returnedToTableWithSegue:sender:" id="aPc-jD-kBm"/>

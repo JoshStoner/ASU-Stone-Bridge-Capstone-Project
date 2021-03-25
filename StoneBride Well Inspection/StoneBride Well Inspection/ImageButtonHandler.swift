@@ -68,6 +68,8 @@ class ImageButtonHandler {
         
         newButton.tag = newTag
         newButton.setBackgroundImage(defaultImagePickerPhoto, for: .normal)
+        //print(originalButton.superview?.superview)
+        //print(originalButton.superview)
         originalButton.superview?.addSubview(newButton)
         buttons.append(newButton)
         totalButtons += 1

@@ -43,6 +43,7 @@ class InspectionCategory: NSObject, UIPickerViewDataSource, UIPickerViewDelegate
     
     public init(categoryName: String, topLeftPoint: CGPoint, view: UIView, tagNumber: Int, editable: Bool, hasPictures: Bool, numberOfPictures: Int,  imagePresenter: UIViewController)
     {
+        self.viewController = imagePresenter as? InspectionFormViewController
         self.hasPictures = hasPictures
         self.editable = editable
         tag = tagNumber
@@ -166,15 +167,30 @@ class InspectionCategory: NSObject, UIPickerViewDataSource, UIPickerViewDelegate
         let lastHeight = height
         if (hasPictures)
         {
-            height = inspectionPictures!.getHeight().native - topLeftPoint.y.native + 20
+            if inspectionPictures != nil
+            {
+                print("not nil = \(inspectionPictures!.getHeight().native - topLeftPoint.y.native + 20)")
+                //print("lastHeight = \(lastHeight)")
+                height = inspectionPictures!.getHeight().native - topLeftPoint.y.native + 20
+            }
+            else
+            {
+                print("nil = \(inspectionComment.frame.maxY.native - topLeftPoint.y.native + 20)")
+                //print("lastHeight = \(lastHeight)")
+                height = inspectionComment.frame.maxY.native - topLeftPoint.y.native + 20
+            }
         } else
         {
             height = inspectionComment.frame.maxY.native - topLeftPoint.y.native + 20
         }
         
-        if (lastHeight != height)
+        //need to fix this if statement
+        if (Int(height) > 260*(tag+1))//(lastHeight != height)
         {
-            viewController?.shiftCategories(tag: self.tag, amount: Int(height - lastHeight))
+            //lastHeight was always -1
+            print("ok but height is \(height)")
+            //shift should be the size of a new button + a little extra space 
+            viewController?.shiftCategories(tag: self.tag, amount: Int(50.0))
         }
     }
     

@@ -67,9 +67,44 @@ class InspectionFormViewController: UIViewController, UIPickerViewDataSource, UI
     }*/
     
     //Used to change the scrollView height but needs to implemented differently. This height is for the height of the entire page. We need a different function for adding new buttons into the page to shift everything below a specific y height down whatever the height of the button is.
-    @IBAction func increasePageLength(_ sender: Any)
+    @IBOutlet weak var uiViewHeight: NSLayoutConstraint!
+    func increasePageLength()
     {
-        print("Added 500 to height")
+        
+        var maxHeight : CGFloat = 0
+        var test : CGFloat = 0
+        for view in self.scrollView.subviews
+        {
+            for subView in view.subviews
+            {
+                let t = subView.frame.origin.y + subView.frame.height
+                if t > test
+                {
+                    test = t
+                }
+            }
+            let newHeight = view.frame.origin.y + view.frame.height
+            //print(subView.frame.origin.y)
+            if newHeight > maxHeight
+            {
+                maxHeight = newHeight
+            }
+        
+        //print(maxHeight)
+        //print(test)
+        //print(scrollView.contentSize.height)
+        //scrollView.contentSize = CGSize(width: scrollView.contentSize.width, height: 12000.0)
+            uiViewHeight.constant = test + 50.0
+            scrollView.subviews[0].layoutIfNeeded()
+            scrollView.subviews[0].frame = CGRect(x: 0, y: 0, width: scrollView.subviews[0].frame.width, height: test + 50.0)
+            
+            //scrollView.subviews[0].sizeToFit()
+            //scrollView.subviews[0].frame.height = test + 50.0
+        scrollView.contentSize = CGSize(width: scrollView.contentSize.width, height: test + 50.0)
+        }
+        print(scrollView.contentSize.height)
+        print(scrollView.subviews[0].frame.height)
+        /*print("Added 500 to height")
         var maxHeight : CGFloat = 0
         for view in scrollView.subviews
         {
@@ -80,13 +115,14 @@ class InspectionFormViewController: UIViewController, UIPickerViewDataSource, UI
             }
         }
         scrollView.contentSize = CGSize(width: scrollView.contentSize.width, height: maxHeight + 500.0)
-        print(scrollView.contentSize.height)
+        print(scrollView.contentSize.height)*/
     }
     
     override func viewDidAppear(_ animated: Bool) {
         //sets the initial height of the scroll view
         mainView.sizeToFit()
         scrollView.contentSize = CGSize(width: scrollView.contentSize.width, height: mainView.frame.height)
+        increasePageLength()
     }
     
     override func viewDidLoad() {
@@ -604,6 +640,7 @@ class InspectionFormViewController: UIViewController, UIPickerViewDataSource, UI
     
     public func shiftCategories(tag: Int, amount: Int)
     {
+        print("Shifting categories with a tag id of \(tag+1) and greater")
         //shifts all of the categories that come after the one that got changed
         var i = tag + 1
         while (i < isCategories.count)
@@ -666,6 +703,8 @@ extension InspectionFormViewController: ImagePickerDelegate {
             i += 1
         }
         let changedButton = ibhandler[i].handleChange(changedButton: ibhandler[i].buttons[j], action: action, newImage: image)
+        
+        increasePageLength()
         
         /*let button = ibhandler[buttonHandlerNumber].handleChange(changedButton: sender, action: action, newImage: image)
         if (button != nil){
