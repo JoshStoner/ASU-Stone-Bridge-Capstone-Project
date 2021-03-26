@@ -11,6 +11,7 @@ import UIKit
 
 class InspectionCategory: NSObject, UIPickerViewDataSource, UIPickerViewDelegate, UITextViewDelegate, ImagePickerDelegate
 {
+    var numberOfShifts : Int
     var inspectionLabel : UILabel
     var inspectionComment : UITextView
     var inspectionPictures : ImageButtonHandler?
@@ -43,6 +44,7 @@ class InspectionCategory: NSObject, UIPickerViewDataSource, UIPickerViewDelegate
     
     public init(categoryName: String, topLeftPoint: CGPoint, view: UIView, tagNumber: Int, editable: Bool, hasPictures: Bool, numberOfPictures: Int,  imagePresenter: UIViewController)
     {
+        self.numberOfShifts = 0
         self.viewController = imagePresenter as? InspectionFormViewController
         self.hasPictures = hasPictures
         self.editable = editable
@@ -183,14 +185,32 @@ class InspectionCategory: NSObject, UIPickerViewDataSource, UIPickerViewDelegate
         {
             height = inspectionComment.frame.maxY.native - topLeftPoint.y.native + 20
         }
-        
+        print(tag)
+        print("Height = \(height)")
+        print("oof = \((260+(numberOfShifts*70)))")
+        print("double oof = \((260+(numberOfShifts*70)))")
+        //print("double oof = \(((180*(tag))+(numberOfShifts*70)+20))")
         //need to fix this if statement
-        if (Int(height) > 260*(tag+1))//(lastHeight != height)
+        if (tag == 0)
+        {
+            if (Int(height) > (260+(numberOfShifts*70)))
+            {
+                print("ok but height is \(height)")
+                numberOfShifts += 1
+                //shift should be the size of a new button + a little extra space
+                viewController?.shiftCategories(tag: self.tag, amount: Int(70.0))
+            }
+        }
+        else
+        {
+        if (Int(height) > (260+(numberOfShifts*70)))//((180*(tag))+(numberOfShifts*70)+20))//(lastHeight != height)
         {
             //lastHeight was always -1
             print("ok but height is \(height)")
+            numberOfShifts += 1
             //shift should be the size of a new button + a little extra space 
-            viewController?.shiftCategories(tag: self.tag, amount: Int(50.0))
+            viewController?.shiftCategories(tag: self.tag, amount: Int(70.0))
+        }
         }
     }
     
@@ -258,6 +278,11 @@ class InspectionCategory: NSObject, UIPickerViewDataSource, UIPickerViewDelegate
         }
         //let a = InspectionCategoryStuff(categories: isCategory, buttons: buttonArr)
         return isCategory
+    }
+    
+    public func shiftHappened()
+    {
+        numberOfShifts += 1
     }
     
     //shifts all the parts of the category down by the given amount

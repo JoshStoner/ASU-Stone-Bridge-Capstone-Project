@@ -645,6 +645,7 @@ class InspectionFormViewController: UIViewController, UIPickerViewDataSource, UI
         var i = tag + 1
         while (i < isCategories.count)
         {
+            isCategories[i].shiftHappened()
             isCategories[i].shiftVertically(amount: amount)
             
             
@@ -655,6 +656,8 @@ class InspectionFormViewController: UIViewController, UIPickerViewDataSource, UI
         mainView.frame = CGRect(x: mainView.frame.minX, y: mainView.frame.minY, width: mainView.frame.width, height: mainView.frame.height + CGFloat(amount))
         scrollView.contentSize = CGSize(width: scrollView.contentSize.width, height: mainView.frame.height)
         print(mainView.frame.height)
+        
+        increasePageLength()
     }
     
     /*

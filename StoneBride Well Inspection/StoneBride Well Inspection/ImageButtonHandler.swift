@@ -52,7 +52,6 @@ class ImageButtonHandler {
         
         buttonPositions = [sourceButton.frame.origin]
         
-        
         //finds possible button coordinate
         findCoordinates()
     }
@@ -60,9 +59,21 @@ class ImageButtonHandler {
     //helper method to create a button
     private func makeButton(newTag: Int) -> UIButton
     {
-        
+        var newButtonFrame:CGRect
+        print("buttonPositions[count] = \(buttonPositions[totalButtons-1])")
+        if buttonPositions[totalButtons-1].x != 190.0
+        {
+            print("!=")
+            newButtonFrame = CGRect(x: buttonPositions[totalButtons].x, y: buttonPositions[totalButtons-1].y, width: frame.width, height: frame.height)
+        }
+        else
+        {
+            print("=")
+            newButtonFrame = CGRect(x: buttonPositions[totalButtons].x, y: buttonPositions[totalButtons-1].y+70.0, width: frame.width, height: frame.height)
+        }
         // uses the next button position for setting the coordinates
-        let newButtonFrame = CGRect(x: buttonPositions[totalButtons].x, y: buttonPositions[totalButtons].y, width: frame.width, height: frame.height)
+        
+        print("newButtonFrame = \(newButtonFrame)")
         let newButton = UIButton(frame: newButtonFrame)
         //originalButton.actions(forTarget: <#T##Any?#>, forControlEvent: <#T##UIControl.Event#>)
         
@@ -72,7 +83,10 @@ class ImageButtonHandler {
         //print(originalButton.superview)
         originalButton.superview?.addSubview(newButton)
         buttons.append(newButton)
+        buttonPositions[totalButtons] = newButtonFrame.origin
         totalButtons += 1
+        //findCoordinates()
+        
         return newButton
     }
     
@@ -128,7 +142,7 @@ class ImageButtonHandler {
         } else if (action == changeImageAction)
         {
             //only makes a new button if this is the first image set to this button, and the max number of buttons hasn't been reached
-            if (changedButton.backgroundImage(for: .normal) === defaultImagePickerPhoto)
+            if (changedButton.backgroundImage(for: .normal) == defaultImagePickerPhoto)
             {
                 totalPictures += 1
                 if (totalButtons < maxButtons)
@@ -177,7 +191,7 @@ class ImageButtonHandler {
         var rightAmount = 1
         var downAmount = 0
         let origin = frame.origin // the location of the original button
-
+        print("frame origin = \(frame.origin)")
         while(canMoveDown && buttonPositions.count < maxButtons)
         {
             while(canMoveRight)
@@ -189,6 +203,7 @@ class ImageButtonHandler {
                 let newX = origin.x + (frame.width + CGFloat(xGap)) * CGFloat(rightAmount)
                 let newY =  origin.y + (frame.height + CGFloat(yGap)) * CGFloat(downAmount)
                 let newOrigin = CGPoint(x: newX,y: newY)
+                print("new Origin = \(newOrigin)")
                 //let newFrame = CGRect(x: newX, y: newY, width: CGFloat(frame.width), height: CGFloat(frame.height))
                 let newFrame = CGRect(origin: newOrigin, size: frame.size)
                 
@@ -265,9 +280,20 @@ class ImageButtonHandler {
     //moves all the buttons down by amount
     public func shiftButtonsVertically(amount: Int)
     {
+        var count = 0
         for button in buttons
         {
+            
+            //print("Button frame before \(button.frame)")
+            //print("Before buttons[count].frame = \(buttons[count].frame)")
+            //print("Before buttonPositions[count] = \(buttonPositions[count])")
             button.frame = CGRect(x: button.frame.minX, y: button.frame.minY + CGFloat(amount), width: button.frame.width, height: button.frame.height)
+            buttons[count] = button
+            buttonPositions[count] = button.frame.origin
+            //print("Button frame before \(button.frame)")
+            //print("After buttons[count].frame = \(buttons[count].frame)")
+            //print("After buttonPositions[count] = \(buttonPositions[count])")
+            count += 1
         }
     }
     
