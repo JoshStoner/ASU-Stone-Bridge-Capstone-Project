@@ -242,7 +242,7 @@ class TableViewController: UIViewController, UITableViewDelegate, UITableViewDat
             des.iFDate = date
             des.iFyntext = yn
             des.iFoptcomm = opt
-            des.formList = formList
+            //des.formList = formList
             des.indexPath = selectedIndex
             des.ifCategory = ee
             des.ifEnt = ent

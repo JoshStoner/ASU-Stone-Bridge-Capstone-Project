@@ -27,7 +27,7 @@ class InspectionFormViewController: UIViewController, UIPickerViewDataSource, UI
     
     let defaultImagePickerPhoto = UIImage(systemName:"plus.rectangle.on.folder")
     let testImage = UIImage(systemName: "house")
-    var formList:inspectionList?
+    //var formList:inspectionList?
     let choices = ["", "Yes", "No", "N/A"]
     
     var changed = false // keeps track of if there have been changes since last save
@@ -68,55 +68,6 @@ class InspectionFormViewController: UIViewController, UIPickerViewDataSource, UI
     
     //Used to change the scrollView height but needs to implemented differently. This height is for the height of the entire page. We need a different function for adding new buttons into the page to shift everything below a specific y height down whatever the height of the button is.
     @IBOutlet weak var uiViewHeight: NSLayoutConstraint!
-    func increasePageLength()
-    {
-        
-        var maxHeight : CGFloat = 0
-        var test : CGFloat = 0
-        for view in self.scrollView.subviews
-        {
-            for subView in view.subviews
-            {
-                let t = subView.frame.origin.y + subView.frame.height
-                if t > test
-                {
-                    test = t
-                }
-            }
-            let newHeight = view.frame.origin.y + view.frame.height
-            //print(subView.frame.origin.y)
-            if newHeight > maxHeight
-            {
-                maxHeight = newHeight
-            }
-        
-        //print(maxHeight)
-        //print(test)
-        //print(scrollView.contentSize.height)
-        //scrollView.contentSize = CGSize(width: scrollView.contentSize.width, height: 12000.0)
-            uiViewHeight.constant = test + 50.0
-            scrollView.subviews[0].layoutIfNeeded()
-            scrollView.subviews[0].frame = CGRect(x: 0, y: 0, width: scrollView.subviews[0].frame.width, height: test + 50.0)
-            
-            //scrollView.subviews[0].sizeToFit()
-            //scrollView.subviews[0].frame.height = test + 50.0
-        scrollView.contentSize = CGSize(width: scrollView.contentSize.width, height: test + 50.0)
-        }
-        print(scrollView.contentSize.height)
-        print(scrollView.subviews[0].frame.height)
-        /*print("Added 500 to height")
-        var maxHeight : CGFloat = 0
-        for view in scrollView.subviews
-        {
-            let newHeight = view.frame.origin.y + view.frame.height
-            if newHeight > maxHeight
-            {
-                maxHeight = newHeight
-            }
-        }
-        scrollView.contentSize = CGSize(width: scrollView.contentSize.width, height: maxHeight + 500.0)
-        print(scrollView.contentSize.height)*/
-    }
     
     override func viewDidAppear(_ animated: Bool) {
         //sets the initial height of the scroll view
@@ -636,6 +587,56 @@ class InspectionFormViewController: UIViewController, UIPickerViewDataSource, UI
             //decide which unwind segue to use
             determineSegue()
         }
+    }
+    
+    func increasePageLength()
+    {
+        
+        var maxHeight : CGFloat = 0
+        var test : CGFloat = 0
+        for view in self.scrollView.subviews
+        {
+            for subView in view.subviews
+            {
+                let t = subView.frame.origin.y + subView.frame.height
+                if t > test
+                {
+                    test = t
+                }
+            }
+            let newHeight = view.frame.origin.y + view.frame.height
+            //print(subView.frame.origin.y)
+            if newHeight > maxHeight
+            {
+                maxHeight = newHeight
+            }
+        
+        //print(maxHeight)
+        //print(test)
+        //print(scrollView.contentSize.height)
+        //scrollView.contentSize = CGSize(width: scrollView.contentSize.width, height: 12000.0)
+            uiViewHeight.constant = test + 50.0
+            scrollView.subviews[0].layoutIfNeeded()
+            scrollView.subviews[0].frame = CGRect(x: 0, y: 0, width: scrollView.subviews[0].frame.width, height: test + 50.0)
+            
+            //scrollView.subviews[0].sizeToFit()
+            //scrollView.subviews[0].frame.height = test + 50.0
+        scrollView.contentSize = CGSize(width: scrollView.contentSize.width, height: test + 50.0)
+        }
+        print(scrollView.contentSize.height)
+        print(scrollView.subviews[0].frame.height)
+        /*print("Added 500 to height")
+        var maxHeight : CGFloat = 0
+        for view in scrollView.subviews
+        {
+            let newHeight = view.frame.origin.y + view.frame.height
+            if newHeight > maxHeight
+            {
+                maxHeight = newHeight
+            }
+        }
+        scrollView.contentSize = CGSize(width: scrollView.contentSize.width, height: maxHeight + 500.0)
+        print(scrollView.contentSize.height)*/
     }
     
     public func shiftCategories(tag: Int, amount: Int)

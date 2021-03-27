@@ -23,7 +23,7 @@ class TableCellViewController: UIViewController//, PHPickerViewControllerDelegat
     var iFyntext: String?
     var iFoptcomm: String?
 
-    var formList: inspectionList?
+    //var formList: inspectionList?
     
     var fetchResults = [InspectionFormEntity]()
     
@@ -151,7 +151,7 @@ class TableCellViewController: UIViewController//, PHPickerViewControllerDelegat
             let des = segue.destination as! InspectionFormViewController
             des.load = true
             des.loadIndex = indexPath
-            des.formList = formList
+            //des.formList = formList
             des.loadedCategories = ifCategory
             des.loadedEnt = ifEnt!
             des.loadedWellName = iFWellName

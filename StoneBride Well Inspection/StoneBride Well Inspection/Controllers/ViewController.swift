@@ -16,11 +16,11 @@ class ViewController: UIViewController
     
     var myInspectionList = inspectionList()
     
-    @IBOutlet weak var size: UILabel!
+    //@IBOutlet weak var size: UILabel!
     
     override func viewDidLoad() {
         super.viewDidLoad()
-        update()
+        //update()
         // Do any additional setup after loading the view.
         
         //this is the code that gets run whenever the network status changes
@@ -37,14 +37,14 @@ class ViewController: UIViewController
         
     }
     
-    func update()
+    /*func update()
     {
         self.size.text = String(myInspectionList.getCount())
-    }
+    }*/
 
     override func prepare(for segue: UIStoryboardSegue, sender: Any?)
     {
-        if segue.identifier == "toInspectionForm"
+        /*if segue.identifier == "toInspectionForm"
         {
             let des = segue.destination as! InspectionFormViewController
             des.formList = myInspectionList
@@ -53,12 +53,12 @@ class ViewController: UIViewController
         {
             let des = segue.destination as! TableViewController
             des.formList = myInspectionList
-        }
+        }*/
     }
     
     @IBAction func returnedToMenu(segue: UIStoryboardSegue, sender: Any?)
     {
-        if let sourceViewController = segue.source as? InspectionFormViewController
+        /*if let sourceViewController = segue.source as? InspectionFormViewController
         {
             let dataRecieved = sourceViewController.formList
             self.myInspectionList = dataRecieved!
@@ -69,7 +69,7 @@ class ViewController: UIViewController
             let dataRecieved = sourceViewController.formList
             self.myInspectionList = dataRecieved!
             self.size.text = String(myInspectionList.getCount())
-        }
+        }*/
     }
 }
 
