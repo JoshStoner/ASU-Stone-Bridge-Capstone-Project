@@ -174,10 +174,10 @@ class InspectionForms
     
     let Pictures = Table("Pictures")
     let PicID = Expression<Int>("PicID")
-    let PicOfWell = Expression<Data>("PicOfWell")
-    let PicOfTankBattery = Expression<Data>("PicOfTankBattery")
-    let PicOfLocation = Expression<Data>("PicOfLocation")
-    let PicOfLeaseRoad = Expression<Data>("PicOfLeaseRoad")
+    let PicOfWell = Expression<String>("PicOfWell")
+    let PicOfTankBattery = Expression<String>("PicOfTankBattery")
+    let PicOfLocation = Expression<String>("PicOfLocation")
+    let PicOfLeaseRoad = Expression<String>("PicOfLeaseRoad")
     let YesOrNo = Expression<String>("Yes/No")
     
     func createPictureTable()
@@ -188,7 +188,7 @@ class InspectionForms
             table.column(self.PicOfTankBattery)
             table.column(self.PicOfLocation)
             table.column(self.PicOfLeaseRoad)
-            table.column(self.YesOrNo)
+            //table.column(self.YesOrNo)
             //table.column(self.wellID)
             //table.foreignKey(self.wellID, references: self.InspectionForm, self.wellID)
         }
@@ -202,10 +202,10 @@ class InspectionForms
         }
         
     }
-    func addPicture(PicOfWell: Data, PicOfTankBattery: Data, PicOfLocation: Data, PicOfLeaseRoad: Data, YesOrNo: String)
+    func addPicture(PicID: Int, PicOfWell: String, PicOfTankBattery: String, PicOfLocation: String, PicOfLeaseRoad: String)
     {
         
-        let insertPicture = self.Pictures.insert(self.PicOfWell <- PicOfWell, self.PicOfTankBattery <- PicOfTankBattery, self.PicOfLocation <- PicOfLocation, self.PicOfLeaseRoad <- PicOfLeaseRoad, self.YesOrNo <- YesOrNo)
+        let insertPicture = self.Pictures.insert(self.PicID <- PicID, self.PicOfWell <- PicOfWell, self.PicOfTankBattery <- PicOfTankBattery, self.PicOfLocation <- PicOfLocation, self.PicOfLeaseRoad <- PicOfLeaseRoad)
         
         do{
             try self.database.run(insertPicture)
@@ -214,6 +214,24 @@ class InspectionForms
             print(error)
         }
         
+    }
+    func listPictures()
+    {
+        do{
+            
+            let Pics = try! self.database.prepare(self.Pictures)
+            for Picture in Pics
+            {
+                print("Pic ID: \(Picture[PicID])")
+                //print("Well Name: \(Picture[PicOfWell])")
+                //print("Date : \(Picture[PicOfTankBattery])")
+                //print("Well Name: \(Picture[PicOfLocation])")
+                //print("Date : \(Picture[PicOfLeaseRoad])")
+                
+            }
+        }catch{
+            print(error)
+        }
     }
     
     let InspectionDescription = Table("InspectionDescription")

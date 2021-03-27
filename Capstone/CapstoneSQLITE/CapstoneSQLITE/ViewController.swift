@@ -23,6 +23,11 @@ class ViewController: UIViewController {
     @IBOutlet weak var EnteredWorkingEmployeeID: UITextField!
     @IBOutlet weak var EnteredWellID: UITextField!
     @IBOutlet weak var EnteredCharID: UITextField!
+    
+    let EnteredWellPic: UIImage = UIImage(named: "testimage")!
+    let EnteredTankBatteryPic: UIImage = UIImage(named: "testimage")!
+    let EnteredLocationPic: UIImage = UIImage(named: "testimage")!
+    let EnteredLeaseRoadPic: UIImage = UIImage(named: "testimage")!
 
     override func viewDidLoad() {
         super.viewDidLoad()
@@ -55,6 +60,27 @@ class ViewController: UIViewController {
         
     }
     
+    @IBAction func addPictures(_ sender: Any){
+        //change to accomidate inputs
+        let wellPI : UIImage = EnteredWellPic
+        let wellPD = wellPI.jpegData(compressionQuality: 1)!
+        let wellPBase64 = wellPD.base64EncodedString(options: .lineLength64Characters)
+        
+        let tankBatPI : UIImage = EnteredTankBatteryPic
+        let tankBatPD = tankBatPI.jpegData(compressionQuality: 1)!
+        let tankBatPBase64 = tankBatPD.base64EncodedString(options: .lineLength64Characters)
+        
+        let locPI : UIImage = EnteredLocationPic
+        let locPD = locPI.jpegData(compressionQuality: 1)!
+        let locPBase64 = locPD.base64EncodedString(options: .lineLength64Characters)
+        
+        let leaseRPI : UIImage = EnteredLeaseRoadPic
+        let leaseRPD = leaseRPI.jpegData(compressionQuality: 1)!
+        let leaseRPBase64 = leaseRPD.base64EncodedString(options: .lineLength64Characters)
+        
+        Inspection.addPicture(PicID: 1, PicOfWell: wellPBase64, PicOfTankBattery: tankBatPBase64, PicOfLocation: locPBase64, PicOfLeaseRoad: leaseRPBase64)
+    }
+    
     @IBAction func deleteButton(_ sender: Any) {
         Inspection.delete()
         
@@ -64,6 +90,10 @@ class ViewController: UIViewController {
         Inspection.listInspectionForm()
 
         Inspection.listWell()
+        
+        Inspection.listWellImage()
+        
+        Inspection.listPictures()
 
     }
     
