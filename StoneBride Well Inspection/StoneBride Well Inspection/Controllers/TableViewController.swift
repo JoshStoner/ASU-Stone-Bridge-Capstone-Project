@@ -109,21 +109,32 @@ class TableViewController: UIViewController, UITableViewDelegate, UITableViewDat
     func tableView(_ tableView: UITableView, commit editingStyle: UITableViewCell.EditingStyle, forRowAt indexPath: IndexPath) {
         if editingStyle == .delete
         {
-            let inspecEnt = fetchResults[indexPath.row]
-            let managedContext = inspecEnt.managedObjectContext
-            managedContext?.delete(inspecEnt)
-            do
-            {
-                try managedContext?.save()
-                fetchResults.remove(at: indexPath.row)
-                inspectionFormTable.deleteRows(at: [indexPath], with: .automatic)
-            }
-            catch
-            {
-                print("Couldn't delete the inspection form")
-            }
             
+            //alerts the user they are about to delete an inspection form
+            //could add some logic to indicate if the form has been sent to the database
+            let alert = UIAlertController(title: "Unsaved Changes", message: "Are you sure you want to leave? Unsaved changes will be lost", preferredStyle: .alert)
             
+            //the cancel action
+            alert.addAction(UIAlertAction(title: "Cancel", style: .cancel, handler: nil))
+
+            //the delete action
+            alert.addAction(UIAlertAction(title: "Delete", style: .destructive, handler: {(_) -> () in
+                let inspecEnt = self.fetchResults[indexPath.row]
+                let managedContext = inspecEnt.managedObjectContext
+                managedContext?.delete(inspecEnt)
+                do
+                {
+                    try managedContext?.save()
+                    self.fetchResults.remove(at: indexPath.row)
+                    self.inspectionFormTable.deleteRows(at: [indexPath], with: .automatic)
+                }
+                catch
+                {
+                    print("Couldn't delete the inspection form")
+                }
+            }))
+            
+            self.present(alert, animated: true, completion: nil)
             /*formList!.removeForm(item: indexPath.row)
         
             self.inspectionFormTable.beginUpdates()
