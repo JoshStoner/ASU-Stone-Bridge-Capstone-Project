@@ -16,6 +16,7 @@ class InspectionFormViewController: UIViewController, UIPickerViewDataSource, UI
     
     var iModel:inspectionFormModel?
     
+    var alreadySaved = false
     var load = false // variable used to tell the form to load an already created form rather than make one from scratch
     var loadIndex: IndexPath?
     var loadedCategories: [InspectionFormCategoryEntity]?
@@ -416,9 +417,14 @@ class InspectionFormViewController: UIViewController, UIPickerViewDataSource, UI
         */
         //formList?.addForm(da: date!, inspDone: inspectionDone!, weName: wellName!, weNum: wellNumber!, spls: spills!, splsCom: spillsComment!, oil: oilBarrels!, water: waterBarrels!)*/
         
-        if (load == false)
+        if (load == false && alreadySaved == false)
         {
-            iModel?.saveContext(d: date, inspecDone: inspectionDone, wName: wellName, wNum: wellNumber, spilToClean: spills, spilToCleanComm: spillsComment, oBarrels: oilBarrels, wBarrels: waterBarrels, categories: isCategories)
+            loadedEnt = iModel?.saveContext(d: date, inspecDone: inspectionDone, wName: wellName, wNum: wellNumber, spilToClean: spills, spilToCleanComm: spillsComment, oBarrels: oilBarrels, wBarrels: waterBarrels, categories: isCategories)
+            //loadedEnt = iModel?.searchEnt(sWellName: wellName, sDate: date, sWellNumber: wellNumber, sInspectionDone: inspectionDone)
+            if loadedEnt != nil
+            {
+                alreadySaved = true
+            }
         }
         else
         {

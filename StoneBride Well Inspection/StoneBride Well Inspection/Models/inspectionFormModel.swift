@@ -139,7 +139,7 @@ public class inspectionFormModel
     }
     
     //Save an inspection form
-    func saveContext(d: String, inspecDone: String, wName: String, wNum: Int, spilToClean: String, spilToCleanComm: String, oBarrels: Int, wBarrels: Int, categories: [InspectionCategory])
+    func saveContext(d: String, inspecDone: String, wName: String, wNum: Int, spilToClean: String, spilToCleanComm: String, oBarrels: Int, wBarrels: Int, categories: [InspectionCategory]) -> InspectionFormEntity?
     {
         let newInspectionForm = InspectionFormEntity(context: self.managedObjectContext!)
         
@@ -221,11 +221,13 @@ public class inspectionFormModel
         do
         {
             try self.managedObjectContext!.save()
+            return newInspectionForm
         }
         catch
         {
             print("An error occured when trying to save this inspection form to Core Data")
         }
+        return nil
     }
     
     //remove specific inspection form from coredata
