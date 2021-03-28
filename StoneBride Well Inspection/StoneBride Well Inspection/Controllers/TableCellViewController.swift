@@ -122,8 +122,9 @@ class TableCellViewController: UIViewController//, PHPickerViewControllerDelegat
                     isCategories.append(inspecCategoryStuff)
                 }
                 //print(i)
-                point.y += CGFloat(isCategories[i/* + 1*/].getHeight() + 10)
+                //point.y += CGFloat(isCategories[i/* + 1*/].getHeight() + 10)
                 
+                point.y += CGFloat(isCategories[i].projectedHeight(numberOfImages: images.count - 1, readOnly: true) + 10)
             }
             else
             {

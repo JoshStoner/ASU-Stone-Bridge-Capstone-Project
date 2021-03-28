@@ -179,6 +179,19 @@ class ImageButtonHandler {
         return buttons[totalButtons-1].frame.maxY
     }
     
+    // this can be used before images have been added to get the estimated height of the buttons
+    // returns the expected max y coordinate taken up by a button
+    // this does take into consideration the button used to add another image
+    public func getProjectedHeight(numberOfImages: Int) -> CGFloat
+    {
+        if (numberOfImages < 0 || numberOfImages > maxButtons)
+        {
+            return frame.minX
+        }
+        //adds the height of the frame to its y coordinate
+        return buttonPositions[numberOfImages].y + frame.height
+    }
+    
     //finds legal coordinates for buttons inside of the given space for the imagebuttonhandler
     //it finds up to maxButton coordinates. if it terminates early then it sets max buttons to the number of coordinates that it found
     // lays out buttons in a grid starting from the position of the given button
@@ -301,6 +314,11 @@ class ImageButtonHandler {
     public func getButtons() -> [UIButton]
     {
         return buttons
+    }
+    
+    public func getMaxButtons() -> Int
+    {
+        return maxButtons
     }
     
 }

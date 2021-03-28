@@ -47,6 +47,12 @@ class InspectionCategory: NSObject, UIPickerViewDataSource, UIPickerViewDelegate
         self.numberOfShifts = 0
         self.viewController = imagePresenter as? InspectionFormViewController
         self.hasPictures = hasPictures
+        
+        if (numberOfPictures == 0)
+        {
+            self.hasPictures = false
+        }
+        
         self.editable = editable
         tag = tagNumber
         self.topLeftPoint = topLeftPoint
@@ -161,6 +167,32 @@ class InspectionCategory: NSObject, UIPickerViewDataSource, UIPickerViewDelegate
             //calculates height not including pictures
             calculateHeight()
         }
+    }
+    
+    //calculates the amount of space that it thinks it will take up with the given number of buttons
+    // the second parameter indicates if it is read only and therefore won't have the last button used to add another image
+    public func projectedHeight(numberOfImages: Int, readOnly: Bool ) -> Int
+    {
+        if (hasPictures == true)
+        {
+            //determines how many buttons there will be for the number of images
+            let maxButtons = inspectionPictures!.getMaxButtons()
+            //if the numberOfImages is greater than maxButtons just use maxButtons
+            if (readOnly == false && numberOfImages + 1 >= maxButtons || readOnly == true)
+            {
+                return Int((inspectionPictures?.getProjectedHeight(numberOfImages: numberOfImages))! - topLeftPoint.y)
+            } else
+            {
+                return Int(inspectionPictures!.getProjectedHeight(numberOfImages: numberOfImages + 1) - topLeftPoint.y)
+            }
+            
+            
+        } else{
+            return Int(height)
+        }
+        
+        //should never reach this point
+        return -1
     }
     
     //calculates the vertical space this category needs for the current number of buttons it has

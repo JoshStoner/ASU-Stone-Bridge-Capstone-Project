@@ -272,8 +272,8 @@ class InspectionFormViewController: UIViewController, UIPickerViewDataSource, UI
                         
                     }
                     //print(i)
-                    point.y += CGFloat(isCategories[i].getHeight() + 10)
-                    
+                    //point.y += CGFloat(isCategories[i].getHeight() + 10)
+                    point.y += CGFloat(isCategories[i].projectedHeight(numberOfImages: images.count, readOnly: false) + 10)
                 }
                 else
                 {
