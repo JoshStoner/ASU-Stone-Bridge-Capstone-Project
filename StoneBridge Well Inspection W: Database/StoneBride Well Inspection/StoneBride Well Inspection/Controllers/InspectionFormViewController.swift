@@ -560,6 +560,7 @@ class InspectionFormViewController: UIViewController, UIPickerViewDataSource, UI
                 {
                     if(i < 30)
                     {
+                        // Contains all the pictures under a category
                         var images: [UIImage] = []
                         
                         if(sortedSections[i].category?.pictureData?.hasPics == true)
@@ -570,8 +571,9 @@ class InspectionFormViewController: UIViewController, UIPickerViewDataSource, UI
                             while j < savedPicEnt.count
                             {
                                 let img = savedPicEnt[j].picData!
+                                // Coverting it to UIImage and saving it into saveImage variabe
                                 let saveImage = UIImage(data: img)
-                                //images.insert(saveImage!, at: j) // this didn't work for me when there was more than one image saved but below did - Josh
+                                //Storing all the pics into the image array
                                 images.append(saveImage!)
                                 j += 1;
                             }
@@ -581,7 +583,7 @@ class InspectionFormViewController: UIViewController, UIPickerViewDataSource, UI
                             
                             let applicable = sortedSections[i].category?.ynAns ?? ""
                             
-                            DB.addWell(Category: categoryName, YesOrNo: applicable, comment: comment)
+                            DB.addWell(wellID: Int(InspectionFormData!.wellNumber), Category: categoryName, YesOrNo: applicable, comment: comment)
 
                         }
                     }

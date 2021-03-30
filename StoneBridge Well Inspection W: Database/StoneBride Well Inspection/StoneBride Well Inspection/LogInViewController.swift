@@ -64,9 +64,10 @@ class LogInViewController: UIViewController {
         // Do any additional setup after loading the view.
         // Database
         DB.DatabaseConnection()
+        //DB.delete()
         DB.createEmployeeTable()
         
-        DB.addEmployee(employeeID: 1, name: "TestUser", pw: "TestPass" )
+        //DB.addEmployee(employeeID: 1, name: "TestUser", pw: "TestPass" )
     }
     
 
