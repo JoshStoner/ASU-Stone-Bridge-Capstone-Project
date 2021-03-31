@@ -9,6 +9,7 @@ import Foundation
 // https://github.com/stephencelis/SQLite.swift/blob/master/Documentation/Index.md#table-constraints
 // This library below is from github to make creating tables easier
 import SQLite
+import UIKit
 
 class Database
 {
@@ -248,7 +249,7 @@ class Database
                 print("Y/N: \(Well[self.YesOrNo])")
                 print("Comment: \(Well[self.comment])")
                 print("Description ID: \(Well[self.charID])")
-                print("Well ID \(Well[self.wellID])")
+                print("Well ID: \(Well[self.wellID])")
             }
         }catch{
             print(error)
@@ -278,18 +279,24 @@ class Database
         }
         
     }
-    func addPicture(PicID: Int, CategoryPics: String, charID: Int)
+    // charID is category.
+    func addPicture(PicID: Int, image: UIImage, charID: Int)
     {
-        
-        let insertPicture = self.Pictures.insert(self.PicID <- PicID, self.CategoryPics <- CategoryPics, self.charID <- charID)
-        
+        // Saves it into pngData
+        let imageData = image.pngData()
+        // Convert it into string64
+        let tempPString64 = imageData?.base64EncodedString(options: .endLineWithLineFeed)
+        let picture : String = tempPString64!
+        let insertPicture = self.Pictures.insert(self.PicID <- PicID, self.CategoryPics <- picture, self.charID <- charID)
+            
         do{
             try self.database.run(insertPicture)
             print("Inserted Picture")
-        }catch{
-            print(error)
+        }catch
+        {
+            print("Failed to insert Picture")
         }
-        
+            
     }
     func listPictures()
     {
@@ -300,7 +307,7 @@ class Database
             {
                 print("Pic ID: \(Picture[PicID])")
                 print("Char ID: \(Picture[self.charID])")
-                //print("Well Name: \(Picture[PicOfWell])")
+                //print("Picture String: \(Picture[self.CategoryPics])")
                 //print("Date : \(Picture[PicOfTankBattery])")
                 //print("Well Name: \(Picture[PicOfLocation])")
                 //print("Date : \(Picture[PicOfLeaseRoad])")

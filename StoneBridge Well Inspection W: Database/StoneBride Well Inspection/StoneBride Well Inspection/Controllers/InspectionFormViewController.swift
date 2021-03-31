@@ -561,8 +561,7 @@ class InspectionFormViewController: UIViewController, UIPickerViewDataSource, UI
                     if(i < 30)
                     {
                         // Contains all the pictures under a category
-                        var images: [UIImage] = []
-                        
+                        //var images: [UIImage] = []
                         if(sortedSections[i].category?.pictureData?.hasPics == true)
                         {
                             let savedPicEnt = (sortedSections[i].category?.pictureData?.pic?.allObjects as! [InspectionFormPicturesEntity]).sorted(by: {$0.picTag < $1.picTag})
@@ -574,7 +573,8 @@ class InspectionFormViewController: UIViewController, UIPickerViewDataSource, UI
                                 // Coverting it to UIImage and saving it into saveImage variabe
                                 let saveImage = UIImage(data: img)
                                 //Storing all the pics into the image array
-                                images.append(saveImage!)
+                                //images.append(saveImage!)
+                                DB.addPicture(PicID: i+1 ,image: saveImage!, charID: i+1)
                                 j += 1;
                             }
                             let categoryName = inspectionCategoriesNames[i]
@@ -584,14 +584,13 @@ class InspectionFormViewController: UIViewController, UIPickerViewDataSource, UI
                             let applicable = sortedSections[i].category?.ynAns ?? ""
                             
                             DB.addWell(wellID: Int(InspectionFormData!.wellNumber), Category: categoryName, YesOrNo: applicable, comment: comment)
-
                         }
                     }
                     i += 1;
                 }
             
                 DB.listWell()
-               
+                DB.listPictures()
                 
             }
             
