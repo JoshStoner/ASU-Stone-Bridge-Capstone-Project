@@ -524,14 +524,15 @@ class InspectionFormViewController: UIViewController, UIPickerViewDataSource, UI
             let alert = UIAlertController(title: "Form Incomplete", message: "Please fill out and/or fix the highlighted fields", preferredStyle: .alert)
             alert.addAction(UIAlertAction(title: "Confirm", style: .cancel, handler: nil))
             self.present(alert, animated: true, completion: nil)
-        }
+        }else{
         
         //check internet connection UNIMPLIMENTED
         
         
         //make connection to database this will probably need something to prevent the user from changing views
-        
+        //
         //send form to data base
+        saveForm((Any).self)
         if (load == false)
         {
             let InspectionFormData = iModel?.searchEnt(sWellName: wellNameField.text!, sDate: dateField.text!, sWellNumber: Int(wellNumberField.text!)!, sInspectionDone: inspectionDoneField.text!)
@@ -593,9 +594,10 @@ class InspectionFormViewController: UIViewController, UIPickerViewDataSource, UI
                 DB.listPictures()
                 
             }
+        
             
             
-            
+        }
         }
         //performSegue(withIdentifier: "FormToTable", sender: nil)
     }

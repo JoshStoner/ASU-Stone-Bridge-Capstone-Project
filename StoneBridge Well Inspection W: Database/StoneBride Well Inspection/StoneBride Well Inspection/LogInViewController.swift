@@ -65,10 +65,10 @@ class LogInViewController: UIViewController {
         // Database
         DB.DatabaseConnection()
         
-        //DB.delete()
+        DB.delete()
         DB.createEmployeeTable()
         
-        //DB.addEmployee(employeeID: 1, name: "TestUser", pw: "TestPass" )
+        DB.addEmployee(employeeID: 1, name: "TestUser", pw: "TestPass" )
     }
     
 
