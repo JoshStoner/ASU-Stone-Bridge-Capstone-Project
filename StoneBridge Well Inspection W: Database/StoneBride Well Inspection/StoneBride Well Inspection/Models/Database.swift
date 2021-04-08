@@ -307,7 +307,7 @@ class Database
             {
                 print("Pic ID: \(Picture[PicID])")
                 print("Char ID: \(Picture[self.charID])")
-                //print("Picture String: \(Picture[self.CategoryPics])")
+                print("Picture String: \(Picture[self.CategoryPics])")
                 //print("Date : \(Picture[PicOfTankBattery])")
                 //print("Well Name: \(Picture[PicOfLocation])")
                 //print("Date : \(Picture[PicOfLeaseRoad])")
