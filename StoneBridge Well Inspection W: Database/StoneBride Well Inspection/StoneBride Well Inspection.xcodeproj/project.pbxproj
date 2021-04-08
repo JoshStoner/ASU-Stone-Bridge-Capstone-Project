@@ -110,7 +110,7 @@
 		03BF3D83255EA93A0053D623 /* LogInViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; name = LogInViewController.swift; path = "StoneBride Well Inspection/LogInViewController.swift"; sourceTree = SOURCE_ROOT; };
 		03BF3D86255EB6770053D623 /* InspectionCategory.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = InspectionCategory.swift; sourceTree = "<group>"; };
 		03F467E4253C090900FC7B03 /* ImagePicker.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ImagePicker.swift; sourceTree = "<group>"; };
-		2F3E68582532196B002A87EF /* StoneBride Well Inspection.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = "StoneBride Well Inspection.app"; sourceTree = BUILT_PRODUCTS_DIR; };
+		2F3E68582532196B002A87EF /* StoneBridge Well Inspection.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = "StoneBridge Well Inspection.app"; sourceTree = BUILT_PRODUCTS_DIR; };
 		2F3E685B2532196B002A87EF /* AppDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AppDelegate.swift; sourceTree = "<group>"; };
 		2F3E685D2532196B002A87EF /* SceneDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SceneDelegate.swift; sourceTree = "<group>"; };
 		2F3E685F2532196B002A87EF /* ViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ViewController.swift; sourceTree = "<group>"; };
@@ -164,7 +164,7 @@
 		2F3E68592532196B002A87EF /* Products */ = {
 			isa = PBXGroup;
 			children = (
-				2F3E68582532196B002A87EF /* StoneBride Well Inspection.app */,
+				2F3E68582532196B002A87EF /* StoneBridge Well Inspection.app */,
 			);
 			name = Products;
 			sourceTree = "<group>";
@@ -253,9 +253,9 @@
 /* End PBXGroup section */
 
 /* Begin PBXNativeTarget section */
-		2F3E68572532196B002A87EF /* StoneBride Well Inspection */ = {
+		2F3E68572532196B002A87EF /* StoneBridge Well Inspection */ = {
 			isa = PBXNativeTarget;
-			buildConfigurationList = 2F3E686F2532196E002A87EF /* Build configuration list for PBXNativeTarget "StoneBride Well Inspection" */;
+			buildConfigurationList = 2F3E686F2532196E002A87EF /* Build configuration list for PBXNativeTarget "StoneBridge Well Inspection" */;
 			buildPhases = (
 				2F3E68542532196B002A87EF /* Sources */,
 				2F3E68552532196B002A87EF /* Frameworks */,
@@ -266,9 +266,9 @@
 			);
 			dependencies = (
 			);
-			name = "StoneBride Well Inspection";
+			name = "StoneBridge Well Inspection";
 			productName = "StoneBride Well Inspection";
-			productReference = 2F3E68582532196B002A87EF /* StoneBride Well Inspection.app */;
+			productReference = 2F3E68582532196B002A87EF /* StoneBridge Well Inspection.app */;
 			productType = "com.apple.product-type.application";
 		};
 /* End PBXNativeTarget section */
@@ -286,7 +286,7 @@
 					};
 				};
 			};
-			buildConfigurationList = 2F3E68532532196B002A87EF /* Build configuration list for PBXProject "StoneBride Well Inspection" */;
+			buildConfigurationList = 2F3E68532532196B002A87EF /* Build configuration list for PBXProject "StoneBridge Well Inspection" */;
 			compatibilityVersion = "Xcode 9.3";
 			developmentRegion = en;
 			hasScannedForEncodings = 0;
@@ -305,7 +305,7 @@
 			);
 			projectRoot = "";
 			targets = (
-				2F3E68572532196B002A87EF /* StoneBride Well Inspection */,
+				2F3E68572532196B002A87EF /* StoneBridge Well Inspection */,
 			);
 		};
 /* End PBXProject section */
@@ -550,9 +550,10 @@
 			isa = XCBuildConfiguration;
 			buildSettings = {
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
+				CODE_SIGN_IDENTITY = "Apple Development";
 				CODE_SIGN_STYLE = Automatic;
 				CURRENT_PROJECT_VERSION = 2;
-				DEVELOPMENT_TEAM = "";
+				DEVELOPMENT_TEAM = 8H8375HW5W;
 				INFOPLIST_FILE = "StoneBride Well Inspection/Info.plist";
 				IPHONEOS_DEPLOYMENT_TARGET = 14.0;
 				LD_RUNPATH_SEARCH_PATHS = (
@@ -560,8 +561,9 @@
 					"@executable_path/Frameworks",
 				);
 				MARKETING_VERSION = 0.1.0;
-				PRODUCT_BUNDLE_IDENTIFIER = "StoneBridge-Capstone.StoneBride-Well-Inspection";
+				PRODUCT_BUNDLE_IDENTIFIER = "StoneBridge-Capstone.StoneBridge-Well-Inspection-Application";
 				PRODUCT_NAME = "$(TARGET_NAME)";
+				PROVISIONING_PROFILE_SPECIFIER = "";
 				SWIFT_VERSION = 5.0;
 				TARGETED_DEVICE_FAMILY = "1,2";
 			};
@@ -571,9 +573,10 @@
 			isa = XCBuildConfiguration;
 			buildSettings = {
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
+				CODE_SIGN_IDENTITY = "Apple Development";
 				CODE_SIGN_STYLE = Automatic;
 				CURRENT_PROJECT_VERSION = 2;
-				DEVELOPMENT_TEAM = "";
+				DEVELOPMENT_TEAM = 8H8375HW5W;
 				INFOPLIST_FILE = "StoneBride Well Inspection/Info.plist";
 				IPHONEOS_DEPLOYMENT_TARGET = 14.0;
 				LD_RUNPATH_SEARCH_PATHS = (
@@ -581,8 +584,9 @@
 					"@executable_path/Frameworks",
 				);
 				MARKETING_VERSION = 0.1.0;
-				PRODUCT_BUNDLE_IDENTIFIER = "StoneBridge-Capstone.StoneBride-Well-Inspection";
+				PRODUCT_BUNDLE_IDENTIFIER = "StoneBridge-Capstone.StoneBridge-Well-Inspection-Application";
 				PRODUCT_NAME = "$(TARGET_NAME)";
+				PROVISIONING_PROFILE_SPECIFIER = "";
 				SWIFT_VERSION = 5.0;
 				TARGETED_DEVICE_FAMILY = "1,2";
 			};
@@ -591,7 +595,7 @@
 /* End XCBuildConfiguration section */
 
 /* Begin XCConfigurationList section */
-		2F3E68532532196B002A87EF /* Build configuration list for PBXProject "StoneBride Well Inspection" */ = {
+		2F3E68532532196B002A87EF /* Build configuration list for PBXProject "StoneBridge Well Inspection" */ = {
 			isa = XCConfigurationList;
 			buildConfigurations = (
 				2F3E686D2532196E002A87EF /* Debug */,
@@ -600,7 +604,7 @@
 			defaultConfigurationIsVisible = 0;
 			defaultConfigurationName = Release;
 		};
-		2F3E686F2532196E002A87EF /* Build configuration list for PBXNativeTarget "StoneBride Well Inspection" */ = {
+		2F3E686F2532196E002A87EF /* Build configuration list for PBXNativeTarget "StoneBridge Well Inspection" */ = {
 			isa = XCConfigurationList;
 			buildConfigurations = (
 				2F3E68702532196E002A87EF /* Debug */,
