@@ -180,8 +180,8 @@ class TableCellViewController: UIViewController//, PHPickerViewControllerDelegat
             //scrollView.subviews[0].frame.height = test + 50.0
         scrollView.contentSize = CGSize(width: scrollView.contentSize.width, height: test + 50.0)
         }
-        print(scrollView.contentSize.height)
-        print(scrollView.subviews[0].frame.height)
+        //print(scrollView.contentSize.height)
+        //print(scrollView.subviews[0].frame.height)
     }
     
     override func prepare(for segue: UIStoryboardSegue, sender: Any?)

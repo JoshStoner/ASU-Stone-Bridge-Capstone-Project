@@ -198,16 +198,16 @@ class InspectionFormViewController: UIViewController, UIPickerViewDataSource, UI
                         
                         
                         //print("Before")
-                        print(savedPicEnt.count)
+                        //print(savedPicEnt.count)
                         //print(savedPicEnt[i].picTag)
                         //print("AFTER")
                         
                         var j = 0 //changed from i to 0
                         //print("In loop")
-                        print("the count is \(savedPicEnt.count)")
+                        //print("the count is \(savedPicEnt.count)")
                         while j < savedPicEnt.count
                         {
-                            print("loaded a picture, j is \(j)")
+                            //print("loaded a picture, j is \(j)")
                             //print(savedPicEnt[j].picData)
                             //print(Int(savedPicEnt[j].picTag))
                             let img = savedPicEnt[j].picData!
@@ -298,7 +298,7 @@ class InspectionFormViewController: UIViewController, UIPickerViewDataSource, UI
                 i += 1
             }
             
-            var j = 0
+            /*var j = 0
             var k = 0
             print("Showing the tag numbers for each button")
             while(j < ibhandler.count)
@@ -314,10 +314,10 @@ class InspectionFormViewController: UIViewController, UIPickerViewDataSource, UI
                     k += 1
                 }
                 j += 1
-            }
+            }*/
             
         }
-        print("got here")
+        //print("got here")
         //sets the scroll views height to the total height of the UI elements plus a little bit
         mainView.frame = CGRect(x: 0, y: 0, width: mainView.frame.minX, height: point.y + 100)
         scrollView.contentSize = CGSize(width: scrollView.contentSize.width, height: point.y)
@@ -533,9 +533,9 @@ class InspectionFormViewController: UIViewController, UIPickerViewDataSource, UI
         //
         //send form to data base
         saveForm((Any).self)
-        if (load == false)
+        if (alreadySaved == true || load == true)//(load == false)
         {
-            let InspectionFormData = iModel?.searchEnt(sWellName: wellNameField.text!, sDate: dateField.text!, sWellNumber: Int(wellNumberField.text!)!, sInspectionDone: inspectionDoneField.text!)
+            let InspectionFormData = loadedEnt//iModel?.searchEnt(sWellName: wellNameField.text!, sDate: dateField.text!, sWellNumber: Int(wellNumberField.text!)!, sInspectionDone: inspectionDoneField.text!)
             if (InspectionFormData == nil)
             {
                print("SeachedEnt failed")
@@ -592,7 +592,7 @@ class InspectionFormViewController: UIViewController, UIPickerViewDataSource, UI
             
                 DB.listWell()
                 DB.listPictures()
-                
+                print("Done publishing!")
             }
         
             
@@ -702,13 +702,13 @@ class InspectionFormViewController: UIViewController, UIPickerViewDataSource, UI
             //scrollView.subviews[0].frame.height = test + 50.0
         scrollView.contentSize = CGSize(width: scrollView.contentSize.width, height: test + 50.0)
         }
-        print(scrollView.contentSize.height)
-        print(scrollView.subviews[0].frame.height)
+        //print(scrollView.contentSize.height)
+        //print(scrollView.subviews[0].frame.height)
     }
     
     public func shiftCategories(tag: Int, amount: Int)
     {
-        print("Shifting categories with a tag id of \(tag+1) and greater")
+        //print("Shifting categories with a tag id of \(tag+1) and greater")
         //shifts all of the categories that come after the one that got changed
         var i = tag + 1
         while (i < isCategories.count)
@@ -723,7 +723,7 @@ class InspectionFormViewController: UIViewController, UIPickerViewDataSource, UI
         //adjusts the scroll view to fit everything properly
         mainView.frame = CGRect(x: mainView.frame.minX, y: mainView.frame.minY, width: mainView.frame.width, height: mainView.frame.height + CGFloat(amount))
         scrollView.contentSize = CGSize(width: scrollView.contentSize.width, height: mainView.frame.height)
-        print(mainView.frame.height)
+        //print(mainView.frame.height)
         
         increasePageLength()
     }
@@ -746,7 +746,7 @@ extension InspectionFormViewController: ImagePickerDelegate {
     func didSelect(image: UIImage?, action: String, sender: UIButton) {
         let buttonHandlerNumber = sender.tag
         
-        print("buttonHandlerNumber is \(buttonHandlerNumber)")
+        //print("buttonHandlerNumber is \(buttonHandlerNumber)")
         //Currently I think every button tag number is not updating meaning every button tag number is 0
         //So this will replace the very first button handler in the ibhandler but will change the correct button's
         //information in the handleChange function

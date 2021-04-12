@@ -301,13 +301,14 @@ class Database
     func listPictures()
     {
         do{
-            
             let Pics = try! self.database.prepare(self.Pictures)
             for Picture in Pics
             {
                 print("Pic ID: \(Picture[PicID])")
                 print("Char ID: \(Picture[self.charID])")
-                print("Picture String: \(Picture[self.CategoryPics])")
+                //I couldn't get this Picture String to print for me without XCode preventing me from printing anything from this method if I try to print this Picture String
+                //print("Picture String: \(Picture[self.CategoryPics])")
+                
                 //print("Date : \(Picture[PicOfTankBattery])")
                 //print("Well Name: \(Picture[PicOfLocation])")
                 //print("Date : \(Picture[PicOfLeaseRoad])")

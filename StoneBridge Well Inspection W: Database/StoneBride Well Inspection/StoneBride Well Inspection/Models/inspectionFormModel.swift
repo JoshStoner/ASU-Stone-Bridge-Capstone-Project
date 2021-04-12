@@ -98,7 +98,7 @@ public class inspectionFormModel
                     pictureData.picData = pics[i].jpegData(compressionQuality: 1.0)
                     pictureData.picTag = Int64(i)
                     pictures.addToPic(pictureData)
-                    print("Looped once")
+                    //print("Looped once")
                     i += 1
                 }
                 
@@ -190,7 +190,7 @@ public class inspectionFormModel
                     pictureData.picData = pics[i].jpegData(compressionQuality: 1.0)
                     pictureData.picTag = Int64(i)
                     pictures.addToPic(pictureData)
-                    print("Looped once")
+                    //print("Looped once")
                     i += 1
                 }
                 
