@@ -704,18 +704,6 @@ class InspectionFormViewController: UIViewController, UIPickerViewDataSource, UI
         }
         print(scrollView.contentSize.height)
         print(scrollView.subviews[0].frame.height)
-        /*print("Added 500 to height")
-        var maxHeight : CGFloat = 0
-        for view in scrollView.subviews
-        {
-            let newHeight = view.frame.origin.y + view.frame.height
-            if newHeight > maxHeight
-            {
-                maxHeight = newHeight
-            }
-        }
-        scrollView.contentSize = CGSize(width: scrollView.contentSize.width, height: maxHeight + 500.0)
-        print(scrollView.contentSize.height)*/
     }
     
     public func shiftCategories(tag: Int, amount: Int)
