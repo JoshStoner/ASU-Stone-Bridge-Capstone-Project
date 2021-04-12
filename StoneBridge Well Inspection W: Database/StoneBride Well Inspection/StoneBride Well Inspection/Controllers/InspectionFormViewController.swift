@@ -575,6 +575,7 @@ class InspectionFormViewController: UIViewController, UIPickerViewDataSource, UI
                                 let saveImage = UIImage(data: img)
                                 //Storing all the pics into the image array
                                 //images.append(saveImage!)
+                                //is it supposed to be i or j here?
                                 DB.addPicture(PicID: i+1 ,image: saveImage!, charID: i+1)
                                 j += 1;
                             }
