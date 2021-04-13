@@ -86,8 +86,15 @@ open class ImagePicker: NSObject {
         return UIAlertAction(title: title, style: .default) { [unowned self] _ in
             //removes the image preview before showing the image picker
             removeImagePreview()
-            self.pickerController.sourceType = type
-            self.presentationController?.present(self.pickerController, animated: true)
+            DispatchQueue.main.asyncAfter(deadline: .now()+0.3)
+            {
+                print("wait")
+                self.pickerController.sourceType = type
+                self.presentationController?.present(self.pickerController, animated: true)
+                
+            }
+            //self.pickerController.sourceType = type
+            //self.presentationController?.present(self.pickerController, animated: true)
             
         }
     }
@@ -191,12 +198,38 @@ extension ImagePicker: UIImagePickerControllerDelegate {
     //function that tells the delegate the user picked an image
     public func imagePickerController(_ picker: UIImagePickerController, didFinishPickingMediaWithInfo info: [UIImagePickerController.InfoKey : Any]) {
         
+        var image : UIImage? = nil
+        if picker.allowsEditing == true
+        {
+            if let pickedImage = info[.editedImage] as? UIImage
+            {
+                image = pickedImage
+            }
+            else
+            {
+                self.pickerController(picker, didSelect: nil, chosenAction: "Cancel")
+                return
+            }
+        }
+        else if(picker.allowsEditing == false)
+        {
+            if let pickedImage = info[.originalImage] as? UIImage
+            {
+                image = pickedImage
+            }
+            else
+            {
+                self.pickerController(picker, didSelect: nil, chosenAction: "Cancel")
+                return
+            }
+        }
+        /*
         //unwraps the image then passes it to the picker controller
         guard let image = info[.originalImage] as? UIImage else {
             //lets the picker controller know that no image was picked
             self.pickerController(picker, didSelect: nil, chosenAction: "Cancel")
             return
-        }
+        }*/
         //gives the image to the picker controller
         self.pickerController(picker, didSelect: image, chosenAction: "Change Image")
         
