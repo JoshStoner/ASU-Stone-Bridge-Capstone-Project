@@ -644,10 +644,39 @@ class InspectionFormViewController: UIViewController, UIPickerViewDataSource, UI
     {
         if (load == true)
         {
+            deleteStuff()
+            dismiss(animated: true, completion: nil)
             performSegue(withIdentifier: "FormToTable", sender: self)
-        } else{
+        }
+        else
+        {
+            deleteStuff()
+            dismiss(animated: true, completion: nil)
             performSegue(withIdentifier: "FormToMenu", sender: self)
-        }    }
+        }
+    }
+    
+    func deleteStuff()
+    {
+        
+        iModel = nil
+        
+        loadIndex = nil
+        loadedCategories = nil
+        loadedEnt = nil
+        loadedWellName = nil
+        loadedWellNumber = nil
+        loadedInspecDone = nil
+        loadedDate = nil
+        
+        //controls the addition and removal of image buttons when images are added/removed
+        ibhandler = []
+        
+        //holds all of the inspection categories
+        isCategories = []
+        
+        print("Stuff deleted from InspectionFormViewController")
+    }
     
     //this function handles the logic for the back button
     @IBAction func unwindSegue(_ sender: Any)

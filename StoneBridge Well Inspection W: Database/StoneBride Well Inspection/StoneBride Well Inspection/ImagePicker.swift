@@ -198,6 +198,8 @@ extension ImagePicker: UIImagePickerControllerDelegate {
     //function that tells the delegate the user picked an image
     public func imagePickerController(_ picker: UIImagePickerController, didFinishPickingMediaWithInfo info: [UIImagePickerController.InfoKey : Any]) {
         
+        picker.dismiss(animated: true)
+        
         var image : UIImage? = nil
         if picker.allowsEditing == true
         {

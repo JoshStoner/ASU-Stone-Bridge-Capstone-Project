@@ -187,7 +187,8 @@ class TableCellViewController: UIViewController//, PHPickerViewControllerDelegat
     override func prepare(for segue: UIStoryboardSegue, sender: Any?)
     {
         //prepares the inspection form view controller to load a preexisting inpsection form rather than create a new one
-        if (segue.identifier == "toInspectionForm") {
+        if (segue.identifier == "toInspectionForm")
+        {
             let des = segue.destination as! InspectionFormViewController
             des.load = true
             des.loadIndex = indexPath
@@ -198,7 +199,34 @@ class TableCellViewController: UIViewController//, PHPickerViewControllerDelegat
             des.loadedWellNumber = iFWellNumber
             des.loadedInspecDone = iFInspecDone
             des.loadedDate = iFDate
+            deleteStuff()
+            dismiss(animated: true, completion: nil)
         }
+        else if(segue.identifier == "CellToTable")
+        {
+            deleteStuff()
+            dismiss(animated: true, completion: nil)
+        }
+    }
+    
+    func deleteStuff()
+    {
+        didEdit = nil
+        newInspectionForm = nil
+        
+        indexPath = nil
+        ifEnt = nil
+        iFWellName = nil
+        iFWellNumber = nil
+        iFInspecDone = nil
+        iFDate = nil
+        iFyntext = nil
+        iFoptcomm = nil
+        
+        ifCategory = nil
+        
+        isCategories = []
+        print("Stuff deleted from TableCellViewController")
     }
     
     //@IBAction func selectImage(_ sender: Any)
