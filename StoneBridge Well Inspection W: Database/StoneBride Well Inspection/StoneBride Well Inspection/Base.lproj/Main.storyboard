@@ -11,7 +11,7 @@
         <!--Log In View Controller-->
         <scene sceneID="6aH-8h-5Nz">
             <objects>
-                <viewController id="Wku-7m-RmS" customClass="LogInViewController" customModule="StoneBride_Well_Inspection" customModuleProvider="target" sceneMemberID="viewController">
+                <viewController id="Wku-7m-RmS" customClass="LogInViewController" customModule="StoneBridge_Well_Inspection" customModuleProvider="target" sceneMemberID="viewController">
                     <view key="view" contentMode="scaleToFill" id="97c-5x-9eV">
                         <rect key="frame" x="0.0" y="0.0" width="375" height="667"/>
                         <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
@@ -70,7 +70,7 @@
         <!--View Controller-->
         <scene sceneID="tne-QT-ifu">
             <objects>
-                <viewController id="BYZ-38-t0r" customClass="ViewController" customModule="StoneBride_Well_Inspection" customModuleProvider="target" sceneMemberID="viewController">
+                <viewController id="BYZ-38-t0r" customClass="ViewController" customModule="StoneBridge_Well_Inspection" customModuleProvider="target" sceneMemberID="viewController">
                     <view key="view" contentMode="scaleToFill" id="8bC-Xf-vdC">
                         <rect key="frame" x="0.0" y="0.0" width="375" height="667"/>
                         <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
@@ -111,7 +111,7 @@
         <!--Table View Controller-->
         <scene sceneID="a0L-2T-giN">
             <objects>
-                <viewController id="T5w-sE-RHL" customClass="TableViewController" customModule="StoneBride_Well_Inspection" customModuleProvider="target" sceneMemberID="viewController">
+                <viewController id="T5w-sE-RHL" customClass="TableViewController" customModule="StoneBridge_Well_Inspection" customModuleProvider="target" sceneMemberID="viewController">
                     <view key="view" contentMode="scaleToFill" id="2GH-jG-2SD">
                         <rect key="frame" x="0.0" y="0.0" width="375" height="667"/>
                         <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
@@ -173,7 +173,7 @@
         <!--Table Cell View Controller-->
         <scene sceneID="x33-Tl-4so">
             <objects>
-                <viewController id="Ktz-cI-NXt" customClass="TableCellViewController" customModule="StoneBride_Well_Inspection" customModuleProvider="target" sceneMemberID="viewController">
+                <viewController id="Ktz-cI-NXt" customClass="TableCellViewController" customModule="StoneBridge_Well_Inspection" customModuleProvider="target" sceneMemberID="viewController">
                     <view key="view" contentMode="scaleToFill" id="Dfs-BA-bLV">
                         <rect key="frame" x="0.0" y="0.0" width="375" height="6300"/>
                         <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
@@ -290,6 +290,8 @@
                     <connections>
                         <outlet property="dateLabel" destination="E6B-MU-jWL" id="4nC-fy-5ne"/>
                         <outlet property="inspectionDoneLabel" destination="CA9-C9-39a" id="LQm-uL-tI3"/>
+                        <outlet property="scrollView" destination="ol6-AL-eVq" id="4xJ-w3-Crh"/>
+                        <outlet property="uiViewHeight" destination="U9c-vX-tb1" id="daZ-so-aiZ"/>
                         <outlet property="wellNameLabel" destination="szu-jz-veS" id="iBM-tp-Ijc"/>
                         <outlet property="wellNumberLabel" destination="djV-tC-Xat" id="a8y-QA-lMS"/>
                     </connections>
@@ -302,7 +304,7 @@
         <!--Inspection Form View Controller-->
         <scene sceneID="Ehz-J5-wis">
             <objects>
-                <viewController id="izk-xh-wEQ" customClass="InspectionFormViewController" customModule="StoneBride_Well_Inspection" customModuleProvider="target" sceneMemberID="viewController">
+                <viewController id="izk-xh-wEQ" customClass="InspectionFormViewController" customModule="StoneBridge_Well_Inspection" customModuleProvider="target" sceneMemberID="viewController">
                     <view key="view" contentMode="scaleToFill" id="rxh-5d-03b">
                         <rect key="frame" x="0.0" y="0.0" width="375" height="6700"/>
                         <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
@@ -312,14 +314,11 @@
                                 <items>
                                     <navigationItem id="1t6-sA-uUp">
                                         <nil key="title"/>
-                                        <leftBarButtonItems>
-                                            <barButtonItem title="&lt; Back" id="EmM-gb-itF">
-                                                <connections>
-                                                    <action selector="unwindSegue:" destination="izk-xh-wEQ" id="c3l-Ym-S4E"/>
-                                                </connections>
-                                            </barButtonItem>
-                                            <barButtonItem title="Item" id="gZV-NO-Bmw"/>
-                                        </leftBarButtonItems>
+                                        <barButtonItem key="leftBarButtonItem" title="&lt; Back" id="EmM-gb-itF">
+                                            <connections>
+                                                <action selector="unwindSegue:" destination="izk-xh-wEQ" id="c3l-Ym-S4E"/>
+                                            </connections>
+                                        </barButtonItem>
                                         <rightBarButtonItems>
                                             <barButtonItem title="Save" id="NoL-qq-z9K">
                                                 <connections>
@@ -476,7 +475,7 @@
         </scene>
     </scenes>
     <inferredMetricsTieBreakers>
-        <segue reference="W9F-hK-fl2"/>
+        <segue reference="bRA-nV-bnV"/>
     </inferredMetricsTieBreakers>
     <resources>
         <systemColor name="systemBackgroundColor">

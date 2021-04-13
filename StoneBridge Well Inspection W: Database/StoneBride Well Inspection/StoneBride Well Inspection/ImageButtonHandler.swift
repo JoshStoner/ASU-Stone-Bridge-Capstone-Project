@@ -60,20 +60,20 @@ class ImageButtonHandler {
     private func makeButton(newTag: Int) -> UIButton
     {
         var newButtonFrame:CGRect
-        print("buttonPositions[count] = \(buttonPositions[totalButtons-1])")
+        //print("buttonPositions[count] = \(buttonPositions[totalButtons-1])")
         if buttonPositions[totalButtons-1].x != 190.0
         {
-            print("!=")
+            //print("!=")
             newButtonFrame = CGRect(x: buttonPositions[totalButtons].x, y: buttonPositions[totalButtons-1].y, width: frame.width, height: frame.height)
         }
         else
         {
-            print("=")
+            //print("=")
             newButtonFrame = CGRect(x: buttonPositions[totalButtons].x, y: buttonPositions[totalButtons-1].y+70.0, width: frame.width, height: frame.height)
         }
         // uses the next button position for setting the coordinates
         
-        print("newButtonFrame = \(newButtonFrame)")
+        //print("newButtonFrame = \(newButtonFrame)")
         let newButton = UIButton(frame: newButtonFrame)
         //originalButton.actions(forTarget: <#T##Any?#>, forControlEvent: <#T##UIControl.Event#>)
         
@@ -204,7 +204,7 @@ class ImageButtonHandler {
         var rightAmount = 1
         var downAmount = 0
         let origin = frame.origin // the location of the original button
-        print("frame origin = \(frame.origin)")
+        //print("frame origin = \(frame.origin)")
         while(canMoveDown && buttonPositions.count < maxButtons)
         {
             while(canMoveRight)
@@ -216,7 +216,7 @@ class ImageButtonHandler {
                 let newX = origin.x + (frame.width + CGFloat(xGap)) * CGFloat(rightAmount)
                 let newY =  origin.y + (frame.height + CGFloat(yGap)) * CGFloat(downAmount)
                 let newOrigin = CGPoint(x: newX,y: newY)
-                print("new Origin = \(newOrigin)")
+                //print("new Origin = \(newOrigin)")
                 //let newFrame = CGRect(x: newX, y: newY, width: CGFloat(frame.width), height: CGFloat(frame.height))
                 let newFrame = CGRect(origin: newOrigin, size: frame.size)
                 

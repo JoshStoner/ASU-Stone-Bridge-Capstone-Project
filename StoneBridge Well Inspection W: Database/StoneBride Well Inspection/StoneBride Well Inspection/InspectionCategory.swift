@@ -203,13 +203,13 @@ class InspectionCategory: NSObject, UIPickerViewDataSource, UIPickerViewDelegate
         {
             if inspectionPictures != nil
             {
-                print("not nil = \(inspectionPictures!.getHeight().native - topLeftPoint.y.native + 20)")
+                //print("not nil = \(inspectionPictures!.getHeight().native - topLeftPoint.y.native + 20)")
                 //print("lastHeight = \(lastHeight)")
                 height = inspectionPictures!.getHeight().native - topLeftPoint.y.native + 20
             }
             else
             {
-                print("nil = \(inspectionComment.frame.maxY.native - topLeftPoint.y.native + 20)")
+                //print("nil = \(inspectionComment.frame.maxY.native - topLeftPoint.y.native + 20)")
                 //print("lastHeight = \(lastHeight)")
                 height = inspectionComment.frame.maxY.native - topLeftPoint.y.native + 20
             }
@@ -217,17 +217,17 @@ class InspectionCategory: NSObject, UIPickerViewDataSource, UIPickerViewDelegate
         {
             height = inspectionComment.frame.maxY.native - topLeftPoint.y.native + 20
         }
-        print(tag)
-        print("Height = \(height)")
-        print("oof = \((260+(numberOfShifts*70)))")
-        print("double oof = \((260+(numberOfShifts*70)))")
+        //print(tag)
+        //print("Height = \(height)")
+        //print("oof = \((260+(numberOfShifts*70)))")
+        //print("double oof = \((260+(numberOfShifts*70)))")
         //print("double oof = \(((180*(tag))+(numberOfShifts*70)+20))")
         //need to fix this if statement
         if (tag == 0)
         {
             if (Int(height) > (260+(numberOfShifts*70)))
             {
-                print("ok but height is \(height)")
+                //print("ok but height is \(height)")
                 numberOfShifts += 1
                 //shift should be the size of a new button + a little extra space
                 viewController?.shiftCategories(tag: self.tag, amount: Int(70.0))
@@ -238,7 +238,7 @@ class InspectionCategory: NSObject, UIPickerViewDataSource, UIPickerViewDelegate
         if (Int(height) > (260+(numberOfShifts*70)))//((180*(tag))+(numberOfShifts*70)+20))//(lastHeight != height)
         {
             //lastHeight was always -1
-            print("ok but height is \(height)")
+            //print("ok but height is \(height)")
             numberOfShifts += 1
             //shift should be the size of a new button + a little extra space 
             viewController?.shiftCategories(tag: self.tag, amount: Int(70.0))

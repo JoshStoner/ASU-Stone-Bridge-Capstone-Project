@@ -24,6 +24,8 @@ class TableCellViewController: UIViewController//, PHPickerViewControllerDelegat
     var iFoptcomm: String?
 
     //var formList: inspectionList?
+    @IBOutlet weak var scrollView: UIScrollView!
+    @IBOutlet weak var uiViewHeight: NSLayoutConstraint!
     
     var fetchResults = [InspectionFormEntity]()
     
@@ -139,11 +141,48 @@ class TableCellViewController: UIViewController//, PHPickerViewControllerDelegat
             }
             i += 1
         }
-            
+        increasePageLength()
         //print(point.y)
         
     }
     
+    func increasePageLength()
+    {
+        
+        var maxHeight : CGFloat = 0
+        var test : CGFloat = 0
+        for view in self.scrollView.subviews
+        {
+            for subView in view.subviews
+            {
+                let t = subView.frame.origin.y + subView.frame.height
+                if t > test
+                {
+                    test = t
+                }
+            }
+            let newHeight = view.frame.origin.y + view.frame.height
+            //print(subView.frame.origin.y)
+            if newHeight > maxHeight
+            {
+                maxHeight = newHeight
+            }
+        
+        //print(maxHeight)
+        //print(test)
+        //print(scrollView.contentSize.height)
+        //scrollView.contentSize = CGSize(width: scrollView.contentSize.width, height: 12000.0)
+            uiViewHeight.constant = test + 50.0
+            scrollView.subviews[0].layoutIfNeeded()
+            scrollView.subviews[0].frame = CGRect(x: 0, y: 0, width: scrollView.subviews[0].frame.width, height: test + 50.0)
+            
+            //scrollView.subviews[0].sizeToFit()
+            //scrollView.subviews[0].frame.height = test + 50.0
+        scrollView.contentSize = CGSize(width: scrollView.contentSize.width, height: test + 50.0)
+        }
+        //print(scrollView.contentSize.height)
+        //print(scrollView.subviews[0].frame.height)
+    }
     
     override func prepare(for segue: UIStoryboardSegue, sender: Any?)
     {
