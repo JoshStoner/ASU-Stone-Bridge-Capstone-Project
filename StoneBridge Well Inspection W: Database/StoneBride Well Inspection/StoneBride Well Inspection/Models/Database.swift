@@ -472,6 +472,164 @@ class Database
             print(error)
         }
     }
+    //convert to csv function
+    func convertToCSV()
+    {
+        var inspectionTitle = ""
+       // let Inspections = try! self.database.prepare(self.InspectionForm)
+        let wName = "\(InspectionForm[wellName])"
+        let wIDate = ", \(InspectionForm[date])"
+        inspectionTitle = wName + wIDate + ".csv" // this is for the file name
+        
+        
+        let path = NSURL(fileURLWithPath: NSHomeDirectory()).appendingPathComponent(inspectionTitle) //i think the home directory hear adds it to docs
+        
+        //let sqlCmd = "SELECT * FROM tablename ORDER BY column DESC LIMIT 1;" //this is a query for selecting the most recent entry, not sure how to implement
+        
+        
+        var csvTxt = "Employee Name,Employee ID\n"
+        
+        let employees = try! self.database.prepare(self.EmployeeTable)
+        
+        for employee in employees
+        {
+            //print("Employee Name: \(employee[self.Name])")
+            //print("Employee ID: \(employee[self.employeeID])")
+            //print("Employee Password: \(employee[self.password])")
+            let eLine = "\(employee[self.Name]),\(employee[self.employeeID])\n"
+            csvTxt.append(eLine)
+            
+        }
+        
+        let fTable = "Employee ID,Well ID,Date\n"
+        
+        csvTxt.append(fTable)
+        
+        let fills = try! self.database.prepare(self.fillTable)
+        
+        for fill in fills
+        {
+            //print("Employee ID: \(fill[self.employeeID])")
+            //print("Well ID: \(fill[self.wellID])")
+            //print("Date: \(fill[self.date])")
+            
+            let fLine = "\(fill[self.employeeID]),\(fill[self.wellID]),\(fill[self.date])\n"
+            csvTxt.append(fLine)
+        }
+        
+        let iFTable = "Well ID,Well Name,Date\n"
+        csvTxt.append(iFTable)
+        
+        let Inspections = try! self.database.prepare(self.InspectionForm)
+        print("InspectionForm: ")
+        
+        for Inspection in Inspections
+        {
+            //print("Well ID: \(Inspection[wellID])")
+            //print("Well Name: \(Inspection[wellName])")
+            //print("Date : \(Inspection[date])")
+            
+            let iFLine = "\(Inspection[self.wellID]),\(Inspection[self.wellName]),\(Inspection[self.date])\n"
+            csvTxt.append(iFLine)
+            
+        }
+        
+        let wITable = "Well ID,Date,PicID\n"
+        csvTxt.append(wITable)
+        
+        let wellImages = try! self.database.prepare(self.wellImageTable)
+        
+        for wellImage in wellImages
+        {
+            //print("Well ID: \(wellImage[self.wellID])")
+            //print("Date: \(wellImage[self.date])")
+            //print("Pic ID: \(wellImage[self.PicID])")
+            
+            let wILine = "\(wellImage[self.wellID]),\(wellImage[self.date]),\(wellImage[self.PicID])\n"
+            csvTxt.append(wILine)
+        }
+        
+        let pTable = "Pic ID,Char ID\n"
+        csvTxt.append(pTable)
+        
+        let Pics = try! self.database.prepare(self.Pictures)
+        for Picture in Pics
+        {
+            //print("Pic ID: \(Picture[PicID])")
+            //print("Char ID: \(Picture[self.charID])")
+            //I couldn't get this Picture String to print for me without XCode preventing me from printing anything from this method if I try to print this Picture String
+            //print("Picture String: \(Picture[self.CategoryPics])")
+            
+            //print("Date : \(Picture[PicOfTankBattery])")
+            //print("Well Name: \(Picture[PicOfLocation])")
+            //print("Date : \(Picture[PicOfLeaseRoad])")
+            
+            let pLine = "\(Picture[self.PicID]),\(Picture[self.charID])\n"
+            csvTxt.append(pLine)
+            
+        }
+        
+        let wDTable = "well ID,Date,Char ID\n"
+        csvTxt.append(wDTable)
+        
+        let wellDescs = try! self.database.prepare(self.wellImageTable)
+        
+        for wellDesc in wellDescs
+        {
+            //print("Well ID: \(wellDesc[self.wellID])")
+            //print("Date: \(wellDesc[self.date])")
+            //print("Char ID: \(wellDesc[self.charID])")
+            
+            let wDLine = "\(wellDesc[self.wellID]),\(wellDesc[self.date]),\(wellDesc[self.charID])\n"
+            csvTxt.append(wDLine)
+        }
+        
+        
+        let weTable = "Category,Y/N,Comment,Description ID,Well ID\n"
+        csvTxt.append(weTable)
+        
+        let Wells = try! self.database.prepare(self.InspectionDescription)
+        
+        for Well in Wells
+        {
+            
+            //print("Category: \(Well[self.Category])")
+            //print("Y/N: \(Well[self.YesOrNo])")
+            //print("Comment: \(Well[self.comment])")
+            //print("Description ID: \(Well[self.charID])")
+            //print("Well ID: \(Well[self.wellID])")
+            
+            let weLine = "\(Well[self.Category]),\(Well[self.YesOrNo]),\(Well[self.comment]),\(Well[self.charID]),\(Well[self.wellID])\n"
+            csvTxt.append(weLine)
+        }
+        
+        do{
+            try csvTxt.write(to: path!, atomically: true, encoding: String.Encoding.utf8)
+        }
+            catch{
+                print("failed to create file")
+            }
+        
+        
+        
+        
+        
+        
+        //NSAutoreleasePool* pool = [[NSAutoreleasePool alloc] init];
+        
+        
+        
+       /* NSString docDirectory = [NSSearchPathForDirectoriesInDomains(NSDocumentDirectory, NSUserDomainMask, YES) objectAtIndex:0]*/
+        
+        //NSMutableArray *arrayEmp = //[NSMutableArray new]
+        //NSArray arrayWithObjects:@"
+       // let employees = try! self.database.prepare(self.EmployeeTable)
+        //for employee in employees
+        //{
+            
+        //}
+    }
+    
    
 }
 
