@@ -111,6 +111,7 @@ class Database
             print(error)
         }
     }
+    
     func searchEmployee(name:String, password:String) -> Bool
     {
         var passed:Bool = false
@@ -571,7 +572,7 @@ class Database
         
         let wDTable = "well ID,Date,Char ID\n"
         csvTxt.append(wDTable)
-        
+    
         let wellDescs = try! self.database.prepare(self.wellImageTable)
         
         for wellDesc in wellDescs

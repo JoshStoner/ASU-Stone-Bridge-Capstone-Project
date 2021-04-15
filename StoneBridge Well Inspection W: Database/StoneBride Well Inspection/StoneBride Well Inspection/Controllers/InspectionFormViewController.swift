@@ -535,7 +535,8 @@ class InspectionFormViewController: UIViewController, UIPickerViewDataSource, UI
         saveForm((Any).self)
         if (alreadySaved == true || load == true)//(load == false)
         {
-            let InspectionFormData = loadedEnt//iModel?.searchEnt(sWellName: wellNameField.text!, sDate: dateField.text!, sWellNumber: Int(wellNumberField.text!)!, sInspectionDone: inspectionDoneField.text!)
+            let InspectionFormData = loadedEnt
+            
             if (InspectionFormData == nil)
             {
                print("SeachedEnt failed")
@@ -556,13 +557,12 @@ class InspectionFormViewController: UIViewController, UIPickerViewDataSource, UI
                 
                 let sortedSections = (sortSections?.allObjects as! [InspectionFormCategoryEntity]).sorted(by: {$0.tagN < $1.tagN})
                 var i = 0;
-                
+                var pictureCount = 0;
                 while i < 30
                 {
                     if(i < 30)
                     {
                         // Contains all the pictures under a category
-                        //var images: [UIImage] = []
                         if(sortedSections[i].category?.pictureData?.hasPics == true)
                         {
                             let savedPicEnt = (sortedSections[i].category?.pictureData?.pic?.allObjects as! [InspectionFormPicturesEntity]).sorted(by: {$0.picTag < $1.picTag})
@@ -573,10 +573,10 @@ class InspectionFormViewController: UIViewController, UIPickerViewDataSource, UI
                                 let img = savedPicEnt[j].picData!
                                 // Coverting it to UIImage and saving it into saveImage variabe
                                 let saveImage = UIImage(data: img)
-                                //Storing all the pics into the image array
-                                //images.append(saveImage!)
                                 //is it supposed to be i or j here?
-                                DB.addPicture(PicID: i+1 ,image: saveImage!, charID: i+1)
+                                // charID relates to the category so i for that one.
+                                DB.addPicture(PicID: pictureCount+1 ,image: saveImage!, charID: i+1)
+                                pictureCount += 1;
                                 j += 1;
                             }
                             let categoryName = inspectionCategoriesNames[i]
@@ -595,7 +595,7 @@ class InspectionFormViewController: UIViewController, UIPickerViewDataSource, UI
                 DB.listPictures()
                 
                 //call for converting to csv
-                DB.convertToCSV()
+                //DB.convertToCSV()
                 
                 
                 print("Done publishing!")
