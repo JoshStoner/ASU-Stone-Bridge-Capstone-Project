@@ -86,6 +86,9 @@ class InspectionFormViewController: UIViewController, UIPickerViewDataSource, UI
         DB.createInspectionFormTable()
         DB.createPictureTable()
         DB.createInspectionDescriptionTable()
+        DB.createFillTable()
+        DB.createWellDescTable()
+        DB.createWellImageTable()
         
         if(load == true)
         {

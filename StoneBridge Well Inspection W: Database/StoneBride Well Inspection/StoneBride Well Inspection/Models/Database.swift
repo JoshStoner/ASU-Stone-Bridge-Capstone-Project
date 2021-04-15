@@ -588,6 +588,12 @@ class Database
         let weTable = "Category,Y/N,Comment,Description ID,Well ID\n"
         csvTxt.append(weTable)
         
+        let docURL = try! FileManager().url(for: .documentDirectory, in: .userDomainMask, appropriateFor: nil, create: true)
+        
+        let csvFile = docURL.appendingPathComponent(inspectionTitle)
+            
+        let exists = try! FileManager().fileExists(atPath: csvFile.path)
+        
         let Wells = try! self.database.prepare(self.InspectionDescription)
         
         for Well in Wells
@@ -603,33 +609,38 @@ class Database
             csvTxt.append(weLine)
         }
         
-        do{
-            try csvTxt.write(to: path!, atomically: true, encoding: String.Encoding.utf8)
+        if(exists == true){
+            print("exists")
         }
-            catch{
-                print("failed to create file")
+        else{
+            do{
+                try
+                    csvTxt.write(to: path!, atomically: true, encoding: String.Encoding.utf8)
             }
-        
-        
-        
-        
-        
-        
-        //NSAutoreleasePool* pool = [[NSAutoreleasePool alloc] init];
-        
-        
-        
-       /* NSString docDirectory = [NSSearchPathForDirectoriesInDomains(NSDocumentDirectory, NSUserDomainMask, YES) objectAtIndex:0]*/
-        
-        //NSMutableArray *arrayEmp = //[NSMutableArray new]
-        //NSArray arrayWithObjects:@"
-       // let employees = try! self.database.prepare(self.EmployeeTable)
-        //for employee in employees
-        //{
+                catch{
+                    print("failed to create file")
+                }
             
-        //}
-    }
-    
+            
+            
+            
+            
+            
+            //NSAutoreleasePool* pool = [[NSAutoreleasePool alloc] init];
+            
+            
+            
+           /* NSString docDirectory = [NSSearchPathForDirectoriesInDomains(NSDocumentDirectory, NSUserDomainMask, YES) objectAtIndex:0]*/
+            
+            //NSMutableArray *arrayEmp = //[NSMutableArray new]
+            //NSArray arrayWithObjects:@"
+           // let employees = try! self.database.prepare(self.EmployeeTable)
+            //for employee in employees
+            //{
+                
+            //}
+            }
+        }
    
 }
 
