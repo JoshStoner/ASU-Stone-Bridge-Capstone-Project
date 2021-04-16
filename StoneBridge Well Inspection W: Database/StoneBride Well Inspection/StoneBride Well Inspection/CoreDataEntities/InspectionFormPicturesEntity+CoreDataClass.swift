@@ -1,5 +1,5 @@
 //
-//  InspectionFormSectionEntity+CoreDataClass.swift
+//  InspectionFormPicturesEntity+CoreDataClass.swift
 //  StoneBridge Well Inspection
 //
 //  Created by Tyler Ipema on 4/15/21.
@@ -10,7 +10,7 @@
 import Foundation
 import CoreData
 
-@objc(InspectionFormSectionEntity)
-public class InspectionFormSectionEntity: NSManagedObject {
+@objc(InspectionFormPicturesEntity)
+public class InspectionFormPicturesEntity: NSManagedObject {
 
 }

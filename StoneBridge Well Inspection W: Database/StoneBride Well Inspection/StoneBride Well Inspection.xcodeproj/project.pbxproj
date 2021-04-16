@@ -25,17 +25,17 @@
 		4AC139832611053A0089B56A /* SQLite.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 4AC1396D2611052F0089B56A /* SQLite.framework */; };
 		4AC139842611053A0089B56A /* SQLite.framework in Embed Frameworks */ = {isa = PBXBuildFile; fileRef = 4AC1396D2611052F0089B56A /* SQLite.framework */; settings = {ATTRIBUTES = (CodeSignOnCopy, RemoveHeadersOnCopy, ); }; };
 		4AC13987261105640089B56A /* Database.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4AC13986261105640089B56A /* Database.swift */; };
+		D0594E8B26291E5100272C12 /* InspectionFormEntity+CoreDataClass.swift in Sources */ = {isa = PBXBuildFile; fileRef = D0594E8126291E5000272C12 /* InspectionFormEntity+CoreDataClass.swift */; };
+		D0594E8C26291E5100272C12 /* InspectionFormEntity+CoreDataProperties.swift in Sources */ = {isa = PBXBuildFile; fileRef = D0594E8226291E5000272C12 /* InspectionFormEntity+CoreDataProperties.swift */; };
+		D0594E8D26291E5100272C12 /* InspectionFormSectionEntity+CoreDataClass.swift in Sources */ = {isa = PBXBuildFile; fileRef = D0594E8326291E5000272C12 /* InspectionFormSectionEntity+CoreDataClass.swift */; };
+		D0594E8E26291E5100272C12 /* InspectionFormSectionEntity+CoreDataProperties.swift in Sources */ = {isa = PBXBuildFile; fileRef = D0594E8426291E5000272C12 /* InspectionFormSectionEntity+CoreDataProperties.swift */; };
+		D0594E8F26291E5100272C12 /* InspectionFormPicturesEntity+CoreDataClass.swift in Sources */ = {isa = PBXBuildFile; fileRef = D0594E8526291E5000272C12 /* InspectionFormPicturesEntity+CoreDataClass.swift */; };
+		D0594E9026291E5100272C12 /* InspectionFormPicturesEntity+CoreDataProperties.swift in Sources */ = {isa = PBXBuildFile; fileRef = D0594E8626291E5000272C12 /* InspectionFormPicturesEntity+CoreDataProperties.swift */; };
+		D0594E9126291E5100272C12 /* InspectionFormPicContainerEntity+CoreDataClass.swift in Sources */ = {isa = PBXBuildFile; fileRef = D0594E8726291E5000272C12 /* InspectionFormPicContainerEntity+CoreDataClass.swift */; };
+		D0594E9226291E5100272C12 /* InspectionFormPicContainerEntity+CoreDataProperties.swift in Sources */ = {isa = PBXBuildFile; fileRef = D0594E8826291E5000272C12 /* InspectionFormPicContainerEntity+CoreDataProperties.swift */; };
+		D0594E9326291E5100272C12 /* InspectionFormCategoryEntity+CoreDataClass.swift in Sources */ = {isa = PBXBuildFile; fileRef = D0594E8926291E5000272C12 /* InspectionFormCategoryEntity+CoreDataClass.swift */; };
+		D0594E9426291E5100272C12 /* InspectionFormCategoryEntity+CoreDataProperties.swift in Sources */ = {isa = PBXBuildFile; fileRef = D0594E8A26291E5000272C12 /* InspectionFormCategoryEntity+CoreDataProperties.swift */; };
 		D05A1012256B0A75004D89CB /* InspectionFormCategory.swift in Sources */ = {isa = PBXBuildFile; fileRef = D05A1011256B0A75004D89CB /* InspectionFormCategory.swift */; };
-		D05EC2F225D1BAA6002198A1 /* InspectionFormCategoryEntity+CoreDataClass.swift in Sources */ = {isa = PBXBuildFile; fileRef = D05EC2E825D1BAA6002198A1 /* InspectionFormCategoryEntity+CoreDataClass.swift */; };
-		D05EC2F325D1BAA6002198A1 /* InspectionFormCategoryEntity+CoreDataProperties.swift in Sources */ = {isa = PBXBuildFile; fileRef = D05EC2E925D1BAA6002198A1 /* InspectionFormCategoryEntity+CoreDataProperties.swift */; };
-		D05EC2F425D1BAA6002198A1 /* InspectionFormPicturesEntity+CoreDataClass.swift in Sources */ = {isa = PBXBuildFile; fileRef = D05EC2EA25D1BAA6002198A1 /* InspectionFormPicturesEntity+CoreDataClass.swift */; };
-		D05EC2F525D1BAA6002198A1 /* InspectionFormPicturesEntity+CoreDataProperties.swift in Sources */ = {isa = PBXBuildFile; fileRef = D05EC2EB25D1BAA6002198A1 /* InspectionFormPicturesEntity+CoreDataProperties.swift */; };
-		D05EC2F625D1BAA6002198A1 /* InspectionFormEntity+CoreDataClass.swift in Sources */ = {isa = PBXBuildFile; fileRef = D05EC2EC25D1BAA6002198A1 /* InspectionFormEntity+CoreDataClass.swift */; };
-		D05EC2F725D1BAA6002198A1 /* InspectionFormEntity+CoreDataProperties.swift in Sources */ = {isa = PBXBuildFile; fileRef = D05EC2ED25D1BAA6002198A1 /* InspectionFormEntity+CoreDataProperties.swift */; };
-		D05EC2F825D1BAA6002198A1 /* InspectionFormSectionEntity+CoreDataClass.swift in Sources */ = {isa = PBXBuildFile; fileRef = D05EC2EE25D1BAA6002198A1 /* InspectionFormSectionEntity+CoreDataClass.swift */; };
-		D05EC2F925D1BAA6002198A1 /* InspectionFormSectionEntity+CoreDataProperties.swift in Sources */ = {isa = PBXBuildFile; fileRef = D05EC2EF25D1BAA6002198A1 /* InspectionFormSectionEntity+CoreDataProperties.swift */; };
-		D05EC2FA25D1BAA6002198A1 /* InspectionFormPicContainerEntity+CoreDataClass.swift in Sources */ = {isa = PBXBuildFile; fileRef = D05EC2F025D1BAA6002198A1 /* InspectionFormPicContainerEntity+CoreDataClass.swift */; };
-		D05EC2FB25D1BAA6002198A1 /* InspectionFormPicContainerEntity+CoreDataProperties.swift in Sources */ = {isa = PBXBuildFile; fileRef = D05EC2F125D1BAA6002198A1 /* InspectionFormPicContainerEntity+CoreDataProperties.swift */; };
 		D0CAC92925575D0C0022DA9A /* inspectionFormModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = D0CAC92825575D0C0022DA9A /* inspectionFormModel.swift */; };
 /* End PBXBuildFile section */
 
@@ -125,17 +125,17 @@
 		2F407B8B2544C0F000AA2C0F /* TableViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TableViewController.swift; sourceTree = "<group>"; };
 		4AC139622611052F0089B56A /* SQLite.xcodeproj */ = {isa = PBXFileReference; lastKnownFileType = "wrapper.pb-project"; name = SQLite.xcodeproj; path = "../SQLite.swift-master/SQLite.xcodeproj"; sourceTree = "<group>"; };
 		4AC13986261105640089B56A /* Database.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Database.swift; sourceTree = "<group>"; };
+		D0594E8126291E5000272C12 /* InspectionFormEntity+CoreDataClass.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "InspectionFormEntity+CoreDataClass.swift"; sourceTree = "<group>"; };
+		D0594E8226291E5000272C12 /* InspectionFormEntity+CoreDataProperties.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "InspectionFormEntity+CoreDataProperties.swift"; sourceTree = "<group>"; };
+		D0594E8326291E5000272C12 /* InspectionFormSectionEntity+CoreDataClass.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "InspectionFormSectionEntity+CoreDataClass.swift"; sourceTree = "<group>"; };
+		D0594E8426291E5000272C12 /* InspectionFormSectionEntity+CoreDataProperties.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "InspectionFormSectionEntity+CoreDataProperties.swift"; sourceTree = "<group>"; };
+		D0594E8526291E5000272C12 /* InspectionFormPicturesEntity+CoreDataClass.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "InspectionFormPicturesEntity+CoreDataClass.swift"; sourceTree = "<group>"; };
+		D0594E8626291E5000272C12 /* InspectionFormPicturesEntity+CoreDataProperties.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "InspectionFormPicturesEntity+CoreDataProperties.swift"; sourceTree = "<group>"; };
+		D0594E8726291E5000272C12 /* InspectionFormPicContainerEntity+CoreDataClass.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "InspectionFormPicContainerEntity+CoreDataClass.swift"; sourceTree = "<group>"; };
+		D0594E8826291E5000272C12 /* InspectionFormPicContainerEntity+CoreDataProperties.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "InspectionFormPicContainerEntity+CoreDataProperties.swift"; sourceTree = "<group>"; };
+		D0594E8926291E5000272C12 /* InspectionFormCategoryEntity+CoreDataClass.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "InspectionFormCategoryEntity+CoreDataClass.swift"; sourceTree = "<group>"; };
+		D0594E8A26291E5000272C12 /* InspectionFormCategoryEntity+CoreDataProperties.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "InspectionFormCategoryEntity+CoreDataProperties.swift"; sourceTree = "<group>"; };
 		D05A1011256B0A75004D89CB /* InspectionFormCategory.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = InspectionFormCategory.swift; sourceTree = "<group>"; };
-		D05EC2E825D1BAA6002198A1 /* InspectionFormCategoryEntity+CoreDataClass.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; name = "InspectionFormCategoryEntity+CoreDataClass.swift"; path = "../../InspectionFormCategoryEntity+CoreDataClass.swift"; sourceTree = "<group>"; };
-		D05EC2E925D1BAA6002198A1 /* InspectionFormCategoryEntity+CoreDataProperties.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; name = "InspectionFormCategoryEntity+CoreDataProperties.swift"; path = "../../InspectionFormCategoryEntity+CoreDataProperties.swift"; sourceTree = "<group>"; };
-		D05EC2EA25D1BAA6002198A1 /* InspectionFormPicturesEntity+CoreDataClass.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; name = "InspectionFormPicturesEntity+CoreDataClass.swift"; path = "../../InspectionFormPicturesEntity+CoreDataClass.swift"; sourceTree = "<group>"; };
-		D05EC2EB25D1BAA6002198A1 /* InspectionFormPicturesEntity+CoreDataProperties.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; name = "InspectionFormPicturesEntity+CoreDataProperties.swift"; path = "../../InspectionFormPicturesEntity+CoreDataProperties.swift"; sourceTree = "<group>"; };
-		D05EC2EC25D1BAA6002198A1 /* InspectionFormEntity+CoreDataClass.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; name = "InspectionFormEntity+CoreDataClass.swift"; path = "../../InspectionFormEntity+CoreDataClass.swift"; sourceTree = "<group>"; };
-		D05EC2ED25D1BAA6002198A1 /* InspectionFormEntity+CoreDataProperties.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; name = "InspectionFormEntity+CoreDataProperties.swift"; path = "../../InspectionFormEntity+CoreDataProperties.swift"; sourceTree = "<group>"; };
-		D05EC2EE25D1BAA6002198A1 /* InspectionFormSectionEntity+CoreDataClass.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; name = "InspectionFormSectionEntity+CoreDataClass.swift"; path = "../../InspectionFormSectionEntity+CoreDataClass.swift"; sourceTree = "<group>"; };
-		D05EC2EF25D1BAA6002198A1 /* InspectionFormSectionEntity+CoreDataProperties.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; name = "InspectionFormSectionEntity+CoreDataProperties.swift"; path = "../../InspectionFormSectionEntity+CoreDataProperties.swift"; sourceTree = "<group>"; };
-		D05EC2F025D1BAA6002198A1 /* InspectionFormPicContainerEntity+CoreDataClass.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; name = "InspectionFormPicContainerEntity+CoreDataClass.swift"; path = "../../InspectionFormPicContainerEntity+CoreDataClass.swift"; sourceTree = "<group>"; };
-		D05EC2F125D1BAA6002198A1 /* InspectionFormPicContainerEntity+CoreDataProperties.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; name = "InspectionFormPicContainerEntity+CoreDataProperties.swift"; path = "../../InspectionFormPicContainerEntity+CoreDataProperties.swift"; sourceTree = "<group>"; };
 		D0CAC92825575D0C0022DA9A /* inspectionFormModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = inspectionFormModel.swift; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
@@ -214,16 +214,16 @@
 		D0CAC92C255772A20022DA9A /* CoreDataEntities */ = {
 			isa = PBXGroup;
 			children = (
-				D05EC2E825D1BAA6002198A1 /* InspectionFormCategoryEntity+CoreDataClass.swift */,
-				D05EC2E925D1BAA6002198A1 /* InspectionFormCategoryEntity+CoreDataProperties.swift */,
-				D05EC2EA25D1BAA6002198A1 /* InspectionFormPicturesEntity+CoreDataClass.swift */,
-				D05EC2EB25D1BAA6002198A1 /* InspectionFormPicturesEntity+CoreDataProperties.swift */,
-				D05EC2EC25D1BAA6002198A1 /* InspectionFormEntity+CoreDataClass.swift */,
-				D05EC2ED25D1BAA6002198A1 /* InspectionFormEntity+CoreDataProperties.swift */,
-				D05EC2EE25D1BAA6002198A1 /* InspectionFormSectionEntity+CoreDataClass.swift */,
-				D05EC2EF25D1BAA6002198A1 /* InspectionFormSectionEntity+CoreDataProperties.swift */,
-				D05EC2F025D1BAA6002198A1 /* InspectionFormPicContainerEntity+CoreDataClass.swift */,
-				D05EC2F125D1BAA6002198A1 /* InspectionFormPicContainerEntity+CoreDataProperties.swift */,
+				D0594E8126291E5000272C12 /* InspectionFormEntity+CoreDataClass.swift */,
+				D0594E8226291E5000272C12 /* InspectionFormEntity+CoreDataProperties.swift */,
+				D0594E8326291E5000272C12 /* InspectionFormSectionEntity+CoreDataClass.swift */,
+				D0594E8426291E5000272C12 /* InspectionFormSectionEntity+CoreDataProperties.swift */,
+				D0594E8526291E5000272C12 /* InspectionFormPicturesEntity+CoreDataClass.swift */,
+				D0594E8626291E5000272C12 /* InspectionFormPicturesEntity+CoreDataProperties.swift */,
+				D0594E8726291E5000272C12 /* InspectionFormPicContainerEntity+CoreDataClass.swift */,
+				D0594E8826291E5000272C12 /* InspectionFormPicContainerEntity+CoreDataProperties.swift */,
+				D0594E8926291E5000272C12 /* InspectionFormCategoryEntity+CoreDataClass.swift */,
+				D0594E8A26291E5000272C12 /* InspectionFormCategoryEntity+CoreDataProperties.swift */,
 			);
 			path = CoreDataEntities;
 			sourceTree = "<group>";
@@ -382,29 +382,29 @@
 			files = (
 				2F3E68662532196B002A87EF /* StoneBride_Well_Inspection.xcdatamodeld in Sources */,
 				D0CAC92925575D0C0022DA9A /* inspectionFormModel.swift in Sources */,
+				D0594E9326291E5100272C12 /* InspectionFormCategoryEntity+CoreDataClass.swift in Sources */,
 				03BF3D87255EB6770053D623 /* InspectionCategory.swift in Sources */,
+				D0594E9026291E5100272C12 /* InspectionFormPicturesEntity+CoreDataProperties.swift in Sources */,
 				4AC13987261105640089B56A /* Database.swift in Sources */,
+				D0594E8B26291E5100272C12 /* InspectionFormEntity+CoreDataClass.swift in Sources */,
 				2F3E687525321C31002A87EF /* inspectionList.swift in Sources */,
-				D05EC2F825D1BAA6002198A1 /* InspectionFormSectionEntity+CoreDataClass.swift in Sources */,
 				03BE8D3F25569E2800CB35C8 /* ImageButtonHandler.swift in Sources */,
+				D0594E8C26291E5100272C12 /* InspectionFormEntity+CoreDataProperties.swift in Sources */,
 				D05A1012256B0A75004D89CB /* InspectionFormCategory.swift in Sources */,
-				D05EC2F425D1BAA6002198A1 /* InspectionFormPicturesEntity+CoreDataClass.swift in Sources */,
-				D05EC2F925D1BAA6002198A1 /* InspectionFormSectionEntity+CoreDataProperties.swift in Sources */,
-				D05EC2F325D1BAA6002198A1 /* InspectionFormCategoryEntity+CoreDataProperties.swift in Sources */,
-				D05EC2F725D1BAA6002198A1 /* InspectionFormEntity+CoreDataProperties.swift in Sources */,
 				2F3E687325321B0F002A87EF /* InspectionFormViewController.swift in Sources */,
-				D05EC2F625D1BAA6002198A1 /* InspectionFormEntity+CoreDataClass.swift in Sources */,
+				D0594E8D26291E5100272C12 /* InspectionFormSectionEntity+CoreDataClass.swift in Sources */,
+				D0594E8F26291E5100272C12 /* InspectionFormPicturesEntity+CoreDataClass.swift in Sources */,
 				03F467E5253C090A00FC7B03 /* ImagePicker.swift in Sources */,
-				D05EC2FA25D1BAA6002198A1 /* InspectionFormPicContainerEntity+CoreDataClass.swift in Sources */,
-				D05EC2F225D1BAA6002198A1 /* InspectionFormCategoryEntity+CoreDataClass.swift in Sources */,
 				2F407B882544BE1100AA2C0F /* TableCellViewController.swift in Sources */,
+				D0594E9126291E5100272C12 /* InspectionFormPicContainerEntity+CoreDataClass.swift in Sources */,
 				2F3E68602532196B002A87EF /* ViewController.swift in Sources */,
 				03BF3D84255EA93B0053D623 /* LogInViewController.swift in Sources */,
-				D05EC2FB25D1BAA6002198A1 /* InspectionFormPicContainerEntity+CoreDataProperties.swift in Sources */,
 				2F3E685C2532196B002A87EF /* AppDelegate.swift in Sources */,
-				D05EC2F525D1BAA6002198A1 /* InspectionFormPicturesEntity+CoreDataProperties.swift in Sources */,
 				2F407B8C2544C0F000AA2C0F /* TableViewController.swift in Sources */,
+				D0594E9226291E5100272C12 /* InspectionFormPicContainerEntity+CoreDataProperties.swift in Sources */,
 				2F3E685E2532196B002A87EF /* SceneDelegate.swift in Sources */,
+				D0594E9426291E5100272C12 /* InspectionFormCategoryEntity+CoreDataProperties.swift in Sources */,
+				D0594E8E26291E5100272C12 /* InspectionFormSectionEntity+CoreDataProperties.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};

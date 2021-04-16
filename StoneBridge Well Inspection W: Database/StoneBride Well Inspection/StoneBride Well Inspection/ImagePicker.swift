@@ -13,7 +13,7 @@ import UIKit
 // needs to be implemented in the view controller that uses the image picker
 public protocol ImagePickerDelegate: class {
     // function for using the image selected
-    func didSelect(image: UIImage?, action: String, sender: UIButton)
+    func didSelect(image: UIImage?, imageURL:String, action: String, sender: UIButton)
 }
 
 open class ImagePicker: NSObject {
@@ -62,7 +62,7 @@ open class ImagePicker: NSObject {
         //case for if the user wants to clear the image
         if (title == clearImageAction) {
             return UIAlertAction(title: title, style: .default) { [unowned self] _ in
-                self.delegate?.didSelect(image: UIImage(), action: clearImageAction, sender: origin!)
+                self.delegate?.didSelect(image: UIImage(), imageURL: "", action: clearImageAction, sender: origin!)
                 //removes the image preview
                 removeImagePreview()
                 
@@ -71,7 +71,7 @@ open class ImagePicker: NSObject {
         //case for adding a test image on emulator
         if (title == testImageTitle) {
             return UIAlertAction(title: title, style: .default) { [unowned self] _ in
-                self.delegate?.didSelect(image: testImage, action: changeImageAction, sender: origin!)
+                self.delegate?.didSelect(image: testImage, imageURL: "", action: changeImageAction, sender: origin!)
                 removeImagePreview()
                 
             }
@@ -155,11 +155,11 @@ open class ImagePicker: NSObject {
 
     }
 
-    private func pickerController(_ controller: UIImagePickerController, didSelect image: UIImage?, chosenAction action: String) {
+    private func pickerController(_ controller: UIImagePickerController, didSelect image: UIImage?, chosenAction action: String, imageURL: String) {
         
             controller.dismiss(animated: true, completion: nil)
 
-        self.delegate?.didSelect(image: image, action: action, sender: origin!)
+        self.delegate?.didSelect(image: image, imageURL: imageURL, action: action, sender: origin!)
         }
     
     private func addImagePreview()
@@ -191,7 +191,7 @@ extension ImagePicker: UIImagePickerControllerDelegate {
         
         
         //indicates to the picker controller that nothing was selected
-        self.pickerController(picker, didSelect: nil, chosenAction: "Cancel")
+        self.pickerController(picker, didSelect: nil, chosenAction: "Cancel", imageURL: "")
     }
     
     
@@ -200,41 +200,34 @@ extension ImagePicker: UIImagePickerControllerDelegate {
         
         picker.dismiss(animated: true)
         
-        var image : UIImage? = nil
-        if picker.allowsEditing == true
-        {
-            if let pickedImage = info[.editedImage] as? UIImage
-            {
-                image = pickedImage
-            }
-            else
-            {
-                self.pickerController(picker, didSelect: nil, chosenAction: "Cancel")
-                return
-            }
-        }
-        else if(picker.allowsEditing == false)
-        {
-            if let pickedImage = info[.originalImage] as? UIImage
-            {
-                image = pickedImage
-            }
-            else
-            {
-                self.pickerController(picker, didSelect: nil, chosenAction: "Cancel")
-                return
-            }
-        }
-        /*
-        //unwraps the image then passes it to the picker controller
-        guard let image = info[.originalImage] as? UIImage else {
-            //lets the picker controller know that no image was picked
-            self.pickerController(picker, didSelect: nil, chosenAction: "Cancel")
-            return
-        }*/
-        //gives the image to the picker controller
-        self.pickerController(picker, didSelect: image, chosenAction: "Change Image")
+        var image : UIImage
+        //image = info[.originalImage] as? UIImage
         
+        if (picker.sourceType == UIImagePickerController.SourceType.camera)
+        {
+            let imageName = UUID().uuidString
+            let documentDirectory = NSTemporaryDirectory()
+            let localPath = documentDirectory.appending(imageName)
+            
+            image = info[UIImagePickerController.InfoKey.originalImage] as! UIImage
+            let data = image.jpegData(compressionQuality: 0.0)! as NSData
+            data.write(toFile: localPath, atomically: true)
+            let photoURL = URL.init(fileURLWithPath: localPath)
+            print("PhotoURL INCOMING!!!!!!!!!!!!!!!!!!!!!")
+            print(photoURL)
+            print("PhotoURL ABOVE!!!!!!!!!!!!!!!!!!!!")
+            print(photoURL.relativeString)
+            self.pickerController(picker, didSelect: image, chosenAction: "Change Image", imageURL: photoURL.relativeString)
+            return
+        }
+        else
+        {
+            let imageURL = info[UIImagePickerController.InfoKey.imageURL] as? URL
+            image = info[UIImagePickerController.InfoKey.originalImage] as! UIImage
+            print(imageURL)
+            self.pickerController(picker, didSelect: image, chosenAction: "Change Image", imageURL: imageURL!.absoluteString)
+            return
+        }
     }
     
 }

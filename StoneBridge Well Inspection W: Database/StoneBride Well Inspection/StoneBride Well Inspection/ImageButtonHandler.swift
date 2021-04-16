@@ -11,6 +11,7 @@ import UIKit
 class ImageButtonHandler {
     private var originalButton : UIButton
     var buttons : [UIButton]
+    var urls: [String]
     private var totalButtons = 1
     private var tag: Int // is the tag that all of its buttons will have
     private var maxButtons: Int // total number of buttons that this can handle
@@ -37,10 +38,11 @@ class ImageButtonHandler {
     //private var buttonAction: Selector
     
     //button space currently assumes that it has unlimited height to work with and new buttons will have space made for them
-    public init(sourceButton: UIButton, tag: Int, numberOfButtons: Int, buttonSpace: CGRect)
+    public init(sourceButton: UIButton, tag: Int, numberOfButtons: Int, buttonSpace: CGRect, imageURL: String)
     {
         originalButton = sourceButton
         buttons = [originalButton]
+        urls = [imageURL]
         frame = originalButton.frame
         maxButtons = numberOfButtons
         self.buttonSpace = CGRect(x: buttonSpace.minX, y: buttonSpace.minY, width: buttonSpace.width, height: CGFloat((Int(frame.height) + yGap) * numberOfButtons))
@@ -57,7 +59,7 @@ class ImageButtonHandler {
     }
     
     //helper method to create a button
-    private func makeButton(newTag: Int) -> UIButton
+    private func makeButton(newTag: Int, newURL: String) -> UIButton
     {
         var newButtonFrame:CGRect
         //print("buttonPositions[count] = \(buttonPositions[totalButtons-1])")
@@ -83,6 +85,7 @@ class ImageButtonHandler {
         //print(originalButton.superview)
         originalButton.superview?.addSubview(newButton)
         buttons.append(newButton)
+        urls.append(newURL)
         buttonPositions[totalButtons] = newButtonFrame.origin
         totalButtons += 1
         //findCoordinates()
@@ -93,7 +96,7 @@ class ImageButtonHandler {
     //with an update to how the inspection category works, this might not need to return the button any more
     //handles what happens when a button has its image changed
     //if a new button is added it returns the new button to the class containing this to add the function to the button
-    public func handleChange(changedButton: UIButton, action: String, newImage: UIImage?) -> UIButton?
+    public func handleChange(changedButton: UIButton, action: String, newImage: UIImage?, imageURL: String) -> UIButton?
     {
         var returnButton: UIButton? = nil
         
@@ -148,26 +151,89 @@ class ImageButtonHandler {
                 if (totalButtons < maxButtons)
                 {
                     //makes a new button and adds it to the super view
-                    returnButton = makeButton(newTag: changedButton.tag+1)
+                    returnButton = makeButton(newTag: changedButton.tag+1, newURL: "")
                 }
                 
             }
+            guard let url = URL(string: imageURL)
+            else
+            {
+                print("In ImageButtonHandler")
+                print("oh no thats no URL \(imageURL)")
+                return returnButton
+            }
+            updateURL(buttonTag: changedButton.tag, newURL: imageURL)
+            let data = try? Data(contentsOf: url)
+            if let imageData = data
+            {
+                let urlImage = UIImage(data: imageData)
+                let downSampledImage = downsample(imageAt: url, to: changedButton.bounds.size)
+                print("Setting button background to be \(urlImage)")
+                print("downSampledImage = \(downSampledImage)")
+                changedButton.setBackgroundImage(downSampledImage, for: .normal)
+            }
             //changedButton.setImage(newImage, for: .normal)
-            changedButton.setBackgroundImage(newImage, for: .normal)
+            //changedButton.setBackgroundImage(newImage, for: .normal)
             
         }
         return returnButton
     }
     
+    func downsample(imageAt imageURL: URL, to pointSize:CGSize, scale: CGFloat = UIScreen.main.scale) -> UIImage?
+    {
+        let imageSourceOptions = [kCGImageSourceShouldCache: false] as CFDictionary
+        guard let imageSource = CGImageSourceCreateWithURL(imageURL as CFURL, imageSourceOptions)
+        else
+        {
+            return nil
+        }
+        
+        let maxDimensionInPixels = max(pointSize.width, pointSize.height) * scale
+        
+        let downsampleOptions = [kCGImageSourceCreateThumbnailFromImageAlways: true,
+                                 kCGImageSourceShouldCacheImmediately: true,
+                                 kCGImageSourceThumbnailMaxPixelSize: maxDimensionInPixels] as CFDictionary
+        guard let downsampledImage = CGImageSourceCreateThumbnailAtIndex(imageSource, 0, downsampleOptions)
+        else
+        {
+            return nil
+        }
+        
+        return UIImage(cgImage: downsampledImage)
+    }
+    
+    func updateURL(buttonTag: Int, newURL: String)
+    {
+        var i = 0
+        var found = false
+        while(i < buttons.count)
+        {
+            if(buttonTag == buttons[i].tag)
+            {
+                found = true
+                break
+            }
+            i += 1
+        }
+        if found == true
+        {
+            urls[i] = newURL
+        }
+        else
+        {
+            urls.append(newURL)
+        }
+    }
+    
     //used to programmatically add an image
     //returns buttons that need to have actions added to them
-    public func addImage(image: UIImage) -> UIButton?
+    public func addImage(image: UIImage, imageURL: String) -> UIButton?
     {
         
         //makes sure there is a button to put the image in
         if (totalPictures < maxButtons)
         {
-            return handleChange(changedButton: buttons[totalButtons-1], action: changeImageAction, newImage: image)
+            return handleChange(changedButton: buttons[totalButtons-1], action: changeImageAction, newImage: image, imageURL: imageURL)
             
         }
         return nil
@@ -288,6 +354,11 @@ class ImageButtonHandler {
         }
         
         return images
+    }
+    
+    public func getURLS() -> [String]
+    {
+        return urls
     }
     
     //moves all the buttons down by amount
