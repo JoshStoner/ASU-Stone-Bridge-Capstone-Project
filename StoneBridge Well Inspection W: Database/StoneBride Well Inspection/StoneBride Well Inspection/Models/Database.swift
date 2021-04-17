@@ -478,9 +478,9 @@ class Database
     {
         var inspectionTitle = ""
        // let Inspections = try! self.database.prepare(self.InspectionForm)
-        let wName = "\(InspectionForm[wellName])"
-        let wIDate = ", \(InspectionForm[date])"
-        inspectionTitle = wName + wIDate + ".csv" // this is for the file name
+        // wName = "\(InspectionForm[wellName])"
+        //let wIDate = ", \(InspectionForm[date])"
+        inspectionTitle = "\(InspectionForm[wellName])" + "\(InspectionForm[date])" + ".csv" // this is for the file name
         
         
         let docsPath = NSSearchPathForDirectoriesInDomains(.documentDirectory, .userDomainMask, true)[0] as String
@@ -497,75 +497,7 @@ class Database
         
         //let sqlCmd = "SELECT * FROM tablename ORDER BY column DESC LIMIT 1;" //this is a query for selecting the most recent entry, not sure how to implement
         
-        
-        csvw?.writeField("Employee Name")
-        csvw?.writeField("Employee ID")
-        
-        csvw?.finishLine()
-        
-        
-        
         var csvTxt = "Employee Name,Employee ID\n"
-        
-        let employees = try! self.database.prepare(self.EmployeeTable)
-        
-        for employee in employees
-        {
-            //print("Employee Name: \(employee[self.Name])")
-            //print("Employee ID: \(employee[self.employeeID])")
-            //print("Employee Password: \(employee[self.password])")
-            let eLine = "\(employee[self.Name]),\(employee[self.employeeID])\n"
-            csvTxt.append(eLine)
-            
-            
-            csvw?.writeField("\(employee[self.Name])")
-            csvw?.writeField("\(employee[self.employeeID])")
-            
-            csvw?.finishLine()
-            
-        }
-        
-        
-        csvw?.finishLine()
-        
-        
-        
-        
-        csvw?.writeField("Employee ID")
-        csvw?.writeField("Well ID")
-        csvw?.writeField("Date")
-        
-        csvw?.finishLine()
-        
-        let fTable = "Employee ID,Well ID,Date\n"
-        
-        csvTxt.append(fTable)
-        
-        let fills = try! self.database.prepare(self.fillTable)
-        
-        for fill in fills
-        {
-            //print("Employee ID: \(fill[self.employeeID])")
-            //print("Well ID: \(fill[self.wellID])")
-            //print("Date: \(fill[self.date])")
-            
-            let fLine = "\(fill[self.employeeID]),\(fill[self.wellID]),\(fill[self.date])\n"
-            csvTxt.append(fLine)
-            
-            csvw?.writeField("\(fill[self.employeeID])")
-            csvw?.writeField("\(fill[self.wellID])")
-            csvw?.writeField("\(fill[self.date])")
-            
-            csvw?.finishLine()
-            
-            
-            
-            
-            
-        }
-        
-        
-        csvw?.finishLine()
         
         csvw?.writeField("Well ID")
         csvw?.writeField("Well Name")
@@ -604,29 +536,6 @@ class Database
         
         csvw?.finishLine()
         
-        let wITable = "Well ID,Date,PicID\n"
-        csvTxt.append(wITable)
-        
-        let wellImages = try! self.database.prepare(self.wellImageTable)
-        
-        for wellImage in wellImages
-        {
-            //print("Well ID: \(wellImage[self.wellID])")
-            //print("Date: \(wellImage[self.date])")
-            //print("Pic ID: \(wellImage[self.PicID])")
-            
-            let wILine = "\(wellImage[self.wellID]),\(wellImage[self.date]),\(wellImage[self.PicID])\n"
-            csvTxt.append(wILine)
-            
-            csvw?.writeField("\(wellImage[self.wellID])")
-            csvw?.writeField("\(wellImage[self.date])")
-            csvw?.writeField("\(wellImage[self.PicID])")
-            
-            csvw?.finishLine()
-        }
-        
-        csvw?.finishLine
-        
         csvw?.writeField("Pic ID")
         csvw?.writeField("Char ID")
         
@@ -652,35 +561,6 @@ class Database
             
             csvw?.writeField("\(Picture[self.PicID])")
             csvw?.writeField("\(Picture[self.charID])")
-            
-            csvw?.finishLine()
-        }
-        
-        csvw?.finishLine()
-        
-        csvw?.writeField("Well ID")
-        csvw?.writeField("Date")
-        csvw?.writeField("Char ID")
-        
-        csvw?.finishLine()
-        
-        let wDTable = "well ID,Date,Char ID\n"
-        csvTxt.append(wDTable)
-    
-        let wellDescs = try! self.database.prepare(self.wellImageTable)
-        
-        for wellDesc in wellDescs
-        {
-            //print("Well ID: \(wellDesc[self.wellID])")
-            //print("Date: \(wellDesc[self.date])")
-            //print("Char ID: \(wellDesc[self.charID])")
-            
-            let wDLine = "\(wellDesc[self.wellID]),\(wellDesc[self.date]),\(wellDesc[self.charID])\n"
-            csvTxt.append(wDLine)
-            
-            csvw?.writeField("\(wellDesc[self.wellID])")
-            csvw?.writeField("\(wellDesc[self.date])")
-            csvw?.writeField("\(wellDesc[self.charID])")
             
             csvw?.finishLine()
         }
