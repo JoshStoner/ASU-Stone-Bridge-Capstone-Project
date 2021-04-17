@@ -593,7 +593,7 @@ class InspectionFormViewController: UIViewController, UIPickerViewDataSource, UI
                                 // charID relates to the category so i for that one.
                                 if(InspectionFound == true)
                                 {
-                                    DB.deletePictures(wellID: Int(InspectionFormData!.wellNumber), Category: categoryName, PicID: pictureCount + 1, charID: i + 1, image: saveImage!)
+                                    DB.deletePictures(wellID: Int(InspectionFormData!.wellNumber), Category: categoryName, PicID: pictureCount + 1, charID: i + 1)
                                     DB.addPicture(PicID: pictureCount+1 ,image: saveImage!, charID: i+1, wellID: Int(InspectionFormData!.wellNumber), date: InspectionFormData!.date!)
                                 }else
                                 {
@@ -624,7 +624,6 @@ class InspectionFormViewController: UIViewController, UIPickerViewDataSource, UI
                 DB.listPictures()
                 
 //                call for converting to csv
-                //wName: InspectionFormData!.wellName!, wIDate: InspectionFormData!.date!
                 DB.convertToCSV()
                 
                 
