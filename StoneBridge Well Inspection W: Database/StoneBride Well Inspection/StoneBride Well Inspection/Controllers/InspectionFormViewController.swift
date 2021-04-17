@@ -598,7 +598,7 @@ class InspectionFormViewController: UIViewController, UIPickerViewDataSource, UI
                 DB.listPictures()
                 
                 //call for converting to csv
-                //DB.convertToCSV()
+                DB.convertToCSV()
                 
                 
                 print("Done publishing!")
