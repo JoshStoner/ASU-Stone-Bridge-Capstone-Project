@@ -575,6 +575,9 @@ class InspectionFormViewController: UIViewController, UIPickerViewDataSource, UI
                 {
                     if(i < 30)
                     {
+                        // Move this line up here to update Pictures
+                        let categoryName = inspectionCategoriesNames[i]
+
                         // Contains all the pictures under a category
                         if(sortedSections[i].category?.pictureData?.hasPics == true)
                         {
@@ -588,11 +591,18 @@ class InspectionFormViewController: UIViewController, UIPickerViewDataSource, UI
                                 let saveImage = UIImage(data: img)
                                 //is it supposed to be i or j here?
                                 // charID relates to the category so i for that one.
-                                DB.addPicture(PicID: pictureCount+1 ,image: saveImage!, charID: i+1, wellID: Int(InspectionFormData!.wellNumber), date: InspectionFormData!.date!)
+                                if(InspectionFound == true)
+                                {
+                                    DB.deletePictures(wellID: Int(InspectionFormData!.wellNumber), Category: categoryName, PicID: pictureCount + 1, charID: i + 1, image: saveImage!)
+                                    DB.addPicture(PicID: pictureCount+1 ,image: saveImage!, charID: i+1, wellID: Int(InspectionFormData!.wellNumber), date: InspectionFormData!.date!)
+                                }else
+                                {
+                                    
+                                    DB.addPicture(PicID: pictureCount+1 ,image: saveImage!, charID: i+1, wellID: Int(InspectionFormData!.wellNumber), date: InspectionFormData!.date!)
+                                }
                                 pictureCount += 1;
                                 j += 1;
                             }
-                            let categoryName = inspectionCategoriesNames[i]
                             //if the form has the default comment then it replaces it with the defaultCommentReplacement when viewing the form
                             let comment = sortedSections[i].category?.optComm ?? ""
                             

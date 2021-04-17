@@ -204,11 +204,7 @@ class Database
     // charID is category.
     func addPicture(PicID: Int, image: UIImage, charID: Int, wellID: Int, date: String)
     {
-        // Saves it into pngData
-        let imageData = image.pngData()
-        // Convert it into string64
-        let tempPString64 = imageData?.base64EncodedString(options: .endLineWithLineFeed)
-        let picture : String = tempPString64!
+        let picture: String = convertImageToBase64(image: image)
         let insertPicture = self.Pictures.insert(self.PicID <- PicID, self.CategoryPics <- picture, self.charID <- charID, self.wellID <- wellID, self.date <- date)
             
         do{
@@ -220,6 +216,19 @@ class Database
         }
             
     }
+    
+    func convertImageToBase64(image:UIImage) -> String
+    {
+        let imageData = image.pngData()
+        print(imageData!)
+        // Convert it into string64
+        let tempPString64 = imageData?.base64EncodedString(options: .endLineWithLineFeed)
+        let picture : String = tempPString64!
+
+        return picture
+        
+    }
+    
     func listPictures()
     {
         do{
@@ -231,7 +240,7 @@ class Database
                 print("Well ID: \(Picture[self.wellID])")
                 print("Date: \(Picture[self.date])")
                 //I couldn't get this Picture String to print for me without XCode preventing me from printing anything from this method if I try to print this Picture String
-                //print("Picture String: \(Picture[self.CategoryPics])")
+                print("Picture String: \(Picture[self.CategoryPics])")
                 
                 //print("Date : \(Picture[PicOfTankBattery])")
                 //print("Well Name: \(Picture[PicOfLocation])")
@@ -272,11 +281,31 @@ class Database
     func updateInspectionForm(wellID: Int, Comments: String, YesorNo: String, Category: String)
     {
         // Filter by wellID and category.
-        let wellID = self.InspectionDescription.filter(self.wellID == wellID && self.Category == Category)
+        let Description = self.InspectionDescription.filter(self.wellID == wellID && self.Category == Category)
+        
         // Update comments and YesOrNo's
-        let updateInspectionForm = wellID.update(self.comment <- Comments, self.YesOrNo <- YesorNo)
+        let updateInspectionForm = Description.update(self.comment <- Comments, self.YesOrNo <- YesorNo)
+        
         do{
             try self.database.run(updateInspectionForm)
+            print("Updated Inspection Form successfully.")
+
+        }catch{
+            print("Failed to update")
+            print(error);
+        }
+        
+    }
+    func deletePictures(wellID: Int, Category: String, PicID: Int, charID: Int, image: UIImage)
+    {
+        let pic = convertImageToBase64(image: image)
+        let pictureFilter = self.Pictures.filter(self.wellID == wellID && self.Category == Category && self.PicID == PicID && self.charID == charID && self.CategoryPics == pic)
+        let deletePics = pictureFilter.delete()
+        
+        do{
+            try self.database.run(deletePics)
+           
+
         }catch{
             print("Failed to update")
             print(error);
