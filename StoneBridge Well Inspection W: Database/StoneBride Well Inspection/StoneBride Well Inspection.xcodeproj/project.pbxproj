@@ -21,7 +21,7 @@
 		2F3E687525321C31002A87EF /* inspectionList.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2F3E687425321C31002A87EF /* inspectionList.swift */; };
 		2F407B882544BE1100AA2C0F /* TableCellViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2F407B872544BE1100AA2C0F /* TableCellViewController.swift */; };
 		2F407B8C2544C0F000AA2C0F /* TableViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2F407B8B2544C0F000AA2C0F /* TableViewController.swift */; };
-		4A09CB10262A8D48008D25F9 /* CHCSVParser.m in Sources */ = {isa = PBXBuildFile; fileRef = 4A09CB0F262A8D48008D25F9 /* CHCSVParser.m */; };
+		4ABE2873262A9753001450BE /* CHCSVParser.m in Sources */ = {isa = PBXBuildFile; fileRef = 4ABE2871262A9753001450BE /* CHCSVParser.m */; };
 		4AC139832611053A0089B56A /* SQLite.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 4AC1396D2611052F0089B56A /* SQLite.framework */; };
 		4AC139842611053A0089B56A /* SQLite.framework in Embed Frameworks */ = {isa = PBXBuildFile; fileRef = 4AC1396D2611052F0089B56A /* SQLite.framework */; settings = {ATTRIBUTES = (CodeSignOnCopy, RemoveHeadersOnCopy, ); }; };
 		4AC13987261105640089B56A /* Database.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4AC13986261105640089B56A /* Database.swift */; };
@@ -122,9 +122,9 @@
 		2F3E687425321C31002A87EF /* inspectionList.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = inspectionList.swift; sourceTree = "<group>"; };
 		2F407B872544BE1100AA2C0F /* TableCellViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TableCellViewController.swift; sourceTree = "<group>"; };
 		2F407B8B2544C0F000AA2C0F /* TableViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TableViewController.swift; sourceTree = "<group>"; };
-		4A09CB0D262A8D47008D25F9 /* StoneBridge Well Inspection-Bridging-Header.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = "StoneBridge Well Inspection-Bridging-Header.h"; sourceTree = "<group>"; };
-		4A09CB0E262A8D48008D25F9 /* CHCSVParser.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = CHCSVParser.h; path = "../../../../../Downloads/ASU-Stone-Bridge-Capstone-Project-main 2/StoneBridge Well Inspection W: Database/StoneBride Well Inspection/CHCSVParser.h"; sourceTree = "<group>"; };
-		4A09CB0F262A8D48008D25F9 /* CHCSVParser.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = CHCSVParser.m; path = "../../../../../Downloads/ASU-Stone-Bridge-Capstone-Project-main 2/StoneBridge Well Inspection W: Database/StoneBride Well Inspection/CHCSVParser.m"; sourceTree = "<group>"; };
+		4ABE2870262A9753001450BE /* StoneBridge Well Inspection-Bridging-Header.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = "StoneBridge Well Inspection-Bridging-Header.h"; sourceTree = "<group>"; };
+		4ABE2871262A9753001450BE /* CHCSVParser.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = CHCSVParser.m; path = "StoneBride Well Inspection/CHCSVParser.m"; sourceTree = SOURCE_ROOT; };
+		4ABE2872262A9753001450BE /* CHCSVParser.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = CHCSVParser.h; path = "StoneBride Well Inspection/CHCSVParser.h"; sourceTree = SOURCE_ROOT; };
 		4AC139622611052F0089B56A /* SQLite.xcodeproj */ = {isa = PBXFileReference; lastKnownFileType = "wrapper.pb-project"; name = SQLite.xcodeproj; path = "../SQLite.swift-master/SQLite.xcodeproj"; sourceTree = "<group>"; };
 		4AC13986261105640089B56A /* Database.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Database.swift; sourceTree = "<group>"; };
 		D0594E8126291E5000272C12 /* InspectionFormEntity+CoreDataClass.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "InspectionFormEntity+CoreDataClass.swift"; sourceTree = "<group>"; };
@@ -233,12 +233,12 @@
 		D0CAC92E255773130022DA9A /* Models */ = {
 			isa = PBXGroup;
 			children = (
-				4A09CB0E262A8D48008D25F9 /* CHCSVParser.h */,
-				4A09CB0F262A8D48008D25F9 /* CHCSVParser.m */,
 				D0CAC92825575D0C0022DA9A /* inspectionFormModel.swift */,
 				D05A1011256B0A75004D89CB /* InspectionFormCategory.swift */,
 				4AC13986261105640089B56A /* Database.swift */,
-				4A09CB0D262A8D47008D25F9 /* StoneBridge Well Inspection-Bridging-Header.h */,
+				4ABE2872262A9753001450BE /* CHCSVParser.h */,
+				4ABE2871262A9753001450BE /* CHCSVParser.m */,
+				4ABE2870262A9753001450BE /* StoneBridge Well Inspection-Bridging-Header.h */,
 			);
 			path = Models;
 			sourceTree = "<group>";
@@ -393,7 +393,7 @@
 				4AC13987261105640089B56A /* Database.swift in Sources */,
 				D0594E8B26291E5100272C12 /* InspectionFormEntity+CoreDataClass.swift in Sources */,
 				2F3E687525321C31002A87EF /* inspectionList.swift in Sources */,
-				4A09CB10262A8D48008D25F9 /* CHCSVParser.m in Sources */,
+				4ABE2873262A9753001450BE /* CHCSVParser.m in Sources */,
 				03BE8D3F25569E2800CB35C8 /* ImageButtonHandler.swift in Sources */,
 				D0594E8C26291E5100272C12 /* InspectionFormEntity+CoreDataProperties.swift in Sources */,
 				D05A1012256B0A75004D89CB /* InspectionFormCategory.swift in Sources */,
