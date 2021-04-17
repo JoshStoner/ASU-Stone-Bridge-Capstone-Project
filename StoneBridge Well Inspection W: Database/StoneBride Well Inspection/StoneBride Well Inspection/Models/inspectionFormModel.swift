@@ -44,16 +44,12 @@ public class inspectionFormModel
     
     //date: String, inspectionDone: String, wellName: String, wellNumber: Int, spillsToClean: String, spillsToCleanComments: String, oilBarrels: Int, waterBarrels: Int
     
-    func updateContext(contextObject: InspectionFormEntity, d: String, inspecDone: String, wName: String, wNum: Int, spilToClean: String, spilToCleanComm: String, oBarrels: Int, wBarrels: Int, categories: [InspectionCategory])
+    func updateContext(contextObject: InspectionFormEntity, d: String, inspecDone: String, wName: String, wNum: Int,  categories: [InspectionCategory])
     {
         contextObject.date = d
         contextObject.inspectionDone = inspecDone
         contextObject.wellName = wName
         contextObject.wellNumber = Int64(wNum)
-        contextObject.spillsToClean = spilToClean
-        contextObject.spillsToCleanComments = spilToCleanComm
-        contextObject.oilBarrels = Int64(oBarrels)
-        contextObject.waterBarrels = Int64(wBarrels)
         
         //print("Hey ur before the deltion")
         //Should remove every category currently saved
@@ -87,14 +83,17 @@ public class inspectionFormModel
                 
                 
                 let pics = categories[tagIndex].getImages()
+                let pURLS = categories[tagIndex].getURLS()
                     //categories[tagIndex].inspectionPictures?.getImages()
                 print("Hey pics is next")
                 print(pics)
+                print(pURLS)
                 
                 var i = 0
                 while (i < pics.count)
                 {
                     let pictureData = InspectionFormPicturesEntity(context: self.managedObjectContext!)
+                    pictureData.picURL = pURLS[i]
                     pictureData.picData = pics[i].jpegData(compressionQuality: 1.0)
                     pictureData.picTag = Int64(i)
                     pictures.addToPic(pictureData)
@@ -139,7 +138,7 @@ public class inspectionFormModel
     }
     
     //Save an inspection form
-    func saveContext(d: String, inspecDone: String, wName: String, wNum: Int, spilToClean: String, spilToCleanComm: String, oBarrels: Int, wBarrels: Int, categories: [InspectionCategory]) -> InspectionFormEntity?
+    func saveContext(d: String, inspecDone: String, wName: String, wNum: Int, categories: [InspectionCategory]) -> InspectionFormEntity?
     {
         let newInspectionForm = InspectionFormEntity(context: self.managedObjectContext!)
         
@@ -147,10 +146,6 @@ public class inspectionFormModel
         newInspectionForm.inspectionDone = inspecDone
         newInspectionForm.wellName = wName
         newInspectionForm.wellNumber = Int64(wNum)
-        newInspectionForm.spillsToClean = spilToClean
-        newInspectionForm.spillsToCleanComments = spilToCleanComm
-        newInspectionForm.oilBarrels = Int64(oBarrels)
-        newInspectionForm.waterBarrels = Int64(wBarrels)
         
         //Figure out how many tags there are and set it to maxTag
         var tagIndex = 0
@@ -179,14 +174,17 @@ public class inspectionFormModel
                 
                 
                 let pics = categories[tagIndex].getImages()
+                let pURLS = categories[tagIndex].getURLS()
                     //categories[tagIndex].inspectionPictures?.getImages()
                 print("Hey pics is next")
                 print(pics)
+                print(pURLS)
                 
                 var i = 0
                 while (i < pics.count)
                 {
                     let pictureData = InspectionFormPicturesEntity(context: self.managedObjectContext!)
+                    pictureData.picURL = pURLS[i]
                     pictureData.picData = pics[i].jpegData(compressionQuality: 1.0)
                     pictureData.picTag = Int64(i)
                     pictures.addToPic(pictureData)

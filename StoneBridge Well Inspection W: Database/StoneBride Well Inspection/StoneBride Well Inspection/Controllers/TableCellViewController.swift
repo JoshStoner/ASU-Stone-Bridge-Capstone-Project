@@ -85,6 +85,7 @@ class TableCellViewController: UIViewController//, PHPickerViewControllerDelegat
             if i < 30//4
             {
                 var images: [UIImage] = []
+                var urls: [String] = []
                 
                 if (ifCategory![i].category?.pictureData?.hasPics == true)
                 {
@@ -104,6 +105,7 @@ class TableCellViewController: UIViewController//, PHPickerViewControllerDelegat
                         let saveImage = UIImage(data: img)
                         //images.insert(saveImage!, at: j) // this didn't work for me when there was more than one image saved but below did - Josh
                         images.append(saveImage!)
+                        urls.append(savedPicEnt[j].picURL!)
                         //print("images.count = \(images.count)")
                         //print("Added an img to images")
                         //print("j = \(j)")
@@ -120,7 +122,7 @@ class TableCellViewController: UIViewController//, PHPickerViewControllerDelegat
                     comment = (comment == defaultComment ? defaultCommentReplacement : comment)
                     let applicable = ifCategory![i].category?.ynAns ?? ""
                     let inspectionData = InspectionCategoryData(categoryName: categoryName, images:images, comment: comment, applicable: applicable)
-                    let inspecCategoryStuff = InspectionCategory.loadInspectionCategory(data: inspectionData, topLeftPoint: point, view: dateLabel.superview!, tagNumber: i, editable: false, hasPictures: true, numberOfPictures: images.count,  imagePresenter: self)
+                    let inspecCategoryStuff = InspectionCategory.loadInspectionCategory(data: inspectionData, topLeftPoint: point, view: dateLabel.superview!, tagNumber: i, editable: false, hasPictures: true, numberOfPictures: images.count, loadedURLS: urls, imagePresenter: self)
                     isCategories.append(inspecCategoryStuff)
                 }
                 //print(i)
@@ -130,14 +132,14 @@ class TableCellViewController: UIViewController//, PHPickerViewControllerDelegat
             }
             else
             {
-                let images: [UIImage] = []
+                /*let images: [UIImage] = []
                 let categoryName = inspectionCategoriesNames[i]
                 let comment = ifCategory![i].category?.optComm ?? ""
                 let applicable = ifCategory![i].category?.ynAns ?? ""
                 let inspectionData = InspectionCategoryData(categoryName: categoryName, images:images, comment: comment, applicable: applicable)
                 let inspecCategoryStuff = InspectionCategory.loadInspectionCategory(data: inspectionData, topLeftPoint: point, view: dateLabel.superview!, tagNumber: i, editable: false, hasPictures: false, numberOfPictures: 0,  imagePresenter: self)
                 isCategories.append(inspecCategoryStuff)
-                point.y += CGFloat(isCategories[i/* + 1*/].getHeight() + 10)
+                point.y += CGFloat(isCategories[i/* + 1*/].getHeight() + 10)*/
             }
             i += 1
         }

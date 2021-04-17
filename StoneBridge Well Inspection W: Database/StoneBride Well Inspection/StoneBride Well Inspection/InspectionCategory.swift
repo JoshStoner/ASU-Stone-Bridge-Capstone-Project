@@ -27,6 +27,7 @@ class InspectionCategory: NSObject, UIPickerViewDataSource, UIPickerViewDelegate
     var editable: Bool = true // whether or not the category can be edited
     var inspectionPicturesSourceButton : UIButton?
     var changed = false
+    var imageURLS: [String] = []
 
     var topLeftPoint: CGPoint
     
@@ -151,7 +152,7 @@ class InspectionCategory: NSObject, UIPickerViewDataSource, UIPickerViewDelegate
             if (self.editable) { // only adds the action to add another picture if it is editable
                 inspectionPicturesSourceButton?.addTarget(self, action: #selector(showImagePicker(_:)), for: .touchUpInside)
             }
-            inspectionPictures = ImageButtonHandler(sourceButton: inspectionPicturesSourceButton!, tag: tag, numberOfButtons: numberOfPictures, buttonSpace: pictureFrame)
+            inspectionPictures = ImageButtonHandler(sourceButton: inspectionPicturesSourceButton!, tag: tag, numberOfButtons: numberOfPictures, buttonSpace: pictureFrame, imageURL: "")
             
             //calculates height including pictures
             calculateHeight()
@@ -247,7 +248,7 @@ class InspectionCategory: NSObject, UIPickerViewDataSource, UIPickerViewDelegate
     }
     
     //creates and returns an inspection category given a set of inspection category data and necessary information
-    public static func loadInspectionCategory(data: InspectionCategoryData, topLeftPoint: CGPoint, view: UIView, tagNumber: Int, editable: Bool, hasPictures: Bool, numberOfPictures: Int, imagePresenter: UIViewController) -> InspectionCategory
+    public static func loadInspectionCategory(data: InspectionCategoryData, topLeftPoint: CGPoint, view: UIView, tagNumber: Int, editable: Bool, hasPictures: Bool, numberOfPictures: Int, loadedURLS: [String], imagePresenter: UIViewController) -> InspectionCategory
     {
         //var buttonArr: [UIButton] = []
         let isCategory = InspectionCategory(categoryName: data.categoryName, topLeftPoint: topLeftPoint, view: view, tagNumber: tagNumber, editable: editable, hasPictures: hasPictures, numberOfPictures: numberOfPictures, imagePresenter: imagePresenter)
@@ -283,7 +284,7 @@ class InspectionCategory: NSObject, UIPickerViewDataSource, UIPickerViewDelegate
                   button?.addTarget(self, action: #selector(testFunc), for: .touchUpInside)
                 }*/
                 
-                let button = isCategory.inspectionPictures!.handleChange(changedButton: isCategory.inspectionPictures!.buttons[isCategory.inspectionPictures!.buttons.count-1], action: "Change Image", newImage: data.images[i])
+                let button = isCategory.inspectionPictures!.handleChange(changedButton: isCategory.inspectionPictures!.buttons[isCategory.inspectionPictures!.buttons.count-1], action: "Change Image", newImage: data.images[i], imageURL: loadedURLS[i])
                 if (button != nil && editable == true){
                     //print("Adding the new image")
                     button?.addTarget(imagePresenter, action: #selector(showImagePicker(_:)), for: .touchUpInside)
@@ -368,6 +369,11 @@ class InspectionCategory: NSObject, UIPickerViewDataSource, UIPickerViewDelegate
             images = inspectionPictures!.getImages()
         }
         return images
+    }
+    
+    public func getURLS() -> [String]
+    {
+        return inspectionPictures!.getURLS()
     }
     
     public func getData() -> InspectionCategoryData
@@ -479,21 +485,48 @@ class InspectionCategory: NSObject, UIPickerViewDataSource, UIPickerViewDelegate
         print("got here")
     }
     
-    func didSelect(image: UIImage?, action: String, sender: UIButton) {
+    func didSelect(image: UIImage?, imageURL: String, action: String, sender: UIButton) {
+        print("Inside InspectionCategory")
         
+        guard let url = URL(string: imageURL)
+        else
+        {
+            print("Something went wrong converting the string imageURL to a URL")
+            return
+        }
+        let data = try? Data(contentsOf: url)
+        if let imageData = data
+        {
+            let urlImage = UIImage(data: imageData)
+        }
+        
+        
+        print("imageURL for selected image is \(imageURL)")
         //print("oo")
         //makes note of the change or delete
         if (action == inspectionPictures?.changeImageAction || action == inspectionPictures?.clearImageAction)
         {
             changed = true
         }
-        let button = inspectionPictures!.handleChange(changedButton: sender, action: action, newImage: image)
+        let button = inspectionPictures!.handleChange(changedButton: sender, action: action, newImage: image, imageURL: imageURL)
         if (button != nil && self.editable){
             //print("Adding the new image")
             button?.addTarget(self, action: #selector(showImagePicker(_:)), for: .touchUpInside)
             //print("New Image added")
         }
         calculateHeight()
+    }
+    
+    func updateURLS(index: Int, newURL: String)
+    {
+        if(index < imageURLS.count)
+        {
+            imageURLS[index] = newURL
+        }
+        else
+        {
+            imageURLS.append(newURL)
+        }
     }
     
     

@@ -193,6 +193,7 @@ class InspectionFormViewController: UIViewController, UIPickerViewDataSource, UI
                 {
                     //var catButtons: [categoryButton] = []
                     var images: [UIImage] = []
+                    var urls: [String] = []
                     
                     if (ifCategory![i].category?.pictureData?.hasPics == true)
                     {
@@ -217,6 +218,7 @@ class InspectionFormViewController: UIViewController, UIPickerViewDataSource, UI
                             let saveImage = UIImage(data: img)
                             //images.insert(saveImage!, at: j) // this didn't work for me when there was more than one image saved but below did - Josh
                             images.append(saveImage!)
+                            urls.append(savedPicEnt[j].picURL!)
                             //print("images.count = \(images.count)")
                             //print("Added an img to images")
                             //print("j = \(j)")
@@ -231,7 +233,7 @@ class InspectionFormViewController: UIViewController, UIPickerViewDataSource, UI
                         let comment = ifCategory![i].category?.optComm ?? ""
                         let applicable = ifCategory![i].category?.ynAns ?? ""
                         let inspectionData = InspectionCategoryData(categoryName: categoryName, images:images, comment: comment, applicable: applicable)
-                        let inspecCategoryStuff = InspectionCategory.loadInspectionCategory(data: inspectionData, topLeftPoint: point, view: wellNameField.superview!, tagNumber: i, editable: true, hasPictures: true, numberOfPictures: 20/*4*/,  imagePresenter: self)
+                        let inspecCategoryStuff = InspectionCategory.loadInspectionCategory(data: inspectionData, topLeftPoint: point, view: wellNameField.superview!, tagNumber: i, editable: true, hasPictures: true, numberOfPictures: 20, loadedURLS: urls,  imagePresenter: self)
                         inspecCategoryStuff.setViewController(vc: self)
                         isCategories.append(inspecCategoryStuff)
                         
@@ -287,7 +289,7 @@ class InspectionFormViewController: UIViewController, UIPickerViewDataSource, UI
                 }
                 else
                 {
-                    let images: [UIImage] = []
+                    /*let images: [UIImage] = []
                     let categoryName = inspectionCategoriesNames[i]
                     let comment = ifCategory![i].category?.optComm ?? ""
                     let applicable = ifCategory![i].category?.ynAns ?? ""
@@ -295,7 +297,7 @@ class InspectionFormViewController: UIViewController, UIPickerViewDataSource, UI
                     let inspecCategoryStuff = InspectionCategory.loadInspectionCategory(data: inspectionData, topLeftPoint: point, view: wellNameField.superview!, tagNumber: i, editable: true, hasPictures: false, numberOfPictures: 0,  imagePresenter: self)
                     inspecCategoryStuff.setViewController(vc: self)
                     isCategories.append(inspecCategoryStuff)
-                    point.y += CGFloat(isCategories[i].getHeight() + 10)
+                    point.y += CGFloat(isCategories[i].getHeight() + 10)*/
                     
                 }
                 i += 1
@@ -428,7 +430,7 @@ class InspectionFormViewController: UIViewController, UIPickerViewDataSource, UI
         
         if (load == false && alreadySaved == false)
         {
-            loadedEnt = iModel?.saveContext(d: date, inspecDone: inspectionDone, wName: wellName, wNum: wellNumber, spilToClean: spills, spilToCleanComm: spillsComment, oBarrels: oilBarrels, wBarrels: waterBarrels, categories: isCategories)
+            loadedEnt = iModel?.saveContext(d: date, inspecDone: inspectionDone, wName: wellName, wNum: wellNumber,  categories: isCategories)
             //loadedEnt = iModel?.searchEnt(sWellName: wellName, sDate: date, sWellNumber: wellNumber, sInspectionDone: inspectionDone)
             if loadedEnt != nil
             {
@@ -437,7 +439,7 @@ class InspectionFormViewController: UIViewController, UIPickerViewDataSource, UI
         }
         else
         {
-            iModel?.updateContext(contextObject: loadedEnt!, d: date, inspecDone: inspectionDone, wName: wellName, wNum: wellNumber, spilToClean: spills, spilToCleanComm: spillsComment, oBarrels: oilBarrels, wBarrels: waterBarrels, categories: isCategories)
+            iModel?.updateContext(contextObject: loadedEnt!, d: date, inspecDone: inspectionDone, wName: wellName, wNum: wellNumber, categories: isCategories)
         }
         
         //updates all teh categories to let them know it has been saved
@@ -781,9 +783,26 @@ class InspectionFormViewController: UIViewController, UIPickerViewDataSource, UI
 //implements what to do when the image is picked
 extension InspectionFormViewController: ImagePickerDelegate {
     
-    func didSelect(image: UIImage?, action: String, sender: UIButton) {
+    func didSelect(image: UIImage?, imageURL: String, action: String, sender: UIButton) {
         let buttonHandlerNumber = sender.tag
+        print("Inside InspectionFormViewController")
         
+        guard let url = URL(string: imageURL)
+        else
+        {
+            print("oh no thats no URL")
+            return
+        }
+        let data = try? Data(contentsOf: url)
+        if let imageData = data
+        {
+            let urlImage = UIImage(data: imageData)
+            print("urlImage!!!!!!!!!!")
+            print(urlImage)
+        }
+        //print("imageURL for selected image is \(imageURL)")
+        print("image!!!!!!!!!!!!!!!!")
+        print(image)
         //print("buttonHandlerNumber is \(buttonHandlerNumber)")
         //Currently I think every button tag number is not updating meaning every button tag number is 0
         //So this will replace the very first button handler in the ibhandler but will change the correct button's
@@ -811,8 +830,9 @@ extension InspectionFormViewController: ImagePickerDelegate {
             }
             i += 1
         }
-        let changedButton = ibhandler[i].handleChange(changedButton: ibhandler[i].buttons[j], action: action, newImage: image)
-        
+        let changedButton = ibhandler[i].handleChange(changedButton: ibhandler[i].buttons[j], action: action, newImage: image, imageURL: imageURL)
+        ibhandler[i].urls[j] = imageURL
+        isCategories[i].updateURLS(index: i, newURL: imageURL)
         increasePageLength()
         
         /*let button = ibhandler[buttonHandlerNumber].handleChange(changedButton: sender, action: action, newImage: image)

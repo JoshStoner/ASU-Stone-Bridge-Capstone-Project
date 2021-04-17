@@ -1,8 +1,8 @@
 //
 //  InspectionFormEntity+CoreDataProperties.swift
-//  StoneBride Well Inspection
+//  StoneBridge Well Inspection
 //
-//  Created by Tyler Ipema on 2/3/21.
+//  Created by Tyler Ipema on 4/15/21.
 //  Copyright © 2021 ASU. All rights reserved.
 //
 //

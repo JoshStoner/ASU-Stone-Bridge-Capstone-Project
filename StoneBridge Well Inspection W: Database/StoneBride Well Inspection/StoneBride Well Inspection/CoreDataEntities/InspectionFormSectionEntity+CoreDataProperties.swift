@@ -1,8 +1,8 @@
 //
 //  InspectionFormSectionEntity+CoreDataProperties.swift
-//  StoneBride Well Inspection
+//  StoneBridge Well Inspection
 //
-//  Created by Tyler Ipema on 2/3/21.
+//  Created by Tyler Ipema on 4/15/21.
 //  Copyright © 2021 ASU. All rights reserved.
 //
 //
@@ -17,9 +17,10 @@ extension InspectionFormSectionEntity {
         return NSFetchRequest<InspectionFormSectionEntity>(entityName: "InspectionFormSectionEntity")
     }
 
-    @NSManaged public var ynAns: String?
     @NSManaged public var optComm: String?
     @NSManaged public var tagNum: Int64
+    @NSManaged public var ynAns: String?
+    @NSManaged public var pictureData: InspectionFormPicContainerEntity?
     @NSManaged public var toCategories: NSSet?
 
 }
