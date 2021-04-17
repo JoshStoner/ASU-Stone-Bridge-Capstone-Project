@@ -25,7 +25,7 @@ class InspectionFormViewController: UIViewController, UIPickerViewDataSource, UI
     var loadedWellNumber: String?
     var loadedInspecDone: String?
     var loadedDate: String?
-    
+    var InspectionFound: Bool = false;
     let defaultImagePickerPhoto = UIImage(systemName:"plus.rectangle.on.folder")
     let testImage = UIImage(systemName: "house")
     //var formList:inspectionList?
@@ -86,9 +86,6 @@ class InspectionFormViewController: UIViewController, UIPickerViewDataSource, UI
         DB.createInspectionFormTable()
         DB.createPictureTable()
         DB.createInspectionDescriptionTable()
-        DB.createFillTable()
-        DB.createWellDescTable()
-        DB.createWellImageTable()
         
         if(load == true)
         {
@@ -553,9 +550,20 @@ class InspectionFormViewController: UIViewController, UIPickerViewDataSource, UI
 //                print(InspectionFormData?.wellNumber as Any)
 //                print(InspectionFormData?.inspectionDone as Any)
                 
+                InspectionFound = DB.searchInspectionForm(wellID: Int(InspectionFormData!.wellNumber), wellName: InspectionFormData!.wellName!, Date: InspectionFormData!.date!)
                 
-                DB.addInspection(wellID: Int(InspectionFormData!.wellNumber), wellName: InspectionFormData!.wellName!, date: InspectionFormData!.date!)
-                DB.listInspectionForm()
+                if(InspectionFound == true)
+                {
+                    print("Inspection Form already exists")
+                    DB.listInspectionForm()
+
+                }else{
+                    
+                    print("Inspection Form doesn't exists")
+                    DB.addInspection(wellID: Int(InspectionFormData!.wellNumber), wellName: InspectionFormData!.wellName!, date: InspectionFormData!.date!)
+                    DB.listInspectionForm()
+
+                }
                 
                 // Sort the contextObject.Section
                 let sortSections = InspectionFormData?.section
@@ -580,7 +588,7 @@ class InspectionFormViewController: UIViewController, UIPickerViewDataSource, UI
                                 let saveImage = UIImage(data: img)
                                 //is it supposed to be i or j here?
                                 // charID relates to the category so i for that one.
-                                DB.addPicture(PicID: pictureCount+1 ,image: saveImage!, charID: i+1)
+                                DB.addPicture(PicID: pictureCount+1 ,image: saveImage!, charID: i+1, wellID: Int(InspectionFormData!.wellNumber), date: InspectionFormData!.date!)
                                 pictureCount += 1;
                                 j += 1;
                             }
@@ -590,7 +598,13 @@ class InspectionFormViewController: UIViewController, UIPickerViewDataSource, UI
                             
                             let applicable = sortedSections[i].category?.ynAns ?? ""
                             
-                            DB.addWell(wellID: Int(InspectionFormData!.wellNumber), Category: categoryName, YesOrNo: applicable, comment: comment)
+                            if(InspectionFound == true)
+                            {
+                                DB.updateInspectionForm(wellID: Int(InspectionFormData!.wellNumber), Comments: comment, YesorNo: applicable, Category: categoryName)
+                            }else{
+                                DB.addWell(wellID: Int(InspectionFormData!.wellNumber), Category: categoryName, YesOrNo: applicable, comment: comment, charID: i+1, date: InspectionFormData!.date!)
+                            }
+                          
                         }
                     }
                     i += 1;
@@ -599,7 +613,7 @@ class InspectionFormViewController: UIViewController, UIPickerViewDataSource, UI
                 DB.listWell()
                 DB.listPictures()
                 
-                //call for converting to csv
+//                call for converting to csv
                 DB.convertToCSV()
                 
                 

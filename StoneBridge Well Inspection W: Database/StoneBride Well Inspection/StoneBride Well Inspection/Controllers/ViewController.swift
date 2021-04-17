@@ -11,7 +11,8 @@ import UIKit
 class ViewController: UIViewController
 {
     let networkMonitor = NWPathMonitor()
-    
+    var DB = Database()
+
     
     
     var myInspectionList = inspectionList()
@@ -20,6 +21,9 @@ class ViewController: UIViewController
     
     override func viewDidLoad() {
         super.viewDidLoad()
+//        DB.DatabaseConnection()
+//        DB.delete()
+
         //update()
         // Do any additional setup after loading the view.
         

@@ -37,14 +37,9 @@ class Database
     func delete()
     {
         do{
-            //try self.database.run(EmployeeTable.drop(ifExists: true))
             try self.database.run(InspectionForm.drop(ifExists: true))
             try self.database.run(Pictures.drop(ifExists: true))
-            try self.database.run(InspectionDescription.drop(ifExists: true))
-            try self.database.run(fillTable.drop(ifExists:true))
-            try self.database.run(wellImageTable.drop(ifExists:true))
-            try self.database.run(wellDescTable.drop(ifExists:true))
-            
+            try self.database.run(InspectionDescription.drop(ifExists: true))            
             
 
             print("Tables deleted Sucessfully.")
@@ -53,93 +48,12 @@ class Database
         }
         
     }
-    // EmployeeTable
-    let EmployeeTable = Table("Employee")
-    // Columns
-    let Name = Expression<String>("Name")
-    let employeeID = Expression<Int>("employeeID")
-    let password = Expression<String>("password")
-    // PRIMARY KEY(employeeID)
-
-    func createEmployeeTable()
-    {
-        let createTable = self.EmployeeTable.create { (table) in
-            table.column(self.Name)
-            table.column(self.employeeID, primaryKey: true)
-            table.column(self.password)
-        }
-        
-        do{
-            try self.database.run(createTable)
-            print("Created Employee Table")
-            
-        }catch{
-            print("Employee table already exists")
-        }
-        
-    }
-    func addEmployee(employeeID: Int, name: String, pw: String)
-    {
-        
-        let insertEmployee = self.EmployeeTable.insert(self.employeeID <- employeeID, self.Name <- name, self.password <- pw)
-        
-        do{
-            try self.database.run(insertEmployee)
-            print("Inserted Employee")
-        }catch{
-            print(error)
-        }
-
-        
-    }
-    
-    func listEmployees()
-    {
-        
-        do{
-            let employees = try! self.database.prepare(self.EmployeeTable)
-            
-            for employee in employees
-            {
-                print("Employee Name: \(employee[self.Name])")
-                print("Employee ID: \(employee[self.employeeID])")
-                //print("Employee Password: \(employee[self.password])")
-                
-            }
-            
-        }catch{
-            print(error)
-        }
-    }
-    
-    func searchEmployee(name:String, password:String) -> Bool
-    {
-        var passed:Bool = false
-        do{
-            //Connecting to the database to prepare
-            let employees = try! self.database.prepare(self.EmployeeTable)
-            
-            // Looping through the whole list of employees in the database
-            for employee in employees
-            {
-                if(employee[self.Name] == name && employee[self.password] == password)
-                {
-                    passed = true
-                }
-                
-            }
-            
-        }catch{
-            print(error)
-        }
-        return passed
-    }
-    
     // InspectionForm Table
     let InspectionForm = Table("InspectionForm")
     let wellName = Expression<String>("wellName")
     let date = Expression<String>("date")
     let wellID = Expression<Int>("wellID")
+    let employeeName = Expression<String>("Employee")
     // PRIMARY KEY(wellID)
     
     func createInspectionFormTable()
@@ -210,8 +124,9 @@ class Database
             table.column(self.Category)
             table.column(self.YesOrNo)
             // NOT NULL CONSTRAINT
-            table.column(self.charID, primaryKey: true)
+            table.column(self.charID)
             table.column(self.wellID)
+            table.column(self.date)
             table.foreignKey(self.wellID, references: self.InspectionForm, self.wellID)
         }
         
@@ -225,11 +140,11 @@ class Database
         
     }
     
-    func addWell(wellID: Int, Category: String, YesOrNo: String, comment: String)
+    func addWell(wellID: Int, Category: String, YesOrNo: String, comment: String, charID: Int, date: String)
     {
         
         
-        let insertWell = self.InspectionDescription.insert(self.wellID <- wellID, self.Category <- Category, self.YesOrNo <- YesOrNo, self.comment <- comment)
+        let insertWell = self.InspectionDescription.insert(self.wellID <- wellID, self.Category <- Category, self.YesOrNo <- YesOrNo, self.comment <- comment, self.charID <- charID, self.date <- date)
         do{
             try self.database.run(insertWell)
             print("Inserted Well")
@@ -251,6 +166,7 @@ class Database
                 print("Comment: \(Well[self.comment])")
                 print("Description ID: \(Well[self.charID])")
                 print("Well ID: \(Well[self.wellID])")
+                print("Date: \(Well[self.date])")
             }
         }catch{
             print(error)
@@ -268,6 +184,9 @@ class Database
             table.column(self.charID)
             //table.column(self.YesOrNo)
             //table.column(self.wellID)
+            table.column(self.wellID)
+            table.column(self.date)
+            table.foreignKey(self.wellID, references: self.InspectionForm, self.wellID)
             table.foreignKey(self.charID, references: self.InspectionDescription, self.charID)
         }
         
@@ -281,14 +200,14 @@ class Database
         
     }
     // charID is category.
-    func addPicture(PicID: Int, image: UIImage, charID: Int)
+    func addPicture(PicID: Int, image: UIImage, charID: Int, wellID: Int, date: String)
     {
         // Saves it into pngData
         let imageData = image.pngData()
         // Convert it into string64
         let tempPString64 = imageData?.base64EncodedString(options: .endLineWithLineFeed)
         let picture : String = tempPString64!
-        let insertPicture = self.Pictures.insert(self.PicID <- PicID, self.CategoryPics <- picture, self.charID <- charID)
+        let insertPicture = self.Pictures.insert(self.PicID <- PicID, self.CategoryPics <- picture, self.charID <- charID, self.wellID <- wellID, self.date <- date)
             
         do{
             try self.database.run(insertPicture)
@@ -306,7 +225,9 @@ class Database
             for Picture in Pics
             {
                 print("Pic ID: \(Picture[PicID])")
-                print("Char ID: \(Picture[self.charID])")
+                print("Description ID: \(Picture[self.charID])")
+                print("Well ID: \(Picture[self.wellID])")
+                print("Date: \(Picture[self.date])")
                 //I couldn't get this Picture String to print for me without XCode preventing me from printing anything from this method if I try to print this Picture String
                 //print("Picture String: \(Picture[self.CategoryPics])")
                 
@@ -319,161 +240,48 @@ class Database
             print(error)
         }
     }
-    //relationship tables
-    //Fill Table
-    let fillTable = Table("fillTable")
     
-    func createFillTable()
+    // Search function. Checks if the Inspection Form already exist
+    func searchInspectionForm(wellID: Int, wellName: String, Date: String ) -> Bool
     {
-        let createTable = self.fillTable.create{    (table) in
-            table.column(self.employeeID)
-            table.column(self.wellID)
-            table.column(self.date)
-            table.foreignKey(self.employeeID, references: self.EmployeeTable, self.employeeID)
-            table.foreignKey(self.wellID, references: self.InspectionForm, self.wellID)
-            table.foreignKey(self.date, references: self.InspectionForm, self.date)
-        }
-        
+        var passed:Bool = false
         do{
-            try self.database.run(createTable)
-            print("Created fillTable Table")
+            //Connecting to the database to prepare
+            let Inspections = try! self.database.prepare(self.InspectionForm)
             
-        }catch{
-            print(error)
-        }
-    }
-    func addFill(wellID: Int, date: String)
-    {
-        
-        let insertFill = self.fillTable.insert(self.employeeID <- employeeID, self.wellID <- wellID, self.date <- date)
-        
-        do{
-            try self.database.run(insertFill)
-            print("Inserted Fill")
-        }catch{
-            print(error)
-        }
-
-        
-    }
-    func listFill()
-    {
-        do{
-            let fills = try! self.database.prepare(self.fillTable)
-            
-            for fill in fills
+            // Looping through the whole list of employees in the database
+            for Inspection in Inspections
             {
-                print("Employee ID: \(fill[self.employeeID])")
-                print("Well ID: \(fill[self.wellID])")
-                print("Date: \(fill[self.date])")
+                if(Inspection[self.wellID] == wellID && Inspection[self.wellName] == wellName && Inspection[self.date] ==  Date)
+                {
+                    passed = true
+                }
+                
             }
+            
         }catch{
             print(error)
         }
+        return passed
     }
-    let wellImageTable = Table("wellImageTable")
+
+    // Update function. Updates the inspection form if it already exists.
     
-    func createWellImageTable()
+    func updateInspectionForm(wellID: Int, Comments: String, YesorNo: String, Category: String)
     {
-        let createTable = self.wellImageTable.create{   (table) in
-            table.column(self.wellID)
-            table.column(self.date)
-            table.column(self.PicID)
-            table.foreignKey(self.wellID, references: InspectionForm, self.wellID)
-            table.foreignKey(self.date, references: InspectionForm, self.date)
-            table.foreignKey(self.PicID, references: Pictures, self.PicID)
-        }
-        
+        // Filter by wellID and category.
+        let wellID = self.InspectionDescription.filter(self.wellID == wellID && self.Category == Category)
+        // Update comments and YesOrNo's
+        let updateInspectionForm = wellID.update(self.comment <- Comments, self.YesOrNo <- YesorNo)
         do{
-            try self.database.run(createTable)
-            print("Created wellImageTable Table")
-            
+            try self.database.run(updateInspectionForm)
         }catch{
-            print(error)
+            print("Failed to update")
+            print(error);
         }
-    }
-    func addWellImage(wellID: Int, PicID: Int, date: String)
-    {
         
-        let insertWellImage = self.wellImageTable.insert(self.wellID <- wellID, self.date <- date)
-        
-        do{
-            try self.database.run(insertWellImage)
-            print("Inserted WellImage")
-        }catch{
-            print(error)
-        }
-
-        
-    }
-    func listWellImage()
-    {
-        do{
-            let wellImages = try! self.database.prepare(self.wellImageTable)
-            
-            for wellImage in wellImages
-            {
-                print("Well ID: \(wellImage[self.wellID])")
-                print("Date: \(wellImage[self.date])")
-                print("Pic ID: \(wellImage[self.PicID])")
-            }
-        }catch{
-            print(error)
-        }
     }
     
-    //WellDescription:
-    let wellDescTable = Table("wellDescTable")
-
-    func createWellDescTable()
-    {
-        let createTable = self.wellDescTable.create{   (table) in
-            table.column(self.wellID)
-            table.column(self.date)
-            table.column(self.charID)
-            table.foreignKey(self.wellID, references: InspectionForm, self.wellID)
-            table.foreignKey(self.date, references: InspectionForm, self.date)
-            table.foreignKey(self.charID, references: InspectionDescription, self.charID)
-        }
-        
-        do{
-            try self.database.run(createTable)
-            print("Created wellDescTable Table")
-            
-        }catch{
-            print(error)
-        }
-    }
-    func addWellDesc(wellID: Int, date: String)
-    {
-        
-        let insertWellDesc = self.wellDescTable.insert(self.wellID <- wellID,  self.date <- date)
-        
-        do{
-            try self.database.run(insertWellDesc)
-            print("Inserted WellDesc")
-        }catch{
-            print(error)
-        }
-
-        
-    }
-    func listWellDesc()
-    {
-        do{
-            let wellDescs = try! self.database.prepare(self.wellImageTable)
-            
-            for wellDesc in wellDescs
-            {
-                print("Well ID: \(wellDesc[self.wellID])")
-                print("Date: \(wellDesc[self.date])")
-                print("Char ID: \(wellDesc[self.charID])")
-            }
-        }catch{
-            print(error)
-        }
-    }
-    //convert to csv function
     func convertToCSV()
     {
         var inspectionTitle = ""
@@ -644,6 +452,7 @@ class Database
             //}
             }
         }
+   
    
 }
 

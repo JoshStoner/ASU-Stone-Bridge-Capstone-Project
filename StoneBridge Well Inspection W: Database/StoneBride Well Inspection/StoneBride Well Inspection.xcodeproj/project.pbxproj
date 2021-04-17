@@ -8,7 +8,6 @@
 
 /* Begin PBXBuildFile section */
 		03BE8D3F25569E2800CB35C8 /* ImageButtonHandler.swift in Sources */ = {isa = PBXBuildFile; fileRef = 03BE8D3E25569E2800CB35C8 /* ImageButtonHandler.swift */; };
-		03BF3D84255EA93B0053D623 /* LogInViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 03BF3D83255EA93A0053D623 /* LogInViewController.swift */; };
 		03BF3D87255EB6770053D623 /* InspectionCategory.swift in Sources */ = {isa = PBXBuildFile; fileRef = 03BF3D86255EB6770053D623 /* InspectionCategory.swift */; };
 		03F467E5253C090A00FC7B03 /* ImagePicker.swift in Sources */ = {isa = PBXBuildFile; fileRef = 03F467E4253C090900FC7B03 /* ImagePicker.swift */; };
 		2F3E685C2532196B002A87EF /* AppDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2F3E685B2532196B002A87EF /* AppDelegate.swift */; };
@@ -22,10 +21,10 @@
 		2F3E687525321C31002A87EF /* inspectionList.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2F3E687425321C31002A87EF /* inspectionList.swift */; };
 		2F407B882544BE1100AA2C0F /* TableCellViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2F407B872544BE1100AA2C0F /* TableCellViewController.swift */; };
 		2F407B8C2544C0F000AA2C0F /* TableViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2F407B8B2544C0F000AA2C0F /* TableViewController.swift */; };
+		4A09CB10262A8D48008D25F9 /* CHCSVParser.m in Sources */ = {isa = PBXBuildFile; fileRef = 4A09CB0F262A8D48008D25F9 /* CHCSVParser.m */; };
 		4AC139832611053A0089B56A /* SQLite.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 4AC1396D2611052F0089B56A /* SQLite.framework */; };
 		4AC139842611053A0089B56A /* SQLite.framework in Embed Frameworks */ = {isa = PBXBuildFile; fileRef = 4AC1396D2611052F0089B56A /* SQLite.framework */; settings = {ATTRIBUTES = (CodeSignOnCopy, RemoveHeadersOnCopy, ); }; };
 		4AC13987261105640089B56A /* Database.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4AC13986261105640089B56A /* Database.swift */; };
-		96016821262A72C600BB4A16 /* CHCSVParser.m in Sources */ = {isa = PBXBuildFile; fileRef = 96016820262A72C600BB4A16 /* CHCSVParser.m */; };
 		D0594E8B26291E5100272C12 /* InspectionFormEntity+CoreDataClass.swift in Sources */ = {isa = PBXBuildFile; fileRef = D0594E8126291E5000272C12 /* InspectionFormEntity+CoreDataClass.swift */; };
 		D0594E8C26291E5100272C12 /* InspectionFormEntity+CoreDataProperties.swift in Sources */ = {isa = PBXBuildFile; fileRef = D0594E8226291E5000272C12 /* InspectionFormEntity+CoreDataProperties.swift */; };
 		D0594E8D26291E5100272C12 /* InspectionFormSectionEntity+CoreDataClass.swift in Sources */ = {isa = PBXBuildFile; fileRef = D0594E8326291E5000272C12 /* InspectionFormSectionEntity+CoreDataClass.swift */; };
@@ -108,7 +107,6 @@
 
 /* Begin PBXFileReference section */
 		03BE8D3E25569E2800CB35C8 /* ImageButtonHandler.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ImageButtonHandler.swift; sourceTree = "<group>"; };
-		03BF3D83255EA93A0053D623 /* LogInViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; name = LogInViewController.swift; path = "StoneBride Well Inspection/LogInViewController.swift"; sourceTree = SOURCE_ROOT; };
 		03BF3D86255EB6770053D623 /* InspectionCategory.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = InspectionCategory.swift; sourceTree = "<group>"; };
 		03F467E4253C090900FC7B03 /* ImagePicker.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ImagePicker.swift; sourceTree = "<group>"; };
 		2F3E68582532196B002A87EF /* StoneBridge Well Inspection.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = "StoneBridge Well Inspection.app"; sourceTree = BUILT_PRODUCTS_DIR; };
@@ -124,11 +122,11 @@
 		2F3E687425321C31002A87EF /* inspectionList.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = inspectionList.swift; sourceTree = "<group>"; };
 		2F407B872544BE1100AA2C0F /* TableCellViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TableCellViewController.swift; sourceTree = "<group>"; };
 		2F407B8B2544C0F000AA2C0F /* TableViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TableViewController.swift; sourceTree = "<group>"; };
+		4A09CB0D262A8D47008D25F9 /* StoneBridge Well Inspection-Bridging-Header.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = "StoneBridge Well Inspection-Bridging-Header.h"; sourceTree = "<group>"; };
+		4A09CB0E262A8D48008D25F9 /* CHCSVParser.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = CHCSVParser.h; path = "../../../../../Downloads/ASU-Stone-Bridge-Capstone-Project-main 2/StoneBridge Well Inspection W: Database/StoneBride Well Inspection/CHCSVParser.h"; sourceTree = "<group>"; };
+		4A09CB0F262A8D48008D25F9 /* CHCSVParser.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = CHCSVParser.m; path = "../../../../../Downloads/ASU-Stone-Bridge-Capstone-Project-main 2/StoneBridge Well Inspection W: Database/StoneBride Well Inspection/CHCSVParser.m"; sourceTree = "<group>"; };
 		4AC139622611052F0089B56A /* SQLite.xcodeproj */ = {isa = PBXFileReference; lastKnownFileType = "wrapper.pb-project"; name = SQLite.xcodeproj; path = "../SQLite.swift-master/SQLite.xcodeproj"; sourceTree = "<group>"; };
 		4AC13986261105640089B56A /* Database.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Database.swift; sourceTree = "<group>"; };
-		96016817262A72C400BB4A16 /* StoneBridge Well Inspection-Bridging-Header.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = "StoneBridge Well Inspection-Bridging-Header.h"; sourceTree = "<group>"; };
-		9601681F262A72C600BB4A16 /* CHCSVParser.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = CHCSVParser.h; sourceTree = "<group>"; };
-		96016820262A72C600BB4A16 /* CHCSVParser.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = CHCSVParser.m; sourceTree = "<group>"; };
 		D0594E8126291E5000272C12 /* InspectionFormEntity+CoreDataClass.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "InspectionFormEntity+CoreDataClass.swift"; sourceTree = "<group>"; };
 		D0594E8226291E5000272C12 /* InspectionFormEntity+CoreDataProperties.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "InspectionFormEntity+CoreDataProperties.swift"; sourceTree = "<group>"; };
 		D0594E8326291E5000272C12 /* InspectionFormSectionEntity+CoreDataClass.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "InspectionFormSectionEntity+CoreDataClass.swift"; sourceTree = "<group>"; };
@@ -158,13 +156,10 @@
 		2F3E684F2532196B002A87EF = {
 			isa = PBXGroup;
 			children = (
-				9601681F262A72C600BB4A16 /* CHCSVParser.h */,
-				96016820262A72C600BB4A16 /* CHCSVParser.m */,
 				4AC139622611052F0089B56A /* SQLite.xcodeproj */,
 				2F3E685A2532196B002A87EF /* StoneBride Well Inspection */,
 				2F3E68592532196B002A87EF /* Products */,
 				4AC139822611053A0089B56A /* Frameworks */,
-				96016817262A72C400BB4A16 /* StoneBridge Well Inspection-Bridging-Header.h */,
 			);
 			sourceTree = "<group>";
 		};
@@ -238,9 +233,12 @@
 		D0CAC92E255773130022DA9A /* Models */ = {
 			isa = PBXGroup;
 			children = (
+				4A09CB0E262A8D48008D25F9 /* CHCSVParser.h */,
+				4A09CB0F262A8D48008D25F9 /* CHCSVParser.m */,
 				D0CAC92825575D0C0022DA9A /* inspectionFormModel.swift */,
 				D05A1011256B0A75004D89CB /* InspectionFormCategory.swift */,
 				4AC13986261105640089B56A /* Database.swift */,
+				4A09CB0D262A8D47008D25F9 /* StoneBridge Well Inspection-Bridging-Header.h */,
 			);
 			path = Models;
 			sourceTree = "<group>";
@@ -248,7 +246,6 @@
 		D0CAC92F2557733B0022DA9A /* Controllers */ = {
 			isa = PBXGroup;
 			children = (
-				03BF3D83255EA93A0053D623 /* LogInViewController.swift */,
 				2F3E685F2532196B002A87EF /* ViewController.swift */,
 				2F407B8B2544C0F000AA2C0F /* TableViewController.swift */,
 				2F407B872544BE1100AA2C0F /* TableCellViewController.swift */,
@@ -396,6 +393,7 @@
 				4AC13987261105640089B56A /* Database.swift in Sources */,
 				D0594E8B26291E5100272C12 /* InspectionFormEntity+CoreDataClass.swift in Sources */,
 				2F3E687525321C31002A87EF /* inspectionList.swift in Sources */,
+				4A09CB10262A8D48008D25F9 /* CHCSVParser.m in Sources */,
 				03BE8D3F25569E2800CB35C8 /* ImageButtonHandler.swift in Sources */,
 				D0594E8C26291E5100272C12 /* InspectionFormEntity+CoreDataProperties.swift in Sources */,
 				D05A1012256B0A75004D89CB /* InspectionFormCategory.swift in Sources */,
@@ -406,11 +404,9 @@
 				2F407B882544BE1100AA2C0F /* TableCellViewController.swift in Sources */,
 				D0594E9126291E5100272C12 /* InspectionFormPicContainerEntity+CoreDataClass.swift in Sources */,
 				2F3E68602532196B002A87EF /* ViewController.swift in Sources */,
-				03BF3D84255EA93B0053D623 /* LogInViewController.swift in Sources */,
 				2F3E685C2532196B002A87EF /* AppDelegate.swift in Sources */,
 				2F407B8C2544C0F000AA2C0F /* TableViewController.swift in Sources */,
 				D0594E9226291E5100272C12 /* InspectionFormPicContainerEntity+CoreDataProperties.swift in Sources */,
-				96016821262A72C600BB4A16 /* CHCSVParser.m in Sources */,
 				2F3E685E2532196B002A87EF /* SceneDelegate.swift in Sources */,
 				D0594E9426291E5100272C12 /* InspectionFormCategoryEntity+CoreDataProperties.swift in Sources */,
 				D0594E8E26291E5100272C12 /* InspectionFormSectionEntity+CoreDataProperties.swift in Sources */,
@@ -574,7 +570,7 @@
 				PRODUCT_BUNDLE_IDENTIFIER = "StoneBridge-Capstone.StoneBridge-Well-Inspection-Application";
 				PRODUCT_NAME = "$(TARGET_NAME)";
 				PROVISIONING_PROFILE_SPECIFIER = "Travis Qing";
-				SWIFT_OBJC_BRIDGING_HEADER = "StoneBridge Well Inspection-Bridging-Header.h";
+				SWIFT_OBJC_BRIDGING_HEADER = "StoneBride Well Inspection/Models/StoneBridge Well Inspection-Bridging-Header.h";
 				SWIFT_OPTIMIZATION_LEVEL = "-Onone";
 				SWIFT_VERSION = 5.0;
 				TARGETED_DEVICE_FAMILY = "1,2";
@@ -600,7 +596,7 @@
 				PRODUCT_BUNDLE_IDENTIFIER = "StoneBridge-Capstone.StoneBridge-Well-Inspection-Application";
 				PRODUCT_NAME = "$(TARGET_NAME)";
 				PROVISIONING_PROFILE_SPECIFIER = "Travis Qing";
-				SWIFT_OBJC_BRIDGING_HEADER = "StoneBridge Well Inspection-Bridging-Header.h";
+				SWIFT_OBJC_BRIDGING_HEADER = "StoneBride Well Inspection/Models/StoneBridge Well Inspection-Bridging-Header.h";
 				SWIFT_VERSION = 5.0;
 				TARGETED_DEVICE_FAMILY = "1,2";
 			};
