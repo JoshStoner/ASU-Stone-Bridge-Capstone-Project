@@ -62,6 +62,7 @@ class Database
             table.column(self.wellName)
             table.column(self.date)
             // Primary key will increment
+            table.column(self.employeeName)
             table.column(self.wellID, primaryKey: true)
         }
         
@@ -75,10 +76,10 @@ class Database
         
     }
     
-    func addInspection(wellID: Int, wellName: String, date: String)
+    func addInspection(wellID: Int, wellName: String, date: String, employeeName: String)
     {
         
-        let insertInspection = self.InspectionForm.insert(self.wellID <- wellID, self.wellName <- wellName, self.date <- date)
+        let insertInspection = self.InspectionForm.insert(self.wellID <- wellID, self.wellName <- wellName, self.date <- date, self.employeeName <- employeeName)
         
         do{
             try self.database.run(insertInspection)
@@ -101,7 +102,8 @@ class Database
                 print("Well ID: \(Inspection[wellID])")
                 print("Well Name: \(Inspection[wellName])")
                 print("Date : \(Inspection[date])")
-                
+                print("Employee Name : \(Inspection[employeeName])")
+
             }
         }catch{
             print(error)

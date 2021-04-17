@@ -560,7 +560,7 @@ class InspectionFormViewController: UIViewController, UIPickerViewDataSource, UI
                 }else{
                     
                     print("Inspection Form doesn't exists")
-                    DB.addInspection(wellID: Int(InspectionFormData!.wellNumber), wellName: InspectionFormData!.wellName!, date: InspectionFormData!.date!)
+                    DB.addInspection(wellID: Int(InspectionFormData!.wellNumber), wellName: InspectionFormData!.wellName!, date: InspectionFormData!.date!, employeeName: InspectionFormData!.inspectionDone!)
                     DB.listInspectionForm()
 
                 }

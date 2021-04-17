@@ -21,8 +21,8 @@ class ViewController: UIViewController
     
     override func viewDidLoad() {
         super.viewDidLoad()
-//        DB.DatabaseConnection()
-//        DB.delete()
+        DB.DatabaseConnection()
+        DB.delete()
 
         //update()
         // Do any additional setup after loading the view.
