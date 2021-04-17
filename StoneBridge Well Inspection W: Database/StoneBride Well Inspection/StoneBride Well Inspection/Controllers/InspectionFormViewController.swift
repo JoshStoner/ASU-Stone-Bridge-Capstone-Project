@@ -614,6 +614,7 @@ class InspectionFormViewController: UIViewController, UIPickerViewDataSource, UI
                 DB.listPictures()
                 
 //                call for converting to csv
+                //wName: InspectionFormData!.wellName!, wIDate: InspectionFormData!.date!
                 DB.convertToCSV()
                 
                 

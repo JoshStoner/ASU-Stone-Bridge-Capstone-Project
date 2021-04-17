@@ -283,19 +283,19 @@ class Database
         }
         
     }
-    
+    //wName: String, wIDate: String
     func convertToCSV()
     {
-        var inspectionTitle = ""
+        var inspectionTitleC = ""
+        inspectionTitleC = "\(InspectionForm[wellName])" + "Categories.csv"
        // let Inspections = try! self.database.prepare(self.InspectionForm)
-        // wName = "\(InspectionForm[wellName])"
-        //let wIDate = ", \(InspectionForm[date])"
-        inspectionTitle = "\(InspectionForm[wellName])" + "\(InspectionForm[date])" + ".csv" // this is for the file name
-        
+        //let wName = "\(InspectionForm[wellName])"
+        var inspectionTitleP = ""
+        inspectionTitleP = "\(InspectionForm[wellName])"  + "Pictures.csv" // this is for the file name
         
         let docsPath = NSSearchPathForDirectoriesInDomains(.documentDirectory, .userDomainMask, true)[0] as String
         
-        let docsURL = URL(fileURLWithPath: docsPath).appendingPathComponent(inspectionTitle)
+        let docsURL = URL(fileURLWithPath: docsPath).appendingPathComponent(inspectionTitleP)
         
         let output = OutputStream.toMemory()
         
@@ -303,56 +303,55 @@ class Database
         
         
         
-        let path = NSURL(fileURLWithPath: NSHomeDirectory()).appendingPathComponent(inspectionTitle) //i think the home directory hear adds it to docs
+        let path = NSURL(fileURLWithPath: NSHomeDirectory()).appendingPathComponent(inspectionTitleP) //i think the home directory hear adds it to docs
         
         //let sqlCmd = "SELECT * FROM tablename ORDER BY column DESC LIMIT 1;" //this is a query for selecting the most recent entry, not sure how to implement
         
-        var csvTxt = "Employee Name,Employee ID\n"
+        var csvTxtP = "Employee Name,Employee ID\n"
         
-        csvw?.writeField("Well ID")
-        csvw?.writeField("Well Name")
-        csvw?.writeField("Date")
+        //csvw?.writeField("Well ID")
+        //csvw?.writeField("Well Name")
+        //csvw?.writeField("Date")
+        //csvw?.writeField("Employee")
         
-        csvw?.finishLine()
+        //csvw?.finishLine()
         
-        let iFTable = "Well ID,Well Name,Date\n"
-        csvTxt.append(iFTable)
+        //let iFTable = "Well ID,Well Name,Date,Employee\n"
+        //csvTxt.append(iFTable)
         
-        let Inspections = try! self.database.prepare(self.InspectionForm)
-        print("InspectionForm: ")
+        //let Inspections = try! self.database.prepare(self.InspectionForm)
+        //print("InspectionForm: ")
         
-        for Inspection in Inspections
-        {
+        //for Inspection in Inspections
+        //{
             //print("Well ID: \(Inspection[wellID])")
             //print("Well Name: \(Inspection[wellName])")
             //print("Date : \(Inspection[date])")
             
-            let iFLine = "\(Inspection[self.wellID]),\(Inspection[self.wellName]),\(Inspection[self.date])\n"
-            csvTxt.append(iFLine)
+          //  let iFLine = "\(Inspection[self.wellID]),\(Inspection[self.wellName]),\(Inspection[self.date])\n"
+           // csvTxt.append(iFLine)
             
-            csvw?.writeField("\(Inspection[self.wellID])")
-            csvw?.writeField("\(Inspection[self.wellName])")
-            csvw?.writeField("\(Inspection[self.date])")
+           // csvw?.writeField("\(Inspection[self.wellID])")
+            //csvw?.writeField("\(Inspection[self.wellName])")
+            //csvw?.writeField("\(Inspection[self.date])")
+            //csvw?.writeField("\(Inspection[self.employeeName])")
             
-            csvw?.finishLine()
+            //csvw?.finishLine()
             
-        }
+        //}
         
-        csvw?.finishLine()
-        
-        csvw?.writeField("Well ID")
-        csvw?.writeField("Date")
-        csvw?.writeField("Pic ID")
-        
-        csvw?.finishLine()
+        //csvw?.finishLine()
         
         csvw?.writeField("Pic ID")
         csvw?.writeField("Char ID")
+        csvw?.writeField("Category of Pics")
+        csvw?.writeField("Well ID")
+        csvw?.writeField("Date")
         
         csvw?.finishLine()
         
-        let pTable = "Pic ID,Char ID\n"
-        csvTxt.append(pTable)
+        let pTable = "Pic ID,Char ID,Category of Pics,Well ID,Date\n"
+        csvTxtP.append(pTable)
         
         let Pics = try! self.database.prepare(self.Pictures)
         for Picture in Pics
@@ -367,32 +366,60 @@ class Database
             //print("Date : \(Picture[PicOfLeaseRoad])")
             
             let pLine = "\(Picture[self.PicID]),\(Picture[self.charID])\n"
-            csvTxt.append(pLine)
+            csvTxtP.append(pLine)
             
             csvw?.writeField("\(Picture[self.PicID])")
             csvw?.writeField("\(Picture[self.charID])")
+            csvw?.writeField("\(Picture[self.CategoryPics])")
+            csvw?.writeField("\(Picture[self.wellID])")
+            csvw?.writeField("\(Picture[self.date])")
             
             csvw?.finishLine()
         }
         
         csvw?.finishLine()
         
-        csvw?.writeField("Category")
-        csvw?.writeField("Y/N")
-        csvw?.writeField("Comment")
-        csvw?.writeField("Description ID")
-        csvw?.writeField("Well ID")
+        csvw?.closeStream()
         
-        csvw?.finishLine()
+        let buffer = (output.property(forKey: .dataWrittenToMemoryStreamKey) as? Data)!
         
-        let weTable = "Category,Y/N,Comment,Description ID,Well ID\n"
-        csvTxt.append(weTable)
+        do{
+            try csvTxtP.write(to: path!, atomically: true, encoding: String.Encoding.utf8)
+            try buffer.write(to: docsURL)
+        }
+            catch{
+                print("failed to create file")
+        }
         
-        let docURL = try! FileManager().url(for: .documentDirectory, in: .userDomainMask, appropriateFor: nil, create: true)
+        let docURL = URL(fileURLWithPath: docsPath).appendingPathComponent(inspectionTitleC)
         
-        let csvFile = docURL.appendingPathComponent(inspectionTitle)
+        let outputs = OutputStream.toMemory()
+        
+        let csvws = CHCSVWriter(outputStream: outputs, encoding: String.Encoding.utf8.rawValue, delimiter: ",".utf16.first!)
+        
+        let paths = NSURL(fileURLWithPath: NSHomeDirectory()).appendingPathComponent(inspectionTitleC) //i think the home directory hear adds it to docs
+    
+    //let sqlCmd = "SELECT * FROM tablename ORDER BY column DESC LIMIT 1;" //this is a query for selecting the most recent entry, not sure how to implement
+    
+        var csvTxtC = "Employee Name,Employee ID\n"
+        
+        csvws?.writeField("Category")
+        csvws?.writeField("Y/N")
+        csvws?.writeField("Comment")
+        csvws?.writeField("Description ID")
+        csvws?.writeField("Well ID")
+        csvws?.writeField("Date")
+        
+        csvws?.finishLine()
+        
+        let weTable = "Category,Y/N,Comment,Description ID,Well ID,Date\n"
+        csvTxtC.append(weTable)
+        
+        //let docURL = try! FileManager().url(for: .documentDirectory, in: .userDomainMask, appropriateFor: nil, create: true)
+        
+        //let csvFile = docURL.appendingPathComponent(inspectionTitleP)
             
-        let exists = try! FileManager().fileExists(atPath: csvFile.path)
+        //let exists = try! FileManager().fileExists(atPath: csvFile.path)
         
         let Wells = try! self.database.prepare(self.InspectionDescription)
         
@@ -406,32 +433,33 @@ class Database
             //print("Well ID: \(Well[self.wellID])")
             
             let weLine = "\(Well[self.Category]),\(Well[self.YesOrNo]),\(Well[self.comment]),\(Well[self.charID]),\(Well[self.wellID])\n"
-            csvTxt.append(weLine)
+            csvTxtC.append(weLine)
             
-            csvw?.writeField("\(Well[self.Category])")
-            csvw?.writeField("\(Well[self.YesOrNo])")
-            csvw?.writeField("\(Well[self.comment])")
-            csvw?.writeField("\(Well[self.charID])")
-            csvw?.writeField("\(Well[self.wellID])")
+            csvws?.writeField("\(Well[self.Category])")
+            csvws?.writeField("\(Well[self.YesOrNo])")
+            csvws?.writeField("\(Well[self.comment])")
+            csvws?.writeField("\(Well[self.charID])")
+            csvws?.writeField("\(Well[self.wellID])")
+            csvws?.writeField("\(Well[self.date])")
             
-            csvw?.finishLine()
+            csvws?.finishLine()
         }
+        csvws?.finishLine()
         
-        csvw?.closeStream()
+        csvws?.closeStream()
         
-        let buffer = (output.property(forKey: .dataWrittenToMemoryStreamKey) as? Data)!
-        
-        if(exists == true){
-            print("exists")
+        let buffers = (outputs.property(forKey: .dataWrittenToMemoryStreamKey) as? Data)!
+        //if(exists == true){
+        //    print("exists")
+        //}
+        //else{
+        do{
+            try csvTxtC.write(to: paths!, atomically: true, encoding: String.Encoding.utf8)
+            try buffers.write(to: docURL)
         }
-        else{
-            do{
-                //try csvTxt.write(to: path!, atomically: true, encoding: String.Encoding.utf8)
-                try buffer.write(to: docsURL)
+            catch{
+                print("failed to create file")
             }
-                catch{
-                    print("failed to create file")
-                }
             
             
             
@@ -452,8 +480,8 @@ class Database
             //{
                 
             //}
-            }
         }
+        //}
    
    
 }
