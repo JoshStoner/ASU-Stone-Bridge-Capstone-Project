@@ -226,6 +226,8 @@ class InspectionFormViewController: UIViewController, UIPickerViewDataSource, UI
                         //print("Out of loop")
                         //print("images.count = \(images.count)")
                         //print("images = \(images)")
+                        print("urls.count = \(urls.count)")
+                        print("urls = \(urls)")
                         let categoryName = inspectionCategoriesNames[i]
                         let comment = ifCategory![i].category?.optComm ?? ""
                         let applicable = ifCategory![i].category?.ynAns ?? ""
@@ -812,7 +814,7 @@ extension InspectionFormViewController: ImagePickerDelegate {
         let buttonHandlerNumber = sender.tag
         print("Inside InspectionFormViewController")
         
-        guard let url = URL(string: imageURL)
+        /*guard let url = URL(string: imageURL)
         else
         {
             print("oh no thats no URL")
@@ -827,38 +829,86 @@ extension InspectionFormViewController: ImagePickerDelegate {
         }
         //print("imageURL for selected image is \(imageURL)")
         print("image!!!!!!!!!!!!!!!!")
-        print(image)
+        print(image)*/
+        
+        
+        print("imageURL is \(imageURL)")
+        if let url = URL(string: imageURL)
+        {
+            print("url is \(url)")
+            //updateURL(buttonTag: changedButton.tag, newURL: imageURL)
+            //let nsData = try NSData(contentsOf: url!)
+            //print("nsData = \(nsData)")
+            //let data = Data(referencing: nsData!)
+            
+            let arr = imageURL.split(separator: "/")
+            print("arr is \(arr)")
+            let imageName = String(arr[arr.count-1])
+            
+            let docsURL = FileManager.default.urls(for: .documentDirectory, in: .userDomainMask).first!
+            let filePath = docsURL.appendingPathComponent(imageName)
+            print("filePath is \(filePath)")
+            if FileManager.default.fileExists(atPath: filePath.path)
+            {
+                do
+                {
+                    let data = try Data(contentsOf: filePath)
+                    print("data = \(data)")
+                    let imageData = data
+                    
+                    let urlImage = UIImage(data: imageData)
+                    print("urlImage = \(urlImage)")
+                    //let downSampledImage = downsample(imageAt: url, to: changedButton.bounds.size)
+                    //print("Setting button background to be \(urlImage)")
+                    //print("downSampledImage = \(downSampledImage)")
+                    //changedButton.setBackgroundImage(downSampledImage, for: .normal)
+                    var i = 0
+                    var j = 0
+                    var found = false
+                    while (i < ibhandler.count)
+                    {
+                        j = 0
+                        while (j < ibhandler[i].buttons.count)
+                        {
+                            if ibhandler[i].buttons[j].tag == buttonHandlerNumber
+                            {
+                                found = true
+                                break
+                            }
+                            j += 1
+                        }
+                        if (found == true)
+                        {
+                            break
+                        }
+                        i += 1
+                    }
+                    let changedButton = ibhandler[i].handleChange(changedButton: ibhandler[i].buttons[j], action: action, newImage: image, imageURL: filePath.path)
+                    ibhandler[i].urls[j] = imageURL
+                    isCategories[i].updateURLS(index: i, newURL: imageURL)
+                    increasePageLength()
+                }
+                catch
+                {
+                    print(error)
+                }
+            }
+        }
+        else
+        {
+            print("In ImageButtonHandler")
+            print("oh no thats no URL \(imageURL)")
+            //return returnButton
+        }
+        
+        
         //print("buttonHandlerNumber is \(buttonHandlerNumber)")
         //Currently I think every button tag number is not updating meaning every button tag number is 0
         //So this will replace the very first button handler in the ibhandler but will change the correct button's
         //information in the handleChange function
         //Also we need to find either a new way to hold the ImageButtonHandlers because the button tag id should
         //all be in a range like 0 to 5 for four different categories
-        var i = 0
-        var j = 0
-        var found = false
-        while (i < ibhandler.count)
-        {
-            j = 0
-            while (j < ibhandler[i].buttons.count)
-            {
-                if ibhandler[i].buttons[j].tag == buttonHandlerNumber
-                {
-                    found = true
-                    break
-                }
-                j += 1
-            }
-            if (found == true)
-            {
-                break
-            }
-            i += 1
-        }
-        let changedButton = ibhandler[i].handleChange(changedButton: ibhandler[i].buttons[j], action: action, newImage: image, imageURL: imageURL)
-        ibhandler[i].urls[j] = imageURL
-        isCategories[i].updateURLS(index: i, newURL: imageURL)
-        increasePageLength()
+        
         
         /*let button = ibhandler[buttonHandlerNumber].handleChange(changedButton: sender, action: action, newImage: image)
         if (button != nil){

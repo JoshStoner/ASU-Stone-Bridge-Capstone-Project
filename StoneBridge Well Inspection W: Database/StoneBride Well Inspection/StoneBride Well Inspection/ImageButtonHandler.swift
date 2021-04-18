@@ -118,7 +118,7 @@ class ImageButtonHandler {
         
         //if the action is clear, then it needs to shift all images from this button on wards to previous buttons
         //then it should remove the last button
-        if (action == clearImageAction && changedButton.backgroundImage(for: .normal) !== defaultImagePickerPhoto)
+        if (action == clearImageAction && changedButton.backgroundImage(for: .normal) != defaultImagePickerPhoto)
         {
             
             
@@ -155,23 +155,54 @@ class ImageButtonHandler {
                 }
                 
             }
-            guard let url = URL(string: imageURL)
+            //print("Inside ImageButtonHandler")
+            //print("imageURL is \(imageURL)")
+            if let url = URL(string: imageURL)
+            {
+                //print("url is \(url)")
+                updateURL(buttonTag: changedButton.tag, newURL: imageURL)
+                //let nsData = try NSData(contentsOf: url!)
+                //print("nsData = \(nsData)")
+                //let data = Data(referencing: nsData!)
+                
+                let arr = imageURL.split(separator: "/")
+                //print("arr is \(arr)")
+                let imageName = String(arr[arr.count-1])
+                //print("imageName is \(imageName)")
+                let docsURL = FileManager.default.urls(for: .documentDirectory, in: .userDomainMask).first!
+                let filePath = docsURL.appendingPathComponent(imageName)
+                //print("filePath is \(filePath)")
+                if FileManager.default.fileExists(atPath: filePath.path)
+                {
+                    do
+                    {
+                        let data = try Data(contentsOf: filePath)
+                        //print("data = \(data)")
+                        let imageData = data
+                        
+                        let urlImage = UIImage(data: imageData)
+                        let downSampledImage = downsample(imageAt: filePath, to: changedButton.bounds.size)
+                        print("Setting button background to be \(urlImage)")
+                        print("downSampledImage = \(downSampledImage)")
+                        changedButton.setBackgroundImage(downSampledImage, for: .normal)
+                    }
+                    catch
+                    {
+                        print(error)
+                    }
+                }
+                else
+                {
+                    print("FILE DOESN'T EXIST!!!!!!!!")
+                }
+            }
             else
             {
-                print("In ImageButtonHandler")
+                //print("In ImageButtonHandler")
                 print("oh no thats no URL \(imageURL)")
                 return returnButton
             }
-            updateURL(buttonTag: changedButton.tag, newURL: imageURL)
-            let data = try? Data(contentsOf: url)
-            if let imageData = data
-            {
-                let urlImage = UIImage(data: imageData)
-                let downSampledImage = downsample(imageAt: url, to: changedButton.bounds.size)
-                print("Setting button background to be \(urlImage)")
-                print("downSampledImage = \(downSampledImage)")
-                changedButton.setBackgroundImage(downSampledImage, for: .normal)
-            }
+            
             //changedButton.setImage(newImage, for: .normal)
             //changedButton.setBackgroundImage(newImage, for: .normal)
             

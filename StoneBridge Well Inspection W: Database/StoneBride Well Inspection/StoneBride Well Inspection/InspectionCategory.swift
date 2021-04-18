@@ -488,7 +488,7 @@ class InspectionCategory: NSObject, UIPickerViewDataSource, UIPickerViewDelegate
     func didSelect(image: UIImage?, imageURL: String, action: String, sender: UIButton) {
         print("Inside InspectionCategory")
         
-        guard let url = URL(string: imageURL)
+        /*guard let url = URL(string: imageURL)
         else
         {
             print("Something went wrong converting the string imageURL to a URL")
@@ -501,20 +501,68 @@ class InspectionCategory: NSObject, UIPickerViewDataSource, UIPickerViewDelegate
         }
         
         
-        print("imageURL for selected image is \(imageURL)")
+        print("imageURL for selected image is \(imageURL)")*/
+        
+    
+        print("imageURL is \(imageURL)")
+        if let url = URL(string: imageURL)
+        {
+            print("url is \(url)")
+            //updateURL(buttonTag: changedButton.tag, newURL: imageURL)
+            //let nsData = try NSData(contentsOf: url!)
+            //print("nsData = \(nsData)")
+            //let data = Data(referencing: nsData!)
+            
+            let arr = imageURL.split(separator: "/")
+            print("arr is \(arr)")
+            let imageName = String(arr[arr.count-1])
+            
+            let docsURL = FileManager.default.urls(for: .documentDirectory, in: .userDomainMask).first!
+            let filePath = docsURL.appendingPathComponent(imageName)
+            print("filePath is \(filePath)")
+            if FileManager.default.fileExists(atPath: filePath.path)
+            {
+                do
+                {
+                    let data = try Data(contentsOf: filePath)
+                    print("data = \(data)")
+                    let imageData = data
+                    
+                    let urlImage = UIImage(data: imageData)
+                    //let downSampledImage = downsample(imageAt: url, to: changedButton.bounds.size)
+                    //print("Setting button background to be \(urlImage)")
+                    //print("downSampledImage = \(downSampledImage)")
+                    //changedButton.setBackgroundImage(downSampledImage, for: .normal)
+                    if (action == inspectionPictures?.changeImageAction || action == inspectionPictures?.clearImageAction)
+                    {
+                        changed = true
+                    }
+                    //let button = inspectionPictures!.handleChange(changedButton: sender, action: action, newImage: image, imageURL: imageURL)
+                    let button = inspectionPictures!.handleChange(changedButton: sender, action: action, newImage: image, imageURL: filePath.path)
+                    if (button != nil && self.editable){
+                        //print("Adding the new image")
+                        button?.addTarget(self, action: #selector(showImagePicker(_:)), for: .touchUpInside)
+                        //print("New Image added")
+                    }
+                    calculateHeight()
+                }
+                catch
+                {
+                    print(error)
+                }
+            }
+        }
+        else
+        {
+            print("In ImageButtonHandler")
+            print("oh no thats no URL \(imageURL)")
+            //return returnButton
+        }
+        
+        
         //print("oo")
         //makes note of the change or delete
-        if (action == inspectionPictures?.changeImageAction || action == inspectionPictures?.clearImageAction)
-        {
-            changed = true
-        }
-        let button = inspectionPictures!.handleChange(changedButton: sender, action: action, newImage: image, imageURL: imageURL)
-        if (button != nil && self.editable){
-            //print("Adding the new image")
-            button?.addTarget(self, action: #selector(showImagePicker(_:)), for: .touchUpInside)
-            //print("New Image added")
-        }
-        calculateHeight()
+        
     }
     
     func updateURLS(index: Int, newURL: String)

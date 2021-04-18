@@ -39,7 +39,7 @@ class Database
         do{
             try self.database.run(InspectionForm.drop(ifExists: true))
             try self.database.run(Pictures.drop(ifExists: true))
-            try self.database.run(InspectionDescription.drop(ifExists: true))
+            try self.database.run(InspectionDescription.drop(ifExists: true))            
             
 
             print("Tables deleted Sucessfully.")

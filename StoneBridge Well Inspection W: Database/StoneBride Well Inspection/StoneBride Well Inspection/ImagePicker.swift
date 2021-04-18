@@ -200,32 +200,94 @@ extension ImagePicker: UIImagePickerControllerDelegate {
         
         picker.dismiss(animated: true)
         
-        var image : UIImage
-        //image = info[.originalImage] as? UIImage
+        var image = info[UIImagePickerController.InfoKey.originalImage] as! UIImage
         
         if (picker.sourceType == UIImagePickerController.SourceType.camera)
         {
-            let imageName = UUID().uuidString
-            let documentDirectory = NSTemporaryDirectory()
-            let localPath = documentDirectory.appending(imageName)
+            let imageName = UUID().uuidString+".jpeg"
+            guard let dDic = FileManager.default.urls(for: .documentDirectory, in: .userDomainMask).first
+            else
+            {
+                print("Returning from guard in imagePicker")
+                return
+            }
             
-            image = info[UIImagePickerController.InfoKey.originalImage] as! UIImage
-            let data = image.jpegData(compressionQuality: 0.0)! as NSData
-            data.write(toFile: localPath, atomically: true)
-            let photoURL = URL.init(fileURLWithPath: localPath)
-            print("PhotoURL INCOMING!!!!!!!!!!!!!!!!!!!!!")
-            print(photoURL)
-            print("PhotoURL ABOVE!!!!!!!!!!!!!!!!!!!!")
-            print(photoURL.relativeString)
-            self.pickerController(picker, didSelect: image, chosenAction: "Change Image", imageURL: photoURL.relativeString)
+            let fileName = imageName
+            let fileURL = dDic.appendingPathComponent(fileName)
+            guard let d = image.jpegData(compressionQuality: 0.0)
+            else
+            {
+                print("Returning from d guard in imagePickker")
+                return
+            }
+            
+            if FileManager.default.fileExists(atPath: fileURL.path)
+            {
+                do
+                {
+                    try FileManager.default.removeItem(atPath: fileURL.path)
+                    print("Removed old image")
+                }
+                catch let removeError
+                {
+                    print("Couldn't remove old image", removeError)
+                }
+            }
+            
+            do
+            {
+                try d.write(to: fileURL)
+            }
+            catch let error
+            {
+                print("Error saving the file with error", error)
+            }
+            self.pickerController(picker, didSelect: image, chosenAction: "Change Image", imageURL: fileURL.relativeString)
             return
         }
         else
         {
-            let imageURL = info[UIImagePickerController.InfoKey.imageURL] as? URL
             image = info[UIImagePickerController.InfoKey.originalImage] as! UIImage
-            print(imageURL)
-            self.pickerController(picker, didSelect: image, chosenAction: "Change Image", imageURL: imageURL!.absoluteString)
+            let imageName = UUID().uuidString+".jpeg"
+            guard let dDic = FileManager.default.urls(for: .documentDirectory, in: .userDomainMask).first
+            else
+            {
+                print("Returning from guard in imagePicker")
+                return
+            }
+            
+            let fileName = imageName
+            let fileURL = dDic.appendingPathComponent(fileName)
+            print("fileURL is \(fileURL)")
+            guard let d = image.jpegData(compressionQuality: 0.0)
+            else
+            {
+                print("Returning from d guard in imagePickker")
+                return
+            }
+            
+            if FileManager.default.fileExists(atPath: fileURL.path)
+            {
+                do
+                {
+                    try FileManager.default.removeItem(atPath: fileURL.path)
+                    print("Removed old image")
+                }
+                catch let removeError
+                {
+                    print("Couldn't remove old image", removeError)
+                }
+            }
+            
+            do
+            {
+                try d.write(to: fileURL)
+            }
+            catch let error
+            {
+                print("Error saving the file with error", error)
+            }
+            self.pickerController(picker, didSelect: image, chosenAction: "Change Image", imageURL: fileURL.relativeString)
             return
         }
     }
