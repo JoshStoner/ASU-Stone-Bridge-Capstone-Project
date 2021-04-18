@@ -39,7 +39,7 @@ class Database
         do{
             try self.database.run(InspectionForm.drop(ifExists: true))
             try self.database.run(Pictures.drop(ifExists: true))
-            try self.database.run(InspectionDescription.drop(ifExists: true))            
+            try self.database.run(InspectionDescription.drop(ifExists: true))
             
 
             print("Tables deleted Sucessfully.")
@@ -219,7 +219,8 @@ class Database
     
     func convertImageToBase64(image:UIImage) -> String
     {
-        let imageData = image.pngData()
+        //let imageData = image.pngData()
+        let imageData = image.jpegData(compressionQuality: 1.0)
         print(imageData!)
         // Convert it into string64
         let tempPString64 = imageData?.base64EncodedString(options: .endLineWithLineFeed)
@@ -315,16 +316,39 @@ class Database
     //wName: String, wIDate: String
     func convertToCSV()
     {
-        var inspectionTitleC = ""
-        inspectionTitleC = "\(InspectionForm[wellName])" + "Categories.csv"
+        var a: NSObject? = nil
+        var fetchedWellName: String = ""
+        do
+        {
+            //let Inspections = try! self.database.prepare(self.InspectionForm)
+            
+            for Inspection in try database.prepare("SELECT wellName FROM InspectionForm")
+            {
+                print("Well Name: \(Inspection)")
+                a = Inspection as? NSObject
+                
+                let ifWellName = a?.description.split(separator: "\n")
+                fetchedWellName = ifWellName![1].trimmingCharacters(in: .whitespacesAndNewlines)
+                print("fetchedWellName = \(fetchedWellName)")
+            }
+            //var inspectionFormWellName = InspectionForm[wellName]
+        }
+        catch
+        {
+            print("Error trying to get the wellName: \(error)")
+        }
+        //var inspectionTitleC = "\(InspectionForm[wellName])Categories.csv"
+        var inspectionTitleC = "\(fetchedWellName)Categories.csv"
        // let Inspections = try! self.database.prepare(self.InspectionForm)
         //let wName = "\(InspectionForm[wellName])"
-        var inspectionTitleP = ""
-        inspectionTitleP = "\(InspectionForm[wellName])"  + "Pictures.csv" // this is for the file name
+        //var inspectionTitleP = "\(InspectionForm[wellName])Pictures.csv" // this is for the file name
+        var inspectionTitleP = "\(fetchedWellName)Pictures.csv"
         
         let docsPath = NSSearchPathForDirectoriesInDomains(.documentDirectory, .userDomainMask, true)[0] as String
         
         let docsURL = URL(fileURLWithPath: docsPath).appendingPathComponent(inspectionTitleP)
+        
+        
         
         let output = OutputStream.toMemory()
         
@@ -333,6 +357,8 @@ class Database
         
         
         let path = NSURL(fileURLWithPath: NSHomeDirectory()).appendingPathComponent(inspectionTitleP) //i think the home directory hear adds it to docs
+        
+        
         
         //let sqlCmd = "SELECT * FROM tablename ORDER BY column DESC LIMIT 1;" //this is a query for selecting the most recent entry, not sure how to implement
         
@@ -413,8 +439,13 @@ class Database
         let buffer = (output.property(forKey: .dataWrittenToMemoryStreamKey) as? Data)!
         
         do{
-            try csvTxtP.write(to: path!, atomically: true, encoding: String.Encoding.utf8)
+            print("First buffer.write")
+            print("docsURL = \(docsURL)")
+            print("path = \(path)")
+            //This would fail so I just commented it out
+            //try csvTxtP.write(to: path!, atomically: true, encoding: String.Encoding.utf8)
             try buffer.write(to: docsURL)
+            print("Passed buffer.write")
         }
             catch{
                 print("failed to create file")
@@ -483,8 +514,12 @@ class Database
         //}
         //else{
         do{
-            try csvTxtC.write(to: paths!, atomically: true, encoding: String.Encoding.utf8)
+            print("Second buffers.write")
+            print("docsURL = \(docsURL)")
+            print("path = \(path)")
+            //try csvTxtC.write(to: paths!, atomically: true, encoding: String.Encoding.utf8)
             try buffers.write(to: docURL)
+            print("Passed buffers.write")
         }
             catch{
                 print("failed to create file")
