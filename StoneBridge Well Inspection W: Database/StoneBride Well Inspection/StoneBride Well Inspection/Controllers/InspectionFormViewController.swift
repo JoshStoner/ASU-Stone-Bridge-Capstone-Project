@@ -572,7 +572,7 @@ class InspectionFormViewController: UIViewController, UIPickerViewDataSource, UI
                 
                 let sortedSections = (sortSections?.allObjects as! [InspectionFormCategoryEntity]).sorted(by: {$0.tagN < $1.tagN})
                 var i = 0;
-                var pictureCount = 0;
+                let picturesInDB = DB.countPictures()
                 while i < 30
                 {
                     if(i < 30)
@@ -595,15 +595,20 @@ class InspectionFormViewController: UIViewController, UIPickerViewDataSource, UI
                                 // charID relates to the category so i for that one.
                                 if(InspectionFound == true)
                                 {
-                                    DB.deletePictures(wellID: Int(InspectionFormData!.wellNumber), Category: categoryName, PicID: pictureCount + 1, charID: i + 1, image: saveImage!)
-                                    DB.addPicture(PicID: pictureCount+1 ,image: saveImage!, charID: i+1, wellID: Int(InspectionFormData!.wellNumber), date: InspectionFormData!.date!)
+                                    // Temp solution. Really don't like this for loop since it grabs the highest PicID in the table no matter the inspection form. Might have to make it where Picture Table holds a counter. 
+                                    for index in 1...picturesInDB
+                                    {
+                                        DB.deletePictures(wellID: Int(InspectionFormData!.wellNumber), charID: i + 1, PicID: index)
+
+                                    }
+                                    DB.addPicture(image: saveImage!, charID: i+1, wellID: Int(InspectionFormData!.wellNumber), date: InspectionFormData!.date!)
+                                    
                                 }else
                                 {
-                                    
-                                    DB.addPicture(PicID: pictureCount+1 ,image: saveImage!, charID: i+1, wellID: Int(InspectionFormData!.wellNumber), date: InspectionFormData!.date!)
+
+                                    DB.addPicture(image: saveImage!, charID: i+1, wellID: Int(InspectionFormData!.wellNumber), date: InspectionFormData!.date!)
                                 }
-                                pictureCount += 1;
-                                j += 1;
+                                    j += 1;
                             }
                             //if the form has the default comment then it replaces it with the defaultCommentReplacement when viewing the form
                             let comment = sortedSections[i].category?.optComm ?? ""

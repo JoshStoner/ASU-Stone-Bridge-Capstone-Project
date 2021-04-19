@@ -23,7 +23,7 @@ class ViewController: UIViewController
         super.viewDidLoad()
         DB.DatabaseConnection()
         DB.delete()
-
+        //DB.listPictures()
         //update()
         // Do any additional setup after loading the view.
         

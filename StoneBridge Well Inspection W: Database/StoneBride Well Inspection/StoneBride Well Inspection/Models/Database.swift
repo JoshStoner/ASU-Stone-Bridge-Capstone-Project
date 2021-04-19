@@ -181,7 +181,7 @@ class Database
     func createPictureTable()
     {
         let createTable = self.Pictures.create { (table) in
-            table.column(self.PicID)
+            table.column(self.PicID, primaryKey: .autoincrement)
             table.column(self.CategoryPics)
             table.column(self.charID)
             //table.column(self.YesOrNo)
@@ -202,10 +202,10 @@ class Database
         
     }
     // charID is category.
-    func addPicture(PicID: Int, image: UIImage, charID: Int, wellID: Int, date: String)
+    func addPicture(image: UIImage, charID: Int, wellID: Int, date: String)
     {
         let picture: String = convertImageToBase64(image: image)
-        let insertPicture = self.Pictures.insert(self.PicID <- PicID, self.CategoryPics <- picture, self.charID <- charID, self.wellID <- wellID, self.date <- date)
+        let insertPicture = self.Pictures.insert(self.CategoryPics <- picture, self.charID <- charID, self.wellID <- wellID, self.date <- date)
             
         do{
             try self.database.run(insertPicture)
@@ -219,9 +219,7 @@ class Database
     
     func convertImageToBase64(image:UIImage) -> String
     {
-        //let imageData = image.pngData()
         let imageData = image.jpegData(compressionQuality: 1.0)
-        print(imageData!)
         // Convert it into string64
         let tempPString64 = imageData?.base64EncodedString(options: .endLineWithLineFeed)
         let picture : String = tempPString64!
@@ -297,22 +295,54 @@ class Database
         }
         
     }
-    func deletePictures(wellID: Int, Category: String, PicID: Int, charID: Int, image: UIImage)
+    // This function updates the picture, however, if a new picture gets added. It wont add the picture to the database.
+    func updatePictures(wellID: Int, charID: Int, image:UIImage, PicID: Int)
     {
         let pic = convertImageToBase64(image: image)
-        let pictureFilter = self.Pictures.filter(self.wellID == wellID && self.Category == Category && self.PicID == PicID && self.charID == charID && self.CategoryPics == pic)
-        let deletePics = pictureFilter.delete()
+       
         
+        let pictureFilter = self.Pictures.filter(self.wellID == wellID && self.charID == charID && self.PicID == PicID)
+        let updatePictures = pictureFilter.update(self.CategoryPics <- pic)
+            
         do{
-            try self.database.run(deletePics)
-           
-
+            try self.database.run(updatePictures)
+            print("Updated pictures successfully.")
         }catch{
             print("Failed to update")
             print(error);
         }
         
     }
+    
+    func deletePictures(wellID: Int, charID: Int, PicID: Int)
+    {
+
+        let pictureFilter = self.Pictures.filter(self.wellID == wellID && self.charID == charID && self.PicID == PicID)
+        let deletePictures = pictureFilter.delete()
+            
+        do{
+            try self.database.run(deletePictures)
+            print("Deleted pictures successfully.")
+        }catch{
+            print("Failed to delete")
+            print(error);
+        }
+        
+    }
+    func countPictures() -> Int
+    {
+        var count : Int = 0
+        let pictureTable = try! self.database.prepare(self.Pictures)
+        
+        for pic in pictureTable
+        {
+            count = pic[PicID]
+        }
+        print("COUNT HERE: ")
+        print(count)
+        return count
+    }
+    
     //wName: String, wIDate: String
     func convertToCSV()
     {
