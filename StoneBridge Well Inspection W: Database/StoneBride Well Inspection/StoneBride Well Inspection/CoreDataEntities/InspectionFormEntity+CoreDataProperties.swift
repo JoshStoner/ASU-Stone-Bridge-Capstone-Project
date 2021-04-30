@@ -19,10 +19,6 @@ extension InspectionFormEntity {
 
     @NSManaged public var date: String?
     @NSManaged public var inspectionDone: String?
-    @NSManaged public var oilBarrels: Int64
-    @NSManaged public var spillsToClean: String?
-    @NSManaged public var spillsToCleanComments: String?
-    @NSManaged public var waterBarrels: Int64
     @NSManaged public var wellName: String?
     @NSManaged public var wellNumber: Int64
     @NSManaged public var section: NSSet?

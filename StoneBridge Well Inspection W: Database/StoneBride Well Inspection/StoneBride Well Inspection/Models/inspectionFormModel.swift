@@ -42,8 +42,6 @@ public class inspectionFormModel
         return fetchResults.count
     }
     
-    //date: String, inspectionDone: String, wellName: String, wellNumber: Int, spillsToClean: String, spillsToCleanComments: String, oilBarrels: Int, waterBarrels: Int
-    
     func updateContext(contextObject: InspectionFormEntity, d: String, inspecDone: String, wName: String, wNum: Int,  categories: [InspectionCategory])
     {
         contextObject.date = d
@@ -58,7 +56,7 @@ public class inspectionFormModel
         //print("Hey it should be deleted")
         
         var tagIndex = 0
-        var maxTag = 30
+        let maxTag = 30
         while(tagIndex < maxTag)
         {
             //print(categories[tagIndex].tag)
@@ -76,7 +74,7 @@ public class inspectionFormModel
             
             let pictures = InspectionFormPicContainerEntity(context:  self.managedObjectContext!)
             
-            if(tagIndex < 30)//4)
+            if(tagIndex < 30)
             {
                 pictures.hasPics = true
                 
@@ -84,7 +82,6 @@ public class inspectionFormModel
                 
                 let pics = categories[tagIndex].getImages()
                 let pURLS = categories[tagIndex].getURLS()
-                    //categories[tagIndex].inspectionPictures?.getImages()
                 print("Hey pics is next")
                 print(pics)
                 print(pURLS)
@@ -97,7 +94,6 @@ public class inspectionFormModel
                     pictureData.picData = pics[i].jpegData(compressionQuality: 1.0)
                     pictureData.picTag = Int64(i)
                     pictures.addToPic(pictureData)
-                    //print("Looped once")
                     i += 1
                 }
                 
@@ -107,24 +103,10 @@ public class inspectionFormModel
                 pictures.hasPics = false
             }
             sectionCategories.pictureData = pictures
-            
-            
-            //print(section.category?.pictureData)
-            //section.tagNum = Int64(categories[tagIndex].tag)
-            //print(section.tagNum)
-            //section.ynAns = categories[tagIndex].inspectionYNField.text
-            //section.optComm = categories[tagIndex].inspectionComment.text
          
             contextObject.addToSection(section)
             tagIndex += 1
         }
-        
-        
-        
-        /*newInspectionForm.set(date: d, inspectionDone: inspecDone, wellName: wName, wellNumber: wNum, spillsToClean: spilToClean, spillsToCleanComments: spilToCleanComm, oilBarrels: oBarrels, waterBarrels: wBarrels)*/
-        
-        //newInspectionForm.date = d
-        //newInspectionForm.wellName = wName
         
         do
         {
@@ -149,7 +131,7 @@ public class inspectionFormModel
         
         //Figure out how many tags there are and set it to maxTag
         var tagIndex = 0
-        var maxTag = 30
+        let maxTag = 30
         while(tagIndex < maxTag)
         {
             //print(categories[tagIndex].tag)
@@ -175,7 +157,6 @@ public class inspectionFormModel
                 
                 let pics = categories[tagIndex].getImages()
                 let pURLS = categories[tagIndex].getURLS()
-                    //categories[tagIndex].inspectionPictures?.getImages()
                 print("Hey pics is next")
                 print(pics)
                 print(pURLS)
@@ -188,7 +169,6 @@ public class inspectionFormModel
                     pictureData.picData = pics[i].jpegData(compressionQuality: 1.0)
                     pictureData.picTag = Int64(i)
                     pictures.addToPic(pictureData)
-                    //print("Looped once")
                     i += 1
                 }
                 
@@ -198,23 +178,10 @@ public class inspectionFormModel
                 pictures.hasPics = false
             }
             sectionCategories.pictureData = pictures
-            
-            
-            //section.tagNum = Int64(categories[tagIndex].tag)
-            //print(section.tagNum)
-            //section.ynAns = categories[tagIndex].inspectionYNField.text
-            //section.optComm = categories[tagIndex].inspectionComment.text
          
             newInspectionForm.addToSection(section)
             tagIndex += 1
         }
-        
-        
-        
-        /*newInspectionForm.set(date: d, inspectionDone: inspecDone, wellName: wName, wellNumber: wNum, spillsToClean: spilToClean, spillsToCleanComments: spilToCleanComm, oilBarrels: oBarrels, waterBarrels: wBarrels)*/
-        
-        //newInspectionForm.date = d
-        //newInspectionForm.wellName = wName
         
         do
         {

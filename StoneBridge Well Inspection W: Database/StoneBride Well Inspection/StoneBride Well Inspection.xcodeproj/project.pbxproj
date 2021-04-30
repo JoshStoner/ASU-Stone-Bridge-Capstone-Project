@@ -18,7 +18,6 @@
 		2F3E68682532196E002A87EF /* Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = 2F3E68672532196E002A87EF /* Assets.xcassets */; };
 		2F3E686B2532196E002A87EF /* LaunchScreen.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 2F3E68692532196E002A87EF /* LaunchScreen.storyboard */; };
 		2F3E687325321B0F002A87EF /* InspectionFormViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2F3E687225321B0F002A87EF /* InspectionFormViewController.swift */; };
-		2F3E687525321C31002A87EF /* inspectionList.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2F3E687425321C31002A87EF /* inspectionList.swift */; };
 		2F407B882544BE1100AA2C0F /* TableCellViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2F407B872544BE1100AA2C0F /* TableCellViewController.swift */; };
 		2F407B8C2544C0F000AA2C0F /* TableViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2F407B8B2544C0F000AA2C0F /* TableViewController.swift */; };
 		4ABE2873262A9753001450BE /* CHCSVParser.m in Sources */ = {isa = PBXBuildFile; fileRef = 4ABE2871262A9753001450BE /* CHCSVParser.m */; };
@@ -35,7 +34,6 @@
 		D0594E9226291E5100272C12 /* InspectionFormPicContainerEntity+CoreDataProperties.swift in Sources */ = {isa = PBXBuildFile; fileRef = D0594E8826291E5000272C12 /* InspectionFormPicContainerEntity+CoreDataProperties.swift */; };
 		D0594E9326291E5100272C12 /* InspectionFormCategoryEntity+CoreDataClass.swift in Sources */ = {isa = PBXBuildFile; fileRef = D0594E8926291E5000272C12 /* InspectionFormCategoryEntity+CoreDataClass.swift */; };
 		D0594E9426291E5100272C12 /* InspectionFormCategoryEntity+CoreDataProperties.swift in Sources */ = {isa = PBXBuildFile; fileRef = D0594E8A26291E5000272C12 /* InspectionFormCategoryEntity+CoreDataProperties.swift */; };
-		D05A1012256B0A75004D89CB /* InspectionFormCategory.swift in Sources */ = {isa = PBXBuildFile; fileRef = D05A1011256B0A75004D89CB /* InspectionFormCategory.swift */; };
 		D0CAC92925575D0C0022DA9A /* inspectionFormModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = D0CAC92825575D0C0022DA9A /* inspectionFormModel.swift */; };
 /* End PBXBuildFile section */
 
@@ -119,7 +117,6 @@
 		2F3E686A2532196E002A87EF /* Base */ = {isa = PBXFileReference; lastKnownFileType = file.storyboard; name = Base; path = Base.lproj/LaunchScreen.storyboard; sourceTree = "<group>"; };
 		2F3E686C2532196E002A87EF /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
 		2F3E687225321B0F002A87EF /* InspectionFormViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = InspectionFormViewController.swift; sourceTree = "<group>"; };
-		2F3E687425321C31002A87EF /* inspectionList.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = inspectionList.swift; sourceTree = "<group>"; };
 		2F407B872544BE1100AA2C0F /* TableCellViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TableCellViewController.swift; sourceTree = "<group>"; };
 		2F407B8B2544C0F000AA2C0F /* TableViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TableViewController.swift; sourceTree = "<group>"; };
 		4ABE2870262A9753001450BE /* StoneBridge Well Inspection-Bridging-Header.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = "StoneBridge Well Inspection-Bridging-Header.h"; sourceTree = "<group>"; };
@@ -137,7 +134,6 @@
 		D0594E8826291E5000272C12 /* InspectionFormPicContainerEntity+CoreDataProperties.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "InspectionFormPicContainerEntity+CoreDataProperties.swift"; sourceTree = "<group>"; };
 		D0594E8926291E5000272C12 /* InspectionFormCategoryEntity+CoreDataClass.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "InspectionFormCategoryEntity+CoreDataClass.swift"; sourceTree = "<group>"; };
 		D0594E8A26291E5000272C12 /* InspectionFormCategoryEntity+CoreDataProperties.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "InspectionFormCategoryEntity+CoreDataProperties.swift"; sourceTree = "<group>"; };
-		D05A1011256B0A75004D89CB /* InspectionFormCategory.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = InspectionFormCategory.swift; sourceTree = "<group>"; };
 		D0CAC92825575D0C0022DA9A /* inspectionFormModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = inspectionFormModel.swift; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
@@ -179,15 +175,11 @@
 				D0CAC92E255773130022DA9A /* Models */,
 				2F3E685B2532196B002A87EF /* AppDelegate.swift */,
 				2F3E685D2532196B002A87EF /* SceneDelegate.swift */,
-				2F3E687425321C31002A87EF /* inspectionList.swift */,
 				2F3E68612532196B002A87EF /* Main.storyboard */,
 				2F3E68672532196E002A87EF /* Assets.xcassets */,
 				2F3E68692532196E002A87EF /* LaunchScreen.storyboard */,
 				2F3E686C2532196E002A87EF /* Info.plist */,
 				2F3E68642532196B002A87EF /* StoneBride_Well_Inspection.xcdatamodeld */,
-				03F467E4253C090900FC7B03 /* ImagePicker.swift */,
-				03BE8D3E25569E2800CB35C8 /* ImageButtonHandler.swift */,
-				03BF3D86255EB6770053D623 /* InspectionCategory.swift */,
 			);
 			path = "StoneBride Well Inspection";
 			sourceTree = "<group>";
@@ -233,8 +225,10 @@
 		D0CAC92E255773130022DA9A /* Models */ = {
 			isa = PBXGroup;
 			children = (
+				03F467E4253C090900FC7B03 /* ImagePicker.swift */,
+				03BE8D3E25569E2800CB35C8 /* ImageButtonHandler.swift */,
+				03BF3D86255EB6770053D623 /* InspectionCategory.swift */,
 				D0CAC92825575D0C0022DA9A /* inspectionFormModel.swift */,
-				D05A1011256B0A75004D89CB /* InspectionFormCategory.swift */,
 				4AC13986261105640089B56A /* Database.swift */,
 				4ABE2872262A9753001450BE /* CHCSVParser.h */,
 				4ABE2871262A9753001450BE /* CHCSVParser.m */,
@@ -392,11 +386,9 @@
 				D0594E9026291E5100272C12 /* InspectionFormPicturesEntity+CoreDataProperties.swift in Sources */,
 				4AC13987261105640089B56A /* Database.swift in Sources */,
 				D0594E8B26291E5100272C12 /* InspectionFormEntity+CoreDataClass.swift in Sources */,
-				2F3E687525321C31002A87EF /* inspectionList.swift in Sources */,
 				4ABE2873262A9753001450BE /* CHCSVParser.m in Sources */,
 				03BE8D3F25569E2800CB35C8 /* ImageButtonHandler.swift in Sources */,
 				D0594E8C26291E5100272C12 /* InspectionFormEntity+CoreDataProperties.swift in Sources */,
-				D05A1012256B0A75004D89CB /* InspectionFormCategory.swift in Sources */,
 				2F3E687325321B0F002A87EF /* InspectionFormViewController.swift in Sources */,
 				D0594E8D26291E5100272C12 /* InspectionFormSectionEntity+CoreDataClass.swift in Sources */,
 				D0594E8F26291E5100272C12 /* InspectionFormPicturesEntity+CoreDataClass.swift in Sources */,

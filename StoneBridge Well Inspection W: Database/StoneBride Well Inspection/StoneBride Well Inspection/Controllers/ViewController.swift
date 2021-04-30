@@ -12,19 +12,13 @@ class ViewController: UIViewController
 {
     let networkMonitor = NWPathMonitor()
     var DB = Database()
-
     
-    
-    var myInspectionList = inspectionList()
-    
-    //@IBOutlet weak var size: UILabel!
-    
-    override func viewDidLoad() {
+    override func viewDidLoad()
+    {
         super.viewDidLoad()
         DB.DatabaseConnection()
         DB.delete()
-        //DB.listPictures()
-        //update()
+        
         // Do any additional setup after loading the view.
         
         //this is the code that gets run whenever the network status changes
@@ -40,40 +34,13 @@ class ViewController: UIViewController
         networkMonitor.start(queue: networkQueue)
         
     }
-    
-    /*func update()
-    {
-        self.size.text = String(myInspectionList.getCount())
-    }*/
 
     override func prepare(for segue: UIStoryboardSegue, sender: Any?)
     {
-        /*if segue.identifier == "toInspectionForm"
-        {
-            let des = segue.destination as! InspectionFormViewController
-            des.formList = myInspectionList
-        }
-        else if segue.identifier == "toTableView"
-        {
-            let des = segue.destination as! TableViewController
-            des.formList = myInspectionList
-        }*/
     }
    
     @IBAction func returnedToMenu(segue: UIStoryboardSegue, sender: Any?)
     {
-        /*if let sourceViewController = segue.source as? InspectionFormViewController
-        {
-            let dataRecieved = sourceViewController.formList
-            self.myInspectionList = dataRecieved!
-            self.size.text = String(myInspectionList.getCount())
-        }
-        else if let sourceViewController = segue.source as? TableViewController
-        {
-            let dataRecieved = sourceViewController.formList
-            self.myInspectionList = dataRecieved!
-            self.size.text = String(myInspectionList.getCount())
-        }*/
     }
 }
 

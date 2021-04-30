@@ -12,28 +12,15 @@ import CoreData
 class TableViewController: UIViewController, UITableViewDelegate, UITableViewDataSource
 {
     let managedObjectContext = (UIApplication.shared.delegate as! AppDelegate).persistentContainer.viewContext
-    //let managedObjectContext: NSManagedObjectContext?
-    
-    var formList:inspectionList?
     
     var iModel:inspectionFormModel?
     var fetchResults = [InspectionFormEntity]()
     var selectedInspecEntity:InspectionFormEntity?
     
-    
-    
     @IBOutlet weak var inspectionFormTable: UITableView!
     
-    /*init(context: NSManagedObjectContext)
+    override func viewDidLoad()
     {
-        managedObjectContext = context
-    }
-    
-    required init?(coder: NSCoder) {
-        fatalError("init(coder:) has not been implemented")
-    }*/
-    
-    override func viewDidLoad() {
         super.viewDidLoad()
 
         // Do any additional setup after loading the view.
@@ -58,10 +45,10 @@ class TableViewController: UIViewController, UITableViewDelegate, UITableViewDat
     func tableView(_ tableView: UITableView, numberOfRowsInSection section: Int) -> Int
     {
         return (iModel?.fetchCount())!
-        //return formList!.getCount()
     }
     
-    func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
+    func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell
+    {
         let cell = tableView.dequeueReusableCell(withIdentifier: "myCell", for: indexPath)
 
         fetchResults = (iModel?.updateList())!
@@ -71,9 +58,6 @@ class TableViewController: UIViewController, UITableViewDelegate, UITableViewDat
         
         wellName = fetchResults[indexPath.row].wellName!
         date = fetchResults[indexPath.row].date!
-        
-        //let wellName = formList!.getWellName(item: indexPath.row)
-        //let date = formList!.getDate(item: indexPath.row)
         
         if wellName != "",
            date != ""
@@ -106,13 +90,14 @@ class TableViewController: UIViewController, UITableViewDelegate, UITableViewDat
         return UITableViewCell.EditingStyle.delete
     }
     
-    func tableView(_ tableView: UITableView, commit editingStyle: UITableViewCell.EditingStyle, forRowAt indexPath: IndexPath) {
+    func tableView(_ tableView: UITableView, commit editingStyle: UITableViewCell.EditingStyle, forRowAt indexPath: IndexPath)
+    {
         if editingStyle == .delete
         {
             
             //alerts the user they are about to delete an inspection form
             //could add some logic to indicate if the form has been sent to the database
-            let alert = UIAlertController(title: "Unsaved Changes", message: "Are you sure you want to leave? Unsaved changes will be lost", preferredStyle: .alert)
+            let alert = UIAlertController(title: "Delete Form", message: "Are you sure you want to delete this inspection form? This action cannot be undone.", preferredStyle: .alert)
             
             //the cancel action
             alert.addAction(UIAlertAction(title: "Cancel", style: .cancel, handler: nil))
@@ -135,43 +120,28 @@ class TableViewController: UIViewController, UITableViewDelegate, UITableViewDat
             }))
             
             self.present(alert, animated: true, completion: nil)
-            /*formList!.removeForm(item: indexPath.row)
-        
-            self.inspectionFormTable.beginUpdates()
-            self.inspectionFormTable.deleteRows(at: [indexPath], with: .automatic)
-            self.inspectionFormTable.endUpdates()*/
         }
     }
     
-    
-    
-    /*
-    // MARK: - Navigation
-
-    // In a storyboard-based application, you will often want to do a little preparation before navigation
-    override func prepare(for segue: UIStoryboardSegue, sender: Any?) {
-        // Get the new view controller using segue.destination.
-        // Pass the selected object to the new view controller.
-    }
-    */
-    
     @IBAction func emptyTable(_ sender: Any)
     {
-        iModel?.clearData()
-        fetchResults.removeAll()
-        inspectionFormTable.reloadData()
-        /*//enter code to clear all data in table
-        formList!.removeAllForms()
-        inspectionFormTable.reloadData()*/
+        //alerts the user they are about to delete an inspection form
+        //could add some logic to indicate if the form has been sent to the database
+        let alert = UIAlertController(title: "Delete All Forms", message: "Are you sure you want to delete all inspection forms listed in the table? This action cannot be undone.", preferredStyle: .alert)
+        
+        //the cancel action
+        alert.addAction(UIAlertAction(title: "Cancel", style: .cancel, handler: nil))
+
+        //the delete action
+        alert.addAction(UIAlertAction(title: "Delete", style: .destructive, handler: {(_) -> () in
+            self.iModel?.clearData()
+            self.fetchResults.removeAll()
+            self.inspectionFormTable.reloadData()
+        }))
+        
+        self.present(alert, animated: true, completion: nil)
+        
     }
-    
-    /*func update(iPath:IndexPath, inspecForm:inspectionForm)
-    {
-        self.inspectionFormTable.beginUpdates()
-        //Need to update the inspection form list
-        //then reload that row
-        self.inspectionFormTable.endUpdates()
-    }*/
     
     override func prepare(for segue: UIStoryboardSegue, sender: Any?)
     {
@@ -188,17 +158,12 @@ class TableViewController: UIViewController, UITableViewDelegate, UITableViewDat
             
             var i = 0
             
-            var ent = fetchResults[selectedIndex.row]
+            let ent = fetchResults[selectedIndex.row]
             
-            var testing = fetchResults[selectedIndex.row].section
+            let testing = fetchResults[selectedIndex.row].section
             //NSSortDescriptor sortDescriptor = [NSSortDescriptor sortDescriptorWithKey:@"tagN" ascending:YES]
-            var ee = (testing?.allObjects as! [InspectionFormCategoryEntity]).sorted(by: {$0.tagN < $1.tagN})
+            let ee = (testing?.allObjects as! [InspectionFormCategoryEntity]).sorted(by: {$0.tagN < $1.tagN})
             
-
-            
-                //fetchResults[selectedIndex.row].section
-            //print(set?.count)
-            //print(ee.count)
             wellName = fetchResults[selectedIndex.row].wellName!
             wellNumber = "\(fetchResults[selectedIndex.row].wellNumber)"
             inspectionDoneBy = fetchResults[selectedIndex.row].inspectionDone!
@@ -209,98 +174,31 @@ class TableViewController: UIViewController, UITableViewDelegate, UITableViewDat
                 {
                     break
                 }
-                /*print("i = \(i)")
-                print("tagN = \(ee[i].tagN)")
-                print("category tagNum = \(ee[i].category?.tagNum)")
-                print("category ynAns = \(ee[i].category?.ynAns)")
-                print("category optComm = \(ee[i].category?.optComm)")*/
-                //print(set![i].tagN)
-                //print(set![i].category?.tagNum)
-                //print(set![i].category?.ynAns)
-                //print(set![i].category?.optComm)
-                //print(set?.count)
-                /*print("set[i].tagNum = \(Int(set![i].tagNum))")
-                print("set[i].yn = \(set![i].ynAns)")
-                print("set[i].optComm = \(set![i].optComm)")*/
                 if Int(ee[i].tagN) == 6
                 {
-                    //print("yay")
                     yn = (ee[i].category?.ynAns)!
                     opt = (ee[i].category?.optComm)!
                     break
                 }
-                
-                
-                
-                
-                
-                
-                
                 i += 1
             }
-            
-            
-            //let wellName = formList!.getWellName(item: selectedIndex.row)
-            //let date = formList!.getDate(item: selectedIndex.row)
-        
-        
-            //if #available(iOS 14, *) {
                 
-            let des = segue.destination as! TableCellViewController                //des.indexPath = selectedIndex
+            let des = segue.destination as! TableCellViewController
             des.iFWellName = wellName
             des.iFWellNumber = wellNumber
             des.iFInspecDone = inspectionDoneBy
             des.iFDate = date
             des.iFyntext = yn
             des.iFoptcomm = opt
-            //des.formList = formList
             des.indexPath = selectedIndex
             des.ifCategory = ee
             des.ifEnt = ent
-            //} else {
-                // Fallback on earlier versions
-            //}
         }
     }
     
     @IBAction func returnedToTable(segue: UIStoryboardSegue, sender: Any?)
     {
-        //will be implemented later to allow for editing/saving from the detailview inside tableview
-        /*if let sourceViewController = segue.source as? TableCellViewController
-        {
-            let edited = sourceViewController.didEdit
-            if edited == true
-            {
-                let indexPath = sourceViewController.indexPath!
-                let dataRecieved = sourceViewController.newInspectionForm
-                update(iPath: indexPath, inspecForm: dataRecieved)
-            }
-        }*/
     }
     
 }
 
-/*class CoreDataHandler: NSObject
-{
-    private static func getContext() -> NSManagedObjectContext
-    {
-        let appDelegate = (UIApplication.shared.delegate as! AppDelegate).persistentContainer.viewContext
-        
-        return appDelegate
-    }
-    
-    static func fetchSection() -> [InspectionFormCategoryEntity]?
-    {
-        let context = getContext()
-        
-        do
-        {
-            let sections: [InspectionFormCategoryEntity] = try context.fetch(InspectionFormCategoryEntity.fetchRequest())
-            return sections
-        }
-        catch
-        {
-            return nil
-        }
-    }
-}*/

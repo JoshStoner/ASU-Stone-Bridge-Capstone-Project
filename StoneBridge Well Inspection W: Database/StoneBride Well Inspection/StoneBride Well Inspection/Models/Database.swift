@@ -105,7 +105,9 @@ class Database
                 print("Employee Name : \(Inspection[employeeName])")
 
             }
-        }catch{
+        }
+        catch
+        {
             print(error)
         }
     }
@@ -170,7 +172,9 @@ class Database
                 print("Well ID: \(Well[self.wellID])")
                 print("Date: \(Well[self.date])")
             }
-        }catch{
+        }
+        catch
+        {
             print(error)
         }
     }
@@ -238,13 +242,7 @@ class Database
                 print("Description ID: \(Picture[self.charID])")
                 print("Well ID: \(Picture[self.wellID])")
                 print("Date: \(Picture[self.date])")
-                //I couldn't get this Picture String to print for me without XCode preventing me from printing anything from this method if I try to print this Picture String
                 print("Picture String: \(Picture[self.CategoryPics])")
-                
-                //print("Date : \(Picture[PicOfTankBattery])")
-                //print("Well Name: \(Picture[PicOfLocation])")
-                //print("Date : \(Picture[PicOfLeaseRoad])")
-                
             }
         }catch{
             print(error)
@@ -355,7 +353,7 @@ class Database
             for Inspection in try database.prepare("SELECT wellName FROM InspectionForm")
             {
                 print("Well Name: \(Inspection)")
-                a = Inspection as? NSObject
+                a = Inspection as NSObject
                 
                 let ifWellName = a?.description.split(separator: "\n")
                 fetchedWellName = ifWellName![1].trimmingCharacters(in: .whitespacesAndNewlines)
@@ -367,18 +365,14 @@ class Database
         {
             print("Error trying to get the wellName: \(error)")
         }
-        //var inspectionTitleC = "\(InspectionForm[wellName])Categories.csv"
-        var inspectionTitleC = "\(fetchedWellName)Categories.csv"
-       // let Inspections = try! self.database.prepare(self.InspectionForm)
-        //let wName = "\(InspectionForm[wellName])"
-        //var inspectionTitleP = "\(InspectionForm[wellName])Pictures.csv" // this is for the file name
-        var inspectionTitleP = "\(fetchedWellName)Pictures.csv"
+        // this is for the file name
+        let inspectionTitleC = "\(fetchedWellName)Categories.csv"
+        // this is for the file name
+        let inspectionTitleP = "\(fetchedWellName)Pictures.csv"
         
         let docsPath = NSSearchPathForDirectoriesInDomains(.documentDirectory, .userDomainMask, true)[0] as String
         
         let docsURL = URL(fileURLWithPath: docsPath).appendingPathComponent(inspectionTitleP)
-        
-        
         
         let output = OutputStream.toMemory()
         
